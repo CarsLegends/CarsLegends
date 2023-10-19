@@ -8,5 +8,5 @@
 - [Documentación Magnum](https://doc.magnum.graphics/magnum/)
 - [Documentación Magnum (raíz)](https://doc.magnum.graphics/)
 - [Foro de Magnum en Google Groups](https://groups.google.com/g/magnum-engine/c/0UToWMYLuWE?pli=1)
-- [Repositorio de GitHub de CarsLegends](https://github.com/GabrielJuan349/CarsLegends/)
+- [Repositorio de GitHub de CarsLegends](https://github.com/CarsLegends/CarsLegends/)
 - [Sitio web oficial de Magnum](https://magnum.graphics/)
