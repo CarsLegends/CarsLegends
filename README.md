@@ -2,37 +2,37 @@
 
 ![Logo del Juego](RECURSOS/images/IMG_0359.JPG)
 
-Juego de conducción “playground” con obstáculos y competición en modo cooperativo.
+Juego de conducciï¿½n ï¿½playgroundï¿½ con obstï¿½culos y competiciï¿½n en modo cooperativo.
 
 ## Tabla de Contenidos
 
-- [Características](#características)
+- [Caracterï¿½sticas](#caracterï¿½sticas)
 - [Capturas de Pantalla](#capturas-de-pantalla)
 - [Video del Juego](#video-del-juego)
-- [Instalación](#instalación)
+- [Instalaciï¿½n](#instalaciï¿½n)
 - [Requisitos del Sistema](#requisitos-del-sistema)
 - [Controles](#controles)
-- [Créditos](#créditos)
+- [Crï¿½ditos](#crï¿½ditos)
 
 ## Documentacion Oficial
 
 - [Solid Objects Physics](https://uab-my.sharepoint.com/:w:/g/personal/1636620_uab_cat/EZCgwnlm3thHhgb-iBtkmAYBrFd_dM_bNbFYWukjJxeDNw?e=NM4Pq8)
 - [Manual](https://uab-my.sharepoint.com/:w:/g/personal/1636620_uab_cat/Ed3Rbka1K9JNlB6b6gTrcbkBjVDjyUQ3TFh0K1qsNm_asQ?e=HseOAd)
 - [Calendario](https://uab-my.sharepoint.com/:w:/g/personal/1636620_uab_cat/EbBrbAlbQ_1OpnWr8QHX4K0BqVsWpEeOUMkfbsMWstqcpg?e=8B3aCJ)
-- [GDD](/DOCUMENTACIÓN/DOCUMENTOS_PROPIOS/GDD_Inicial_Cars_Legends.pdf)
-- [Actas](/DOCUMENTACIÓN/ACTAS_DE_REUNIÓN)
+- [GDD](/DOCUMENTACION/DOCUMENTOS_PROPIOS/GDD_Inicial_Cars_Legends.pdf)
+- [Actas](/DOCUMENTACION/ACTAS_DE_REUNION)
 
-## Características
+## Caracterï¿½sticas
 
-El juego incorpora objetos cotidianos como obstáculos y un modo de juego cooperativo local donde se puede jugar a fútbol con los coches. La ambientación transcurre en una mesa de estudio donde se simula que un niño está tratando de aprender a conducir mientras juega.
+El juego incorpora objetos cotidianos como obstï¿½culos y un modo de juego cooperativo local donde se puede jugar a fï¿½tbol con los coches. La ambientaciï¿½n transcurre en una mesa de estudio donde se simula que un niï¿½o estï¿½ tratando de aprender a conducir mientras juega.
  
   - Modo cooperativo local.
   - Estilo Low-Poly, Retro, Playground.
   - Control mediante GamePad.
   - Musica y efectos Retro (estilo 8-bit)
-  - El único objetivo es divertirse.
+  - El ï¿½nico objetivo es divertirse.
   - Referencias a la cultura popular.
-  - SI DUDAS, ¡ACELERA!
+  - SI DUDAS, ï¿½ACELERA!
 
 ## Capturas de Pantalla
 
@@ -41,14 +41,14 @@ El juego incorpora objetos cotidianos como obstáculos y un modo de juego coopera
 
 [MicroMachines](https://www.youtube.com/watch?v=tWws3X9EVhA)
 
-## Instalación
+## Instalaciï¿½n
 
 ## Autores
 
 - **Joel Marco Quiroga Poma** - 1504249
-- **Adrián González Ortega** - 1636620
+- **Adriï¿½n Gonzï¿½lez Ortega** - 1636620
 - **Carlos A. Melis Curbelo** - 1605420
-- **Gabriel Juan Betés** - 1562750
+- **Gabriel Juan Betï¿½s** - 1562750
 - **Xavier Burgos Flores** - 1568871
 
 
