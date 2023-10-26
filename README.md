@@ -19,7 +19,7 @@ Juego de conduccion playground con obstaculos y competicion en modo cooperativo.
 - [Solid Objects Physics](https://uab-my.sharepoint.com/:w:/g/personal/1636620_uab_cat/EZCgwnlm3thHhgb-iBtkmAYBrFd_dM_bNbFYWukjJxeDNw?e=NM4Pq8)
 - [Manual](https://uab-my.sharepoint.com/:w:/g/personal/1636620_uab_cat/Ed3Rbka1K9JNlB6b6gTrcbkBjVDjyUQ3TFh0K1qsNm_asQ?e=HseOAd)
 - [Calendario](https://uab-my.sharepoint.com/:w:/g/personal/1636620_uab_cat/EbBrbAlbQ_1OpnWr8QHX4K0BqVsWpEeOUMkfbsMWstqcpg?e=8B3aCJ)
-- [GDD](./DOCUMENTACION/DOCUMENTOS_PROPIOS/GDD_Inicial_Cars_Legends.pdf)
+- [GDD](./DOCUMENTACION/DOCUMENTOS_PROPIOS/GDD_Inicial_CarsLegends.pdf)
 - [Actas](./DOCUMENTACION/ACTAS_DE_REUNION)
 
 ## Caracteristicas
