@@ -24,7 +24,7 @@ Juego de conduccion playground con obstaculos y competicion en modo cooperativo.
 
 ## Caracteristicas
 
-El juego incorpora objetos cotidianos como obstaculos y un modo de juego cooperativo local donde se puede jugar a futbol con los coches. La ambientacion transcurre en una mesa de estudio donde se simula que un nioo esta tratando de aprender a conducir mientras juega.
+El juego incorpora objetos cotidianos como obstaculos y un modo de juego cooperativo local donde se puede jugar a futbol con los coches. La ambientacion transcurre en una mesa de estudio donde se simula que un nino esta tratando de aprender a conducir mientras juega.
  
   - Modo cooperativo local.
   - Estilo Low-Poly, Retro, Playground.
