@@ -4,31 +4,33 @@
 #include <vector>
 
 #include "ISystem.hpp"
-#include "Textures/Texture.hpp"
-#include "Buffers/ElementBuffer.hpp"
-#include "ModelLoading/AssimpModelLoader.hpp"
+#include "../Engine/Textures/Texture.hpp"
+#include "../Engine/Buffers/ElementBuffer.hpp"
+#include "../Engine/ModelLoading/AssimpModelLoader.hpp"
 #include "../Coordinators/Coordinator.hpp"
 #include "../Components/Rendable.hpp"
 
-namespace Systems {
-	using namespace std;
+namespace Systems
+{
 	using namespace Textures;
-	using namespace Coordinators;
 	using namespace ModelLoaders;
+	using namespace Coordinators;
 	using namespace Components;
 	using namespace Buffers;
 
-	class ModelLoadingSystem : public ISystem {
+	class ModelLoadingSystem : public ISystem
+	{
 	public:
 		ModelLoadingSystem();
-
+		void Initialize(std::shared_ptr<Coordinator> coordinator);
 		void Update() override;
 
 	private:
 		vector<Texture> mTexturesLoaded;
 		AssimpModelLoader mModelLoader{};
+		std::shared_ptr<Coordinator> mCoordinator;
 
-		void SendVertex(Renderable::Mesh& mesh);
+		static void SendVertex(Renderable::Mesh& mesh);
 	};
 }
 

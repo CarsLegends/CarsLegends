@@ -12,17 +12,22 @@
 #include "../Configurations/WindowConfiguration.hpp"
 #include "../Configurations/CameraConfiguration.hpp"
 
-namespace Systems {
+namespace Systems
+{
 	using namespace Components;
 	using namespace Configuration;
 	using namespace Coordinators;
 
-	class CameraSystem : public ISystem {
+	class CameraSystem : public ISystem
+	{
 	public:
 		CameraSystem();
-
+		void Initialize(std::shared_ptr<Coordinator> coordinator);
 		void Update() override;
+
 	private:
+		std::shared_ptr<Coordinator> mCoordinator;
+
 		inline static mat4 sProjection = perspective(
 			radians(CAMERA_FOV),
 			static_cast<float>(WINDOW_WIDTH / WINDOW_HEIGHT),

@@ -6,25 +6,26 @@
 #include "ISystem.hpp"
 #include "../Components/Rendable.hpp"
 #include "../Coordinators/Coordinator.hpp"
-#include "Shaders/ShaderProgram.hpp"
-#include "Buffers/ElementBuffer.hpp"
+#include "../Engine/Shaders/ShaderProgram.hpp"
+#include "../Engine/Buffers/ElementBuffer.hpp"
 
-namespace Systems {
-	using namespace std;
+namespace Systems
+{
 	using namespace Shaders;
-	using namespace Components;
 	using namespace Coordinators;
+	using namespace Components;
 
-	class RenderSystem : public ISystem {
+	class RenderSystem : public ISystem
+	{
 	public:
 		RenderSystem();
+		void Initialize(std::shared_ptr<Coordinator> coordinator);
 		void Update() override;
 
 	private:
-		shared_ptr<ShaderProgram> mShader;
-		vector<Entity> mCameras;
-
-		static void SendVertex(Renderable::Mesh& mesh);
+		std::shared_ptr<ShaderProgram> mShader;
+		std::vector<Entity> mCameras;
+		std::shared_ptr<Coordinator> mCoordinator;
 	};
 }
 

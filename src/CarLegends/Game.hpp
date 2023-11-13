@@ -1,22 +1,29 @@
 #ifndef GAME_HPP
 #define GAME_HPP
+#include <memory>
 
 #include "Coordinators/Coordinator.hpp"
 
-namespace Game {
+namespace Game
+{
 	using namespace Coordinators;
 
-	class Game {
+	class Game
+	{
 	public:
+		Game();
+
 		bool IsRunning() const;
 
 		void RegisterEntities();
 		void RegisterComponents();
-		void RegisterSystems();
+		void RegisterSystems() const;
 
 		void Update();
+
 	private:
-		bool mRunning = true;
+		bool mRunning;
+		std::shared_ptr<Coordinator> mCoordinator;
 	};
 }
 #endif

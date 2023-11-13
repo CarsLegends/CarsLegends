@@ -1,9 +1,0 @@
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Buffers\ElementBuffer.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Release\ElementBuffer.obj
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Buffers\VertexArray.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Release\VertexArray.obj
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Buffers\VertexBuffer.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Release\VertexBuffer.obj
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\glad.c;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Release\glad.obj
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Models\Meshes\Mesh.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Release\Mesh.obj
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Models\Model.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Release\Model.obj
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Shaders\ShaderProgram.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Release\ShaderProgram.obj
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\stb.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Release\stb.obj
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Textures\Texture.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Release\Texture.obj

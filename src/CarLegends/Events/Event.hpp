@@ -6,24 +6,42 @@
 
 #include "../DataStructures/Types.hpp"
 
-namespace Events {
-	using namespace std;
+namespace Events
+{
 	using namespace DataStructures;
-	class Event {
+
+	class Event
+	{
 	public:
-		Event();
-		explicit Event(EventId type);
-		template<typename T> void SetParam(EventId id, T value);
-		template<typename T> T GetParam(EventId id);
-		EventId GetType() const;
+		Event() = default;
+
+		Event(EventId type)
+		{
+			this->mType = type;
+		}
+
+		template <typename T>
+		void SetParam(EventId id, T value)
+		{
+			this->mData[id] = value;
+		}
+
+		template <typename T>
+		T GetParam(EventId id)
+		{
+			return std::any_cast<T>(mData[id]);
+		}
+
+		EventId GetType() const
+		{
+			return mType;
+		}
 
 	private:
 		EventId mType{};
 		// Requires of cpp17 standard
-		unordered_map<EventId, any> mData{};
+		std::unordered_map<EventId, std::any> mData{};
 	};
-
-	
 }
 
-#endif 
+#endif

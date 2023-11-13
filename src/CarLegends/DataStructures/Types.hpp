@@ -4,18 +4,15 @@
 #include <bitset>
 #include "../Configurations/ManagersConfiguration.hpp"
 
-namespace DataStructures {
-	using namespace std;
+namespace DataStructures
+{
 	using namespace Configuration;
 
 	using Entity = uint32_t;
 	using EventId = uint32_t;
 	using ParameterId = uint32_t;
 	using ComponentType = uint8_t;
-	using Signature = bitset<MAX_COMPONENTS>;
-	
+	using Signature = std::bitset<MAX_COMPONENTS>;
 }
 
 #endif
-
-using Entity = uint32_t;

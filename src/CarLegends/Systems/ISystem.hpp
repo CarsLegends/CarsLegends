@@ -5,14 +5,16 @@
 
 #include "../DataStructures/Types.hpp"
 
-namespace Systems {
-	using namespace std;
+namespace Systems
+{
 	using namespace DataStructures;
 
-	class ISystem {
+	class ISystem
+	{
 	public:
-		set<Entity> mEntities;
+		std::set<Entity> mEntities;
 
+		virtual ~ISystem() = default;
 		virtual void Update() = 0;
 	};
 }

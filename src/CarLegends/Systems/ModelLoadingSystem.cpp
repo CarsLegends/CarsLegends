@@ -1,32 +1,44 @@
 #include "ModelLoadingSystem.hpp"
 
-namespace Systems {
-	extern Coordinator gCoordinator;
+namespace Systems
+{
 
 	ModelLoadingSystem::ModelLoadingSystem() = default;
 
-	void ModelLoadingSystem::Update() {
-		for (auto const& iEntity : this->mEntities) {
-			auto& renderable = gCoordinator.GetComponent<Renderable>(iEntity);
+	void ModelLoadingSystem::Initialize(std::shared_ptr<Coordinator> coordinator)
+	{
+		this->mCoordinator = std::move(coordinator);
+	}
 
-			if(renderable.mLoaded) {
+	void ModelLoadingSystem::Update()
+	{
+		for (const auto& iEntity : this->mEntities)
+		{
+			auto& renderable = this->mCoordinator->GetComponent<Renderable>(iEntity);
+
+			if (renderable.mLoaded)
+			{
 				continue;
 			}
 
 			vector<ModelData> model = mModelLoader.LoadModel(renderable.mDirectory);
 
-			for(auto iMesh : model) {
+			for (auto iMesh : model)
+			{
 				Renderable::Mesh mesh;
 
-				for(auto iVertex : iMesh.mVertices) {
+				for (auto iVertex : iMesh.mVertices)
+				{
 					mesh.mVertices.push_back(iVertex);
 				}
 
-				for (auto iIndex : iMesh.mIndices) {
+				for (auto iIndex : iMesh.mIndices)
+				{
 					mesh.mIndices.push_back(iIndex);
 				}
 
-				for (auto iTexture : iMesh.mTextures) {
+				for (auto iTexture : iMesh.mTextures)
+				{
 					mesh.mTextures.push_back(iTexture);
 				}
 
@@ -36,7 +48,8 @@ namespace Systems {
 		}
 	}
 
-	void ModelLoadingSystem::SendVertex(Renderable::Mesh& mesh) {
+	void ModelLoadingSystem::SendVertex(Renderable::Mesh& mesh)
+	{
 		const VertexBuffer vertexBuffer(mesh.mVertices);
 		const ElementBuffer elementBuffer(mesh.mIndices);
 

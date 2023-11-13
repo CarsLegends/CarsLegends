@@ -4,9 +4,12 @@
 #include <glm/glm.hpp>
 #include <glm/fwd.hpp>
 
-namespace Components {
+namespace Components
+{
 	using namespace glm;
-	struct Camera {
+
+	struct Camera
+	{
 		mat4 mProjectionMatrix;
 		vec3 mOrientation;
 		vec3 mPosition;

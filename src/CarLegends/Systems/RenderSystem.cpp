@@ -2,37 +2,42 @@
 
 #include "../Components/Camera.hpp"
 
-namespace Systems {
-	extern Coordinator gCoordinator;
+namespace Systems
+{
+	RenderSystem::RenderSystem() = default;
 
-	RenderSystem::RenderSystem() {
-		this->mShader = make_unique<ShaderProgram>("../Resources/Shaders/test.vert", "../Resources/Shaders/test.frag");
+	void RenderSystem::Initialize(std::shared_ptr<Coordinator> coordinator)
+	{
+		this->mShader = std::make_unique<ShaderProgram>("../Resources/Shaders/test.vert",
+			"../Resources/Shaders/test.frag");
 
 		// TODO: Add logic to create another camera in case of an event
-		const Entity mainCamera = gCoordinator.CreateEntity();
+		const Entity mainCamera = this->mCoordinator->CreateEntity();
 		this->mCameras.push_back(mainCamera);
-		gCoordinator.AddComponent(mainCamera, Camera(vec3(0.0f, 0.0f, 0.0f)));
-
+		this->mCoordinator->AddComponent(mainCamera, Camera(vec3(0.0f, 0.0f, 0.0f)));
 	}
 
-	void RenderSystem::Update() {
+	void RenderSystem::Update()
+	{
 		mShader->Activate();
-		for (auto const& iEntity : this->mEntities) {
-			auto& renderable = gCoordinator.GetComponent<Renderable>(iEntity);
+		for (const auto& iEntity : this->mEntities)
+		{
+			auto& renderable = this->mCoordinator->GetComponent<Renderable>(iEntity);
 
-			if (!renderable.mLoaded) {
+			if (!renderable.mLoaded)
+			{
 				continue;
 			}
 
-			for(auto& mesh : renderable.mMeshes) {
-
+			for (auto& mesh : renderable.mMeshes)
+			{
 				unsigned int indexDiffuse = 0;
 				unsigned int indexSpecular = 0;
 
 				for (unsigned int i = 0; i < mesh.mTextures.size(); i++)
 				{
-					string number;
-					string type = mesh.mTextures[i].m_Type;
+					std::string number;
+					std::string type = mesh.mTextures[i].m_Type;
 
 					if (type == "diffuse")
 					{

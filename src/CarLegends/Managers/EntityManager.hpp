@@ -6,24 +6,25 @@
 
 #include "../DataStructures/Types.hpp"
 
-namespace Managers {
-	using namespace std;
+namespace Managers
+{
 	using namespace DataStructures;
 	using namespace Configuration;
 
-	class EntityManager {
+	class EntityManager
+	{
 	public:
 		EntityManager();
 
 		Entity CreateEntity();
-		void RemoveEntity(Entity entity);
+		void DestroyEntity(Entity entity);
 
 		void SetSignature(Entity entity, Signature signature);
 		Signature GetSignature(Entity entity) const;
-		
+
 	private:
-		queue<Entity> mEntities{};
-		vector<Signature> mSignatures{};
+		std::queue<Entity> mEntities{};
+		std::vector<Signature> mSignatures{};
 		uint32_t mLivingEntitiesCount;
 	};
 }

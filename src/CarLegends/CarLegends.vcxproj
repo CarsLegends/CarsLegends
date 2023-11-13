@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath);$(SolutionDir)libraries\include;$(SolutionDir)CarLegendsEngine\</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath);$(SolutionDir)libraries\include\</IncludePath>
+    <LibraryPath>$(LibraryPath);$(SolutionDir)libraries\lib\</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(IncludePath);$(SolutionDir)libraries\include;$(SolutionDir)CarLegendsEngine\</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath);$(SolutionDir)libraries\include\</IncludePath>
+    <LibraryPath>$(LibraryPath);$(SolutionDir)libraries\lib\</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(IncludePath);$(SolutionDir)libraries\include;$(SolutionDir)CarLegendsEngine\</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath);$(SolutionDir)libraries\include\</IncludePath>
+    <LibraryPath>$(LibraryPath);$(SolutionDir)libraries\lib\</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(IncludePath);$(SolutionDir)libraries\include;$(SolutionDir)CarLegendsEngine\</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath);$(SolutionDir)libraries\include\</IncludePath>
+    <LibraryPath>$(LibraryPath);$(SolutionDir)libraries\lib\</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -99,8 +99,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -120,8 +119,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -137,8 +135,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -158,20 +155,25 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>
-      </AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Coordinators\Coordinator.cpp" />
     <ClCompile Include="DataStructures\ComponentArray.cpp" />
+    <ClCompile Include="Engine\Buffers\ElementBuffer.cpp" />
+    <ClCompile Include="Engine\Buffers\VertexArray.cpp" />
+    <ClCompile Include="Engine\Buffers\VertexBuffer.cpp" />
+    <ClCompile Include="Engine\ModelLoading\AssimpModelLoader.cpp" />
+    <ClCompile Include="Engine\Shaders\ShaderProgram.cpp" />
+    <ClCompile Include="Engine\Textures\Texture.cpp" />
     <ClCompile Include="Events\Event.cpp" />
     <ClCompile Include="DataStructures\Types.hpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Managers\ComponentManager.cpp" />
+    <ClCompile Include="glad.c" />
     <ClCompile Include="Managers\EntityManager.cpp" />
-    <ClCompile Include="Managers\SystemManager.cpp" />
+    <ClCompile Include="stb.cpp" />
     <ClCompile Include="Systems\CameraSystem.cpp" />
     <ClCompile Include="Systems\ISystem.hpp" />
     <ClCompile Include="Systems\ModelLoadingSystem.cpp" />
@@ -182,18 +184,27 @@
     <ClInclude Include="Components\Rendable.hpp" />
     <ClInclude Include="Configurations\CameraConfiguration.hpp" />
     <ClInclude Include="Configurations\WindowConfiguration.hpp" />
+    <ClInclude Include="Configurations\ManagersConfiguration.hpp" />
     <ClInclude Include="Coordinators\Coordinator.hpp" />
     <ClInclude Include="DataStructures\ComponentArray.hpp" />
+    <ClInclude Include="Engine\Buffers\ElementBuffer.hpp" />
+    <ClInclude Include="Engine\Buffers\Structs\Vertex.hpp" />
+    <ClInclude Include="Engine\Buffers\VertexArray.hpp" />
+    <ClInclude Include="Engine\Buffers\VertexBuffer.hpp" />
+    <ClInclude Include="Engine\ModelLoading\AssimpModelLoader.hpp" />
+    <ClInclude Include="Engine\ModelLoading\Structs\ModelData.hpp" />
+    <ClInclude Include="Engine\Shaders\ShaderProgram.hpp" />
+    <ClInclude Include="Engine\Textures\Texture.hpp" />
     <ClInclude Include="Events\Event.hpp" />
     <ClInclude Include="Events\EventTypes.hpp" />
     <ClInclude Include="Game.hpp" />
-    <ClInclude Include="Configurations\ManagersConfiguration.hpp" />
     <ClInclude Include="Managers\ComponentManager.hpp" />
     <ClInclude Include="Managers\EntityManager.hpp" />
     <ClInclude Include="Managers\SystemManager.hpp" />
     <ClInclude Include="Systems\CameraSystem.hpp" />
     <ClInclude Include="Systems\ModelLoadingSystem.hpp" />
     <ClInclude Include="Systems\RenderSystem.hpp" />
+    <ClInclude Include="Textures\Texture.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Models\cat\scene.bin" />
