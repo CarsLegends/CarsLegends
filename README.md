@@ -21,6 +21,7 @@ Juego de conduccion playground con obstaculos y competicion en modo cooperativo.
 - [Calendario](https://uab-my.sharepoint.com/:w:/g/personal/1636620_uab_cat/EbBrbAlbQ_1OpnWr8QHX4K0BqVsWpEeOUMkfbsMWstqcpg?e=8B3aCJ)
 - [GDD](./DOCUMENTACION/DOCUMENTOS_PROPIOS/GDD_Inicial_CarsLegends.pdf)
 - [Actas](./DOCUMENTACION/ACTAS_DE_REUNION)
+- [Videos](./DOCUMENTACION/VIDEOS)
 
 ## Caracteristicas
 
@@ -40,6 +41,7 @@ El juego incorpora objetos cotidianos como obstaculos y un modo de juego coopera
 ## Video del Juego - Referencias
 
 [MicroMachines](https://www.youtube.com/watch?v=tWws3X9EVhA)
+[Rocket League](https://youtu.be/SgSX3gOrj60?si=7ZWDRLedwdTVyrb0)
 
 ## Instalacion
 
