@@ -1,0 +1,11 @@
+﻿  ElementBuffer.cpp
+  VertexArray.cpp
+C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Buffers\VertexArray.cpp(41,64): warning C4244: 'argument': conversion from 'GLsizeiptr' to 'GLsizei', possible loss of data
+  VertexBuffer.cpp
+  AssimpModelLoader.cpp
+  ShaderProgram.cpp
+  stb.cpp
+  Texture.cpp
+  Generating Code...
+  glad.c
+  CarLegendsEngine.vcxproj -> C:\Users\carlo\source\repos\CarsLegends\src\x64\Debug\CarLegendsEngine.lib

@@ -1,0 +1,8 @@
+C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Buffers\ElementBuffer.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Debug\ElementBuffer.obj
+C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Buffers\VertexArray.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Debug\VertexArray.obj
+C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Buffers\VertexBuffer.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Debug\VertexBuffer.obj
+C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\glad.c;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Debug\glad.obj
+C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\ModelLoading\AssimpModelLoader.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Debug\AssimpModelLoader.obj
+C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Shaders\ShaderProgram.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Debug\ShaderProgram.obj
+C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\stb.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Debug\stb.obj
+C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Textures\Texture.cpp;C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\x64\Debug\Texture.obj

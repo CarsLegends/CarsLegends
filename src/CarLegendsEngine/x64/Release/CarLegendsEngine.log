@@ -1,0 +1,13 @@
+﻿  ElementBuffer.cpp
+  VertexArray.cpp
+C:\Users\carlo\source\repos\CarsLegends\src\CarLegendsEngine\Buffers\VertexArray.cpp(17,64): warning C4244: 'argument': conversion from 'GLsizeiptr' to 'GLsizei', possible loss of data
+  VertexBuffer.cpp
+  Mesh.cpp
+  Model.cpp
+  ShaderProgram.cpp
+  stb.cpp
+  Texture.cpp
+  glad.c
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1571,5): warning MSB8012: TargetPath(C:\Users\carlo\source\repos\CarsLegends\src\x64\Release\CarLegendsEngine.lib) does not match the Library's OutputFile property value (C:\Users\carlo\source\repos\CarsLegends\src\CarLegends\LibrariesCarLegendsEngine.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1573,5): warning MSB8012: TargetName(CarLegendsEngine) does not match the Library's OutputFile property value (LibrariesCarLegendsEngine). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+  CarLegendsEngine.vcxproj -> C:\Users\carlo\source\repos\CarsLegends\src\x64\Release\CarLegendsEngine.lib
