@@ -13,7 +13,7 @@ namespace ModelLoaders
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
 			cout << "ERROR::ASSIMP::" << import.GetErrorString() << endl;
-			return {};
+			exit(EXIT_FAILURE);
 		}
 		this->mDirectory = path.substr(0, path.find_last_of('/'));
 
@@ -93,7 +93,7 @@ namespace ModelLoaders
 
 			for (auto& loadedTexture : this->mTexturesLoaded)
 			{
-				if (strcmp(loadedTexture.m_Path.data(), string.C_Str()) == 0)
+				if (strcmp(loadedTexture.mPath.data(), string.C_Str()) == 0)
 				{
 					textures.push_back(loadedTexture);
 					skip = true;
@@ -104,7 +104,7 @@ namespace ModelLoaders
 			if (!skip)
 			{
 				Texture texture(string.C_Str(), this->mDirectory, typeName.c_str(), i);
-				texture.m_Type = typeName.c_str();
+				texture.mType = typeName.c_str();
 
 				textures.push_back(texture);
 				this->mTexturesLoaded.push_back(texture);

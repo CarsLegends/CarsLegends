@@ -3,27 +3,36 @@
 #include <memory>
 
 #include "Coordinators/Coordinator.hpp"
+#include "Engine/Window/Window.hpp"
 
 namespace Game
 {
 	using namespace Coordinators;
+	using namespace Windows;
 
 	class Game
 	{
 	public:
+
 		Game();
+		~Game();
 
 		bool IsRunning() const;
 
-		void RegisterEntities();
-		void RegisterComponents();
-		void RegisterSystems() const;
+		void RegisterListeners();
+		void RegisterEntities() const;
+		void RegisterComponents() const;
+		void RegisterSystems();
 
 		void Update();
 
+		void QuitHandler(Event& event);
 	private:
 		bool mRunning;
+		Window mWindow;
 		std::shared_ptr<Coordinator> mCoordinator;
+		std::list<std::shared_ptr<ISystem>> mSystems{};
+
 	};
 }
 #endif

@@ -26,6 +26,9 @@ namespace Systems
 		std::shared_ptr<ShaderProgram> mShader;
 		std::vector<Entity> mCameras;
 		std::shared_ptr<Coordinator> mCoordinator;
+
+		void MoveEntity(Entity entity) const;
+		void MoveCamera() const;
 	};
 }
 

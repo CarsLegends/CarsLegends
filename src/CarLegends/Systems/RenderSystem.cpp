@@ -1,6 +1,9 @@
 #include "RenderSystem.hpp"
 
+#include <utility>
+
 #include "../Components/Camera.hpp"
+#include "../Components/Transform.hpp"
 
 namespace Systems
 {
@@ -8,13 +11,14 @@ namespace Systems
 
 	void RenderSystem::Initialize(std::shared_ptr<Coordinator> coordinator)
 	{
-		this->mShader = std::make_unique<ShaderProgram>("../Resources/Shaders/test.vert",
-			"../Resources/Shaders/test.frag");
+		// TODO: Make shader read files from Resources/Shaders
+		this->mShader = std::make_unique<ShaderProgram>("Resources/Shaders/test.vert", "Resources/Shaders/test.frag");
+		this->mCoordinator = std::move(coordinator);
 
 		// TODO: Add logic to create another camera in case of an event
 		const Entity mainCamera = this->mCoordinator->CreateEntity();
 		this->mCameras.push_back(mainCamera);
-		this->mCoordinator->AddComponent(mainCamera, Camera(vec3(0.0f, 0.0f, 0.0f)));
+		this->mCoordinator->AddComponent<Camera>(mainCamera, { vec3(0.0f, 0.0f, 4.0f) });
 	}
 
 	void RenderSystem::Update()
@@ -22,11 +26,13 @@ namespace Systems
 		mShader->Activate();
 		for (const auto& iEntity : this->mEntities)
 		{
-			auto& renderable = this->mCoordinator->GetComponent<Renderable>(iEntity);
+			MoveCamera();
+			MoveEntity(iEntity);
 
+			auto& renderable = this->mCoordinator->GetComponent<Renderable>(iEntity);
 			if (!renderable.mLoaded)
 			{
-				continue;
+				return;
 			}
 
 			for (auto& mesh : renderable.mMeshes)
@@ -37,7 +43,7 @@ namespace Systems
 				for (unsigned int i = 0; i < mesh.mTextures.size(); i++)
 				{
 					std::string number;
-					std::string type = mesh.mTextures[i].m_Type;
+					std::string type = mesh.mTextures[i].mType;
 
 					if (type == "diffuse")
 					{
@@ -57,5 +63,25 @@ namespace Systems
 				mesh.mVertexArray.Unbind();
 			}
 		}
+	}
+
+	void RenderSystem::MoveEntity(Entity entity) const
+	{
+		const auto& transform = this->mCoordinator->GetComponent<Transform>(entity);
+
+		auto objectModel = mat4(1.0f);
+		objectModel = translate(objectModel, transform.mPosition);
+		objectModel = scale(objectModel, transform.mScale);
+		objectModel = rotate(objectModel, radians(transform.mRotationAngle), transform.mRotationAxis);
+
+		this->mShader->SendUniformMatrix4f("model", objectModel);
+	}
+
+	void RenderSystem::MoveCamera() const
+	{
+		const auto cameraEntity = mCameras.front();
+		auto& camera = this->mCoordinator->GetComponent<Camera>(cameraEntity);
+		auto matrix = mat4(camera.mMatrix);
+		this->mShader->SendUniformMatrix4f("cameraMatrix", matrix);
 	}
 }

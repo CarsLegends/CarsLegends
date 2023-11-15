@@ -30,7 +30,7 @@ namespace Managers
 		void SetSignature(Signature signature)
 		{
 			const char* typeName = typeid(T).name();
-			assert(this->mSystems.find(typeName) == this->mSystems.end() && "Registering system more than once.");
+			assert(this->mSystems.find(typeName) != this->mSystems.end() && "System used before being registered.");
 
 			this->mSignatures.insert({ typeName, signature });
 		}

@@ -4,8 +4,9 @@
 
 namespace Configuration
 {
-	constexpr uint32_t WINDOW_HEIGHT = 1920;
-	constexpr uint32_t WINDOW_WIDTH = 1080;
+	constexpr uint32_t WINDOW_HEIGHT = 1080;
+	constexpr uint32_t WINDOW_WIDTH = 1920;
+	const std::string WINDOW_TITLE = "CarLegends";
 }
 
 #endif

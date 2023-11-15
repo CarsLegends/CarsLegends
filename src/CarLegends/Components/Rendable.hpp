@@ -24,14 +24,21 @@ namespace Components
 
 		std::vector<Mesh> mMeshes{};
 		std::string mDirectory;
-		bool mLoaded = false;
+		bool mLoaded;
 
+		Renderable();
 		Renderable(std::string directory);
 	};
+
+	inline Renderable::Renderable()
+	{
+		this->mLoaded = false;
+	}
 
 	inline Renderable::Renderable(std::string directory)
 	{
 		this->mDirectory = directory;
+		this->mLoaded = false;
 	}
 }
 

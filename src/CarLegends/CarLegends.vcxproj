@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath);$(SolutionDir)libraries\include\</IncludePath>
-    <LibraryPath>$(LibraryPath);$(SolutionDir)libraries\lib\</LibraryPath>
+    <IncludePath>$(SolutionDir)libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(IncludePath);$(SolutionDir)libraries\include\</IncludePath>
-    <LibraryPath>$(LibraryPath);$(SolutionDir)libraries\lib\</LibraryPath>
+    <IncludePath>$(SolutionDir)libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(IncludePath);$(SolutionDir)libraries\include\</IncludePath>
-    <LibraryPath>$(LibraryPath);$(SolutionDir)libraries\lib\</LibraryPath>
+    <IncludePath>$(SolutionDir)libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(IncludePath);$(SolutionDir)libraries\include\</IncludePath>
-    <LibraryPath>$(LibraryPath);$(SolutionDir)libraries\lib\</LibraryPath>
+    <IncludePath>$(SolutionDir)libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -92,9 +92,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,9 +111,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,9 +130,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,9 +149,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,7 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Coordinators\Coordinator.cpp" />
+    <ClCompile Include="Components\Transform.hpp" />
     <ClCompile Include="DataStructures\ComponentArray.cpp" />
     <ClCompile Include="Engine\Buffers\ElementBuffer.cpp" />
     <ClCompile Include="Engine\Buffers\VertexArray.cpp" />
@@ -167,12 +171,15 @@
     <ClCompile Include="Engine\ModelLoading\AssimpModelLoader.cpp" />
     <ClCompile Include="Engine\Shaders\ShaderProgram.cpp" />
     <ClCompile Include="Engine\Textures\Texture.cpp" />
-    <ClCompile Include="Events\Event.cpp" />
     <ClCompile Include="DataStructures\Types.hpp" />
+    <ClCompile Include="Engine\Window\Window.cpp" />
+    <ClCompile Include="Events\EventParameters.hpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="Macros\Hash.hpp" />
     <ClCompile Include="Managers\EntityManager.cpp" />
+    <ClCompile Include="Managers\EventManager.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="Systems\CameraSystem.cpp" />
     <ClCompile Include="Systems\ISystem.hpp" />
@@ -195,11 +202,13 @@
     <ClInclude Include="Engine\ModelLoading\Structs\ModelData.hpp" />
     <ClInclude Include="Engine\Shaders\ShaderProgram.hpp" />
     <ClInclude Include="Engine\Textures\Texture.hpp" />
+    <ClInclude Include="Engine\Window\Window.hpp" />
     <ClInclude Include="Events\Event.hpp" />
     <ClInclude Include="Events\EventTypes.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Managers\ComponentManager.hpp" />
     <ClInclude Include="Managers\EntityManager.hpp" />
+    <ClInclude Include="Managers\EventManager.hpp" />
     <ClInclude Include="Managers\SystemManager.hpp" />
     <ClInclude Include="Systems\CameraSystem.hpp" />
     <ClInclude Include="Systems\ModelLoadingSystem.hpp" />

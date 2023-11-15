@@ -49,9 +49,9 @@ namespace Shaders
 		glDeleteShader(fragmentShader);
 	}
 
-	void ShaderProgram::SendUniformMatrix4f(const std::string& uniformName, mat4 matrix) const
+	void ShaderProgram::SendUniformMatrix4f(const char* uniformName, mat4& matrix) const
 	{
-		glUniformMatrix4fv(glGetUniformLocation(this->mId, uniformName.data()), 1, GL_FALSE, value_ptr(matrix));
+		glUniformMatrix4fv(glGetUniformLocation(this->mId, uniformName), 1, GL_FALSE, value_ptr(matrix));
 	}
 
 	void ShaderProgram::Activate() const

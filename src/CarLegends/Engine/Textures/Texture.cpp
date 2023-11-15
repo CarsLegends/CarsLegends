@@ -8,8 +8,9 @@ namespace Textures
 {
 	Texture::Texture(const char* path, const std::string& directory, const char* textureType, GLuint slot)
 	{
-		this->m_Type = textureType;
-		this->m_Path = std::string(path);
+		this->mType = std::string(textureType);
+		this->mPath = std::string(path);
+		this->mDirectory = directory;
 
 		auto filename = std::string(path);
 		filename = directory + '/' + filename;
@@ -37,10 +38,10 @@ namespace Textures
 				format = GL_RGBA;
 			}
 
-			glGenTextures(1, &m_Id);
+			glGenTextures(1, &mId);
 			glActiveTexture(GL_TEXTURE0 + slot);
-			this->m_Unit = slot;
-			glBindTexture(GL_TEXTURE_2D, m_Id);
+			this->mUnit = slot;
+			glBindTexture(GL_TEXTURE_2D, mId);
 
 			glTexImage2D(GL_TEXTURE_2D, 0, format, widthImg, heightImg, 0, format, GL_UNSIGNED_BYTE, bytes);
 			glGenerateMipmap(GL_TEXTURE_2D);
@@ -71,8 +72,8 @@ namespace Textures
 
 	void Texture::Bind()
 	{
-		glActiveTexture(GL_TEXTURE0 + this->m_Unit);
-		glBindTexture(GL_TEXTURE_2D, this->m_Id);
+		glActiveTexture(GL_TEXTURE0 + this->mUnit);
+		glBindTexture(GL_TEXTURE_2D, this->mId);
 	}
 
 	void Texture::Unbind()
@@ -82,6 +83,6 @@ namespace Textures
 
 	void Texture::Delete()
 	{
-		glDeleteTextures(1, &this->m_Id);
+		glDeleteTextures(1, &this->mId);
 	}
 }
