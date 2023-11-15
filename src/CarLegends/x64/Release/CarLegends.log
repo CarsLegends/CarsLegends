@@ -1,9 +1,0 @@
-﻿  RenderSystem.cpp
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegends\Systems\RenderSystem.hpp(17,14): error C2653: 'Shaders': is not a class or namespace name
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegends\Systems\RenderSystem.hpp(17,23): error C2065: 'ShaderProgram': undeclared identifier
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegends\Systems\RenderSystem.hpp(17,3): error C2923: 'std::shared_ptr': 'ShaderProgram' is not a valid template type argument for parameter '_Ty'
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegends\Systems\RenderSystem.hpp(17,23): message : see declaration of 'ShaderProgram'
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegends\Systems\RenderSystem.hpp(18,2): error C2059: syntax error: '}'
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegends\Systems\RenderSystem.hpp(18,2): error C2143: syntax error: missing ';' before '}'
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegends\Systems\RenderSystem.hpp(18,2): error C2238: unexpected token(s) preceding ';'
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegends\Systems\RenderSystem.cpp(8,21): error C2723: 'Systems::RenderSystem::Update': 'override' specifier illegal on function definition
