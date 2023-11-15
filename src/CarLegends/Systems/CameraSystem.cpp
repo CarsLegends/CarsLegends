@@ -28,32 +28,32 @@ namespace Systems
 
 			if (mButtons.test(static_cast<std::size_t>(Buttons::A)))
 			{
-				camera.mPosition += speed * normalize(cross(camera.mOrientation, camera.mUp));
+				camera.mPosition += speed * -normalize(cross(camera.mOrientation, camera.mUp));
 			}
 
 			if (mButtons.test(static_cast<std::size_t>(Buttons::D)))
 			{
-				camera.mPosition += speed * -normalize(cross(camera.mOrientation, camera.mUp));
+				camera.mPosition += speed * normalize(cross(camera.mOrientation, camera.mUp));
 			}
 
 			if (mButtons.test(static_cast<std::size_t>(Buttons::S)))
 			{
-				camera.mPosition += speed * camera.mOrientation;
+				camera.mPosition += speed * -camera.mOrientation;
 			}
 
 			if (mButtons.test(static_cast<std::size_t>(Buttons::W)))
 			{
-				camera.mPosition += speed * -camera.mOrientation;
+				camera.mPosition += speed * camera.mOrientation;
 			}
 
 			if (mButtons.test(static_cast<std::size_t>(Buttons::Space)))
 			{
-				camera.mPosition += speed * -camera.mUp;
+				camera.mPosition += speed * camera.mUp;
 			}
 
 			if (mButtons.test(static_cast<std::size_t>(Buttons::LeftShift)))
 			{
-				camera.mPosition += speed * camera.mUp;
+				camera.mPosition += speed * -camera.mUp;
 			}
 
 			this->mButtons.reset();
