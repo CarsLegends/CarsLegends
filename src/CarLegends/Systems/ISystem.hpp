@@ -15,7 +15,7 @@ namespace Systems
 		std::set<Entity> mEntities;
 
 		virtual ~ISystem() = default;
-		virtual void Update() = 0;
+		virtual void Update(float deltaTime) = 0;
 	};
 }
 #endif

@@ -21,7 +21,7 @@ namespace Systems
 		this->mCoordinator->AddComponent<Camera>(mainCamera, { vec3(0.0f, 0.0f, 4.0f) });
 	}
 
-	void RenderSystem::Update()
+	void RenderSystem::Update(float deltaTime)
 	{
 		mShader->Activate();
 		for (const auto& iEntity : this->mEntities)

@@ -24,7 +24,7 @@ namespace Components
 		this->mMatrix = mat4(1.0f);
 		this->mOrientation = vec3(0.0f, 0.0f, -1.0f);
 		this->mPosition = vec3(0.0f, 0.0f, -2.0f);
-		this->mUp = vec3(0.0f, 0.5f, 0.0f);
+		this->mUp = vec3(0.0f, 1.0f, 0.0f);
 	}
 
 	inline Camera::Camera(vec3 position)

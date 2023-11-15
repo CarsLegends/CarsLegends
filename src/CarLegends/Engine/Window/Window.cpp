@@ -19,7 +19,8 @@ namespace Windows
 		glfwWindowHint(GLFW_FOCUSED, GLFW_TRUE);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		auto window = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), glfwGetPrimaryMonitor(), nullptr);
+		//auto window = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), glfwGetPrimaryMonitor(), nullptr);
+		auto window = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), nullptr, nullptr);
 		if (window == nullptr)
 		{
 			std::cout << "Failed to create a GLFW Window" << "\n";
@@ -46,40 +47,50 @@ namespace Windows
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glfwPollEvents();
 
-		bool anyButtonPress = true;
-
 		// TODO: SEPARATE IN DIFFERENT PRIVATE METHODS
-		if (glfwGetKey(this->mWindow, GLFW_KEY_ESCAPE) || glfwWindowShouldClose(this->mWindow))
+		if (glfwGetKey(this->mWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->mWindow))
 		{
 			coordinator->SendEvent(WINDOW_QUIT);
 		}
-		else if (glfwGetKey(this->mWindow, GLFW_KEY_W))
+
+		if (glfwGetKey(this->mWindow, GLFW_KEY_W) == GLFW_PRESS)
+		{
+			this->mButtons.set(static_cast<std::size_t>(Buttons::W));
+		}
+
+		if (glfwGetKey(this->mWindow, GLFW_KEY_A) == GLFW_PRESS)
 		{
 			this->mButtons.set(static_cast<std::size_t>(Buttons::A));
 		}
-		else if (glfwGetKey(this->mWindow, GLFW_KEY_A))
-		{
-			this->mButtons.set(static_cast<std::size_t>(Buttons::A));
-		}
-		else if (glfwGetKey(this->mWindow, GLFW_KEY_S))
+
+		if (glfwGetKey(this->mWindow, GLFW_KEY_S) == GLFW_PRESS)
 		{
 			this->mButtons.set(static_cast<std::size_t>(Buttons::S));
 		}
-		else if (glfwGetKey(this->mWindow, GLFW_KEY_D))
+
+		if (glfwGetKey(this->mWindow, GLFW_KEY_D) == GLFW_PRESS)
 		{
 			this->mButtons.set(static_cast<std::size_t>(Buttons::D));
 		}
-		else
+
+		if (glfwGetKey(this->mWindow, GLFW_KEY_SPACE) == GLFW_PRESS)
 		{
-			anyButtonPress = false;
+			this->mButtons.set(static_cast<std::size_t>(Buttons::Space));
 		}
 
-		if(anyButtonPress)
+		if (glfwGetKey(this->mWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+		{
+			this->mButtons.set(static_cast<std::size_t>(Buttons::LeftShift));
+		}
+
+		if(this->mButtons.any())
 		{
 			Event event(WINDOW_INPUT);
 			event.SetParam(WINDOW_INPUT_PARAMETER, this->mButtons);
 			coordinator->SendEvent(event);
 		}
+
+		this->mButtons.reset();
 	}
 
 	void Window::Shutdown() const

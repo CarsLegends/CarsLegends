@@ -23,7 +23,7 @@ namespace Systems
 	public:
 		ModelLoadingSystem();
 		void Initialize(std::shared_ptr<Coordinator> coordinator);
-		void Update() override;
+		void Update(float deltaTime) override;
 
 	private:
 		vector<Texture> mTexturesLoaded;

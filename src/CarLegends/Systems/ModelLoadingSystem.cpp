@@ -10,7 +10,7 @@ namespace Systems
 		this->mCoordinator = std::move(coordinator);
 	}
 
-	void ModelLoadingSystem::Update()
+	void ModelLoadingSystem::Update(float deltaTime)
 	{
 		for (const auto& iEntity : this->mEntities)
 		{

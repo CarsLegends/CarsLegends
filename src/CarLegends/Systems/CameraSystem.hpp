@@ -23,17 +23,13 @@ namespace Systems
 	public:
 		CameraSystem();
 		void Initialize(std::shared_ptr<Coordinator> coordinator);
-		void Update() override;
+		void Update(float deltaTime) override;
 
 	private:
 		std::shared_ptr<Coordinator> mCoordinator;
+		std::bitset<WINDOW_BUTTONS_COUNT> mButtons;
 
-		inline static mat4 sProjection = perspective(
-			radians(CAMERA_FOV),
-			static_cast<float>(WINDOW_WIDTH / WINDOW_HEIGHT),
-			CAMERA_NEAR_CLIP_PLANE,
-			CAMERA_FAR_CLIP_PLANE
-		);
+		void InputListener(Event& event);
 	};
 }
 

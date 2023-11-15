@@ -24,15 +24,15 @@ namespace Game
 		void RegisterComponents() const;
 		void RegisterSystems();
 
-		void Update();
+		void Update(float deltaTime);
 
-		void QuitHandler(Event& event);
 	private:
 		bool mRunning;
 		Window mWindow;
 		std::shared_ptr<Coordinator> mCoordinator;
 		std::list<std::shared_ptr<ISystem>> mSystems{};
 
+		void QuitHandler(Event& event);
 	};
 }
 #endif

@@ -82,12 +82,12 @@ namespace Game
 		this->mSystems.push_back(renderSystem);
 	}
 
-	void Game::Update()
+	void Game::Update(float deltaTime)
 	{
 		this->mWindow.ProcessEvents(this->mCoordinator);
 		for(const auto& system : this->mSystems)
 		{
-			system->Update();
+			system->Update(deltaTime);
 		}
 		this->mWindow.Update();
 	}

@@ -7,20 +7,12 @@
 #include <string>
 
 #include "../../Coordinators/Coordinator.hpp"
+#include "../../Configurations/WindowConfiguration.hpp"
 
 namespace Windows
 {
 	using namespace Coordinators;
-
-	enum class Buttons
-	{
-		W,
-		A,
-		S,
-		D,
-	};
-
-	constexpr uint32_t TOTAL_BUTTONS = 8;
+	using namespace Configuration;
 
 	class Window
 	{
@@ -34,7 +26,7 @@ namespace Windows
 
 	private:
 		GLFWwindow* mWindow;
-		std::bitset<TOTAL_BUTTONS> mButtons;
+		std::bitset<WINDOW_BUTTONS_COUNT> mButtons;
 	};
 }
 

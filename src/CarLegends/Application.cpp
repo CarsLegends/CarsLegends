@@ -1,6 +1,9 @@
 #include <cassert>
+#include <chrono>
 
 #include "Game.hpp"
+
+using namespace std::chrono;
 
 int main()
 {
@@ -13,10 +16,16 @@ int main()
 		game.RegisterSystems();
 		game.RegisterEntities();
 	}
-	
+
+	float deltaTime = 0.0f;
+	time_point<steady_clock> lastFrameTime;
 	while (game.IsRunning())
 	{
-		game.Update();
+		auto currentFrameTime = high_resolution_clock::now();
+		deltaTime = duration<float>(lastFrameTime - currentFrameTime).count();
+		lastFrameTime = currentFrameTime;
+
+		game.Update(deltaTime);
 	}
 
 	return 0;
