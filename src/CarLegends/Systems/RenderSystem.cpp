@@ -81,7 +81,6 @@ namespace Systems
 	{
 		const auto cameraEntity = mCameras.front();
 		auto& camera = this->mCoordinator->GetComponent<Camera>(cameraEntity);
-		auto matrix = mat4(camera.mMatrix);
-		this->mShader->SendUniformMatrix4f("cameraMatrix", matrix);
+		this->mShader->SendUniformMatrix4f("cameraMatrix", camera.mMatrix);
 	}
 }

@@ -35,6 +35,21 @@ namespace Game
 		{
 			Game::QuitHandler(std::forward<decltype(PH1)>(PH1));
 		});
+
+		this->mCoordinator->AddEventListener(WINDOW_HIDE_CURSOR, [this](auto&& PH1)
+		{
+			Game::HideCursorHandler(std::forward<decltype(PH1)>(PH1));
+		});
+
+		this->mCoordinator->AddEventListener(WINDOW_SHOW_CURSOR, [this](auto&& PH1)
+		{
+			Game::ShowCursorHandler(std::forward<decltype(PH1)>(PH1));
+		});
+
+		this->mCoordinator->AddEventListener(WINDOW_SET_CURSOR_POSITION, [this](auto&& PH1)
+		{
+			Game::SetCursorPositionHandler(std::forward<decltype(PH1)>(PH1));
+		});
 	}
 
 	void Game::RegisterComponents() const
@@ -95,5 +110,20 @@ namespace Game
 	void Game::QuitHandler(Event& event)
 	{
 		this->mRunning = false;
+	}
+
+	void Game::ShowCursorHandler(Event& event) const
+	{
+		this->mWindow.ShowCursor();
+	}
+
+	void Game::HideCursorHandler(Event& event) const
+	{
+		this->mWindow.HideCursor();
+	}
+
+	void Game::SetCursorPositionHandler(Event& event) const
+	{
+		this->mWindow.SetCursorPosition(event.GetParam<vec2>(WINDOW_SET_CURSOR_PARAMETER));
 	}
 }

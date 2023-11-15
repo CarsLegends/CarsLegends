@@ -11,12 +11,15 @@
 #include "../Components/Camera.hpp"
 #include "../Configurations/WindowConfiguration.hpp"
 #include "../Configurations/CameraConfiguration.hpp"
+#include "../Engine/Window/Structs/MouseState.hpp"
 
 namespace Systems
 {
 	using namespace Components;
 	using namespace Configuration;
 	using namespace Coordinators;
+	using namespace Windows;
+	using namespace glm;
 
 	class CameraSystem : public ISystem
 	{
@@ -28,8 +31,16 @@ namespace Systems
 	private:
 		std::shared_ptr<Coordinator> mCoordinator;
 		std::bitset<WINDOW_BUTTONS_COUNT> mButtons;
+		MouseState mMouseState;
+		bool mFirstClick = false;
 
-		void InputListener(Event& event);
+		void MoveCameraByKeyboardInput(Camera& camera, float deltaTime);
+		void MoveCameraByMouseInput(Camera& camera);
+
+		void ButtonInputListener(Event& event);
+		void MouseInputListener(Event& event);
+
+		void CenterCursor() const;
 	};
 }
 

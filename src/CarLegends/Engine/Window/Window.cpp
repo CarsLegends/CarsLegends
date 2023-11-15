@@ -47,7 +47,33 @@ namespace Windows
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glfwPollEvents();
 
-		// TODO: SEPARATE IN DIFFERENT PRIVATE METHODS
+		ReadKeyBoardInput(coordinator);
+		ReadMouseInput(coordinator);
+	}
+
+	void Window::Shutdown() const
+	{
+		glfwDestroyWindow(this->mWindow);
+		glfwTerminate();
+	}
+
+	void Window::ShowCursor() const
+	{
+		glfwSetInputMode(this->mWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+
+	void Window::HideCursor() const
+	{
+		glfwSetInputMode(this->mWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	}
+
+	void Window::SetCursorPosition(vec2 position) const
+	{
+		glfwSetCursorPos(this->mWindow, position.x, position.y);
+	}
+
+	void Window::ReadKeyBoardInput(std::shared_ptr<Coordinator> coordinator)
+	{
 		if (glfwGetKey(this->mWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->mWindow))
 		{
 			coordinator->SendEvent(WINDOW_QUIT);
@@ -83,19 +109,41 @@ namespace Windows
 			this->mButtons.set(static_cast<std::size_t>(Buttons::LeftShift));
 		}
 
-		if(this->mButtons.any())
+		if (this->mButtons.any())
 		{
-			Event event(WINDOW_INPUT);
-			event.SetParam(WINDOW_INPUT_PARAMETER, this->mButtons);
+			Event event(WINDOW_INPUT_BUTTON);
+			event.SetParam(WINDOW_INPUT_BUTTON_PARAMETER, this->mButtons);
 			coordinator->SendEvent(event);
 		}
 
 		this->mButtons.reset();
 	}
 
-	void Window::Shutdown() const
+	void Window::ReadMouseInput(std::shared_ptr<Coordinator> coordinator)
 	{
-		glfwDestroyWindow(this->mWindow);
-		glfwTerminate();
+		if (glfwGetMouseButton(this->mWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+		{
+			double mouseX;
+			double mouseY;
+			glfwGetCursorPos(this->mWindow, &mouseX, &mouseY);
+
+			this->mMouseState.mPosition.x = static_cast<float>(mouseX);
+			this->mMouseState.mPosition.y = static_cast<float>(mouseY);
+			this->mMouseState.mRightClickReleased = false;
+
+			Event event(WINDOW_INPUT_CURSOR);
+			event.SetParam(WINDOW_INPUT_CURSOR_PARAMETER, this->mMouseState);
+			coordinator->SendEvent(event);
+		}
+		else if (glfwGetMouseButton(this->mWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE)
+		{
+			this->mMouseState.mPosition.x = static_cast<float>(WINDOW_WIDTH/2);
+			this->mMouseState.mPosition.y = static_cast<float>(WINDOW_HEIGHT/2);
+			this->mMouseState.mRightClickReleased = true;
+
+			Event event(WINDOW_INPUT_CURSOR);
+			event.SetParam(WINDOW_INPUT_CURSOR_PARAMETER, this->mMouseState);
+			coordinator->SendEvent(event);
+		}
 	}
 }

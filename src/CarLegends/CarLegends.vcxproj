@@ -153,6 +153,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <Optimization>Full</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -202,6 +203,7 @@
     <ClInclude Include="Engine\ModelLoading\Structs\ModelData.hpp" />
     <ClInclude Include="Engine\Shaders\ShaderProgram.hpp" />
     <ClInclude Include="Engine\Textures\Texture.hpp" />
+    <ClInclude Include="Engine\Window\Structs\MouseState.hpp" />
     <ClInclude Include="Engine\Window\Window.hpp" />
     <ClInclude Include="Events\Event.hpp" />
     <ClInclude Include="Events\EventTypes.hpp" />

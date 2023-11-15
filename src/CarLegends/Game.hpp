@@ -33,6 +33,9 @@ namespace Game
 		std::list<std::shared_ptr<ISystem>> mSystems{};
 
 		void QuitHandler(Event& event);
+		void ShowCursorHandler(Event& event) const;
+		void HideCursorHandler(Event& event) const;
+		void SetCursorPositionHandler(Event& event) const;
 	};
 }
 #endif
