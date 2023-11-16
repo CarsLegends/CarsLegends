@@ -14,10 +14,11 @@ namespace Textures
 	class Texture
 	{
 	public:
-		GLuint m_Id;
-		const char* m_Type;
-		std::string m_Path;
-		GLuint m_Unit;
+		GLuint mId;
+		std::string mType;
+		std::string mPath;
+		std::string mDirectory;
+		GLuint mUnit;
 		Texture(const char* path, const std::string& directory, const char* textureType, GLuint slot);
 
 		void TextureUnit(ShaderProgram& shader, const char* uniform, GLuint unit);

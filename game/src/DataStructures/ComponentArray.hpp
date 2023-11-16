@@ -1,6 +1,7 @@
 #ifndef DATA_STRUCTURES_COMPONENT_ARRAY_HPP
 #define DATA_STRUCTURES_COMPONENT_ARRAY_HPP
 
+#include <assert.h>
 #include <array>
 #include <unordered_map>
 

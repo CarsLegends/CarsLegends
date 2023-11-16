@@ -6,6 +6,7 @@
 #include "../DataStructures/ComponentArray.hpp"
 #include "../Managers/ComponentManager.hpp"
 #include "../Managers/EntityManager.hpp"
+#include "../Managers/EventManager.hpp"
 #include "../Managers/SystemManager.hpp"
 
 namespace Coordinators
@@ -16,13 +17,12 @@ namespace Coordinators
 	class Coordinator
 	{
 	public:
-		Coordinator() = default;
-
-		void Initialize()
+		Coordinator()
 		{
 			this->mComponentManager = std::make_unique<ComponentManager>();
 			this->mEntityManager = std::make_unique<EntityManager>();
 			this->mSystemManager = std::make_unique<SystemManager>();
+			this->mEventManager = std::make_unique<EventManager>();
 		}
 
 		Entity CreateEntity() const
@@ -91,10 +91,26 @@ namespace Coordinators
 			this->mSystemManager->SetSignature<T>(signature);
 		}
 
+		void AddEventListener(EventId eventId, std::function<void(Event&)> const& listener) const
+		{
+			mEventManager->AddListener(eventId, listener);
+		}
+
+		void SendEvent(Event& event) const
+		{
+			mEventManager->SendEvent(event);
+		}
+
+		void SendEvent(EventId eventId) const
+		{
+			mEventManager->SendEvent(eventId);
+		}
+
 	private:
 		std::unique_ptr<ComponentManager> mComponentManager;
 		std::unique_ptr<EntityManager> mEntityManager;
 		std::unique_ptr<SystemManager> mSystemManager;
+		std::unique_ptr<EventManager> mEventManager;
 	};
 }
 

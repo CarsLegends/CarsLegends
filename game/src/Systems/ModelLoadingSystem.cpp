@@ -9,8 +9,7 @@ namespace Systems
 	{
 		this->mCoordinator = std::move(coordinator);
 	}
-
-	void ModelLoadingSystem::Update()
+	void ModelLoadingSystem::Update(float deltaTime)
 	{
 		for (const auto& iEntity : this->mEntities)
 		{
@@ -21,7 +20,7 @@ namespace Systems
 				continue;
 			}
 
-			vector<ModelData> model = mModelLoader.LoadModel(renderable.mDirectory);
+			vector<ModelData> model = this->mModelLoader.LoadModel(renderable.mDirectory);
 
 			for (auto iMesh : model)
 			{
@@ -39,21 +38,30 @@ namespace Systems
 
 				for (auto iTexture : iMesh.mTextures)
 				{
-					mesh.mTextures.push_back(iTexture);
+					Texture texture(
+						iTexture.mPath.c_str(), 
+						iTexture.mDirectory, 
+						iTexture.mType.c_str(), 
+						iTexture.mUnit
+					);
+
+					mesh.mTextures.push_back(texture);
 				}
 
 				renderable.mMeshes.push_back(mesh);
 				SendVertex(mesh);
 			}
+
+			renderable.mLoaded = true;
 		}
 	}
 
 	void ModelLoadingSystem::SendVertex(Renderable::Mesh& mesh)
 	{
+		mesh.mVertexArray.Bind();
 		const VertexBuffer vertexBuffer(mesh.mVertices);
 		const ElementBuffer elementBuffer(mesh.mIndices);
 
-		mesh.mVertexArray.Bind();
 		mesh.mVertexArray.LinkAttributes(vertexBuffer);
 		mesh.mVertexArray.Unbind();
 

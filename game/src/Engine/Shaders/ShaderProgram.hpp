@@ -20,7 +20,7 @@ namespace Shaders
 		GLuint mId;
 
 		ShaderProgram(const char* vertexFileName, const char* fragmentFileName);
-		void SendUniformMatrix4f(const std::string& uniformName, mat4 matrix) const;
+		void SendUniformMatrix4f(const char* uniformName, mat4& matrix) const;
 		void Activate() const;
 		void Delete() const;
 

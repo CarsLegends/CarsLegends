@@ -11,29 +11,36 @@
 #include "../Components/Camera.hpp"
 #include "../Configurations/WindowConfiguration.hpp"
 #include "../Configurations/CameraConfiguration.hpp"
+#include "../Engine/Window/Structs/MouseState.hpp"
 
 namespace Systems
 {
 	using namespace Components;
 	using namespace Configuration;
 	using namespace Coordinators;
+	using namespace Windows;
+	using namespace glm;
 
 	class CameraSystem : public ISystem
 	{
 	public:
 		CameraSystem();
 		void Initialize(std::shared_ptr<Coordinator> coordinator);
-		void Update() override;
+		void Update(float deltaTime) override;
 
 	private:
 		std::shared_ptr<Coordinator> mCoordinator;
+		std::bitset<WINDOW_BUTTONS_COUNT> mButtons;
+		MouseState mMouseState;
+		bool mFirstClick = false;
 
-		inline static mat4 sProjection = perspective(
-			radians(CAMERA_FOV),
-			static_cast<float>(WINDOW_WIDTH / WINDOW_HEIGHT),
-			CAMERA_NEAR_CLIP_PLANE,
-			CAMERA_FAR_CLIP_PLANE
-		);
+		void MoveCameraByKeyboardInput(Camera& camera, float deltaTime);
+		void MoveCameraByMouseInput(Camera& camera);
+
+		void ButtonInputListener(Event& event);
+		void MouseInputListener(Event& event);
+
+		void CenterCursor() const;
 	};
 }
 

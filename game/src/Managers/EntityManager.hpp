@@ -1,6 +1,7 @@
 #ifndef MANAGERS_ENTITY_MANAGER_HPP
 #define MANAGERS_ENTITY_MANAGER_HPP
 
+#include <array>
 #include <cstdint>
 #include <queue>
 
@@ -24,7 +25,7 @@ namespace Managers
 
 	private:
 		std::queue<Entity> mEntities{};
-		std::vector<Signature> mSignatures{};
+		std::array<Signature, MAX_ENTITIES> mSignatures{};
 		uint32_t mLivingEntitiesCount;
 	};
 }

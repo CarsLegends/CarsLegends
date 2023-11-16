@@ -7,7 +7,6 @@ namespace Managers
 	EntityManager::EntityManager()
 	{
 		this->mLivingEntitiesCount = 0;
-		this->mSignatures.reserve(MAX_ENTITIES);
 		for (Entity iEntity = 0; iEntity < MAX_ENTITIES; ++iEntity)
 		{
 			this->mEntities.push(iEntity);
