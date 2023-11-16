@@ -64,7 +64,7 @@ namespace Game
 	void Game::RegisterEntities() const
 	{
 		std::default_random_engine generator;
-		std::uniform_real_distribution randPosition(-5.0f, 5.0f);
+		std::uniform_real_distribution randPosition(-20.0f, 20.0f);
 		std::uniform_int_distribution randRotation(0, 1);
 		std::uniform_real_distribution randScale(0.0f, 0.5f);
 		std::uniform_real_distribution randAngle(0.0f, 360.0f);
