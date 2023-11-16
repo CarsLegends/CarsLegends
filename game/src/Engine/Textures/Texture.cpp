@@ -11,8 +11,9 @@ namespace Textures
 		this->mPath = std::string(path);
 		this->mDirectory = directory;
 
-		auto filename = std::string(path);
+		std::string filename = std::string(path);
 		filename = directory + '/' + filename;
+        
 
 		int widthImg, heightImg, numColCh;
 

@@ -14,8 +14,8 @@ namespace Configuration
 		LeftShift
 	};
 
-	constexpr uint32_t WINDOW_HEIGHT = 1080;
-	constexpr uint32_t WINDOW_WIDTH = 1920;
+	constexpr uint32_t WINDOW_HEIGHT = 800;
+	constexpr uint32_t WINDOW_WIDTH = 800;
 	constexpr uint32_t WINDOW_BUTTONS_COUNT = 6;
 	const std::string WINDOW_TITLE = "CarLegends";
 }

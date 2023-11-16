@@ -3,6 +3,11 @@
 
 #include <functional>
 
+#ifdef __APPLE__
+#include <list>
+#endif
+
+
 #include "../DataStructures/Types.hpp"
 #include "../Events/Event.hpp"
 

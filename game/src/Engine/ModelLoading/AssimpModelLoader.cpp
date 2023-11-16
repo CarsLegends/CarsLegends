@@ -96,6 +96,7 @@ namespace ModelLoaders
 		{
 			aiString string;
 			material->GetTexture(type, i, &string);
+            
 			bool skip = false;
 
 			for (auto& loadedTexture : this->mTexturesLoaded)

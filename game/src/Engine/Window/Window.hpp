@@ -1,7 +1,7 @@
 #ifndef WINDOW_WINDOW_HPP
 #define WINDOW_WINDOW_HPP
 
-#include <glad\glad.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <bitset>
 #include <string>
