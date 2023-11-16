@@ -4,7 +4,7 @@
 
 namespace Configuration
 {
-	constexpr uint32_t MAX_ENTITIES = 1000;
+	constexpr uint32_t MAX_ENTITIES = 100;
 	constexpr uint8_t MAX_COMPONENTS = 32;
 }
 

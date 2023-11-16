@@ -9,7 +9,6 @@ namespace Systems
 	{
 		this->mCoordinator = std::move(coordinator);
 	}
-
 	void ModelLoadingSystem::Update(float deltaTime)
 	{
 		for (const auto& iEntity : this->mEntities)
@@ -21,7 +20,7 @@ namespace Systems
 				continue;
 			}
 
-			vector<ModelData> model = mModelLoader.LoadModel(renderable.mDirectory);
+			vector<ModelData> model = this->mModelLoader.LoadModel(renderable.mDirectory);
 
 			for (auto iMesh : model)
 			{

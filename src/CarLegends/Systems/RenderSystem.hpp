@@ -27,7 +27,7 @@ namespace Systems
 		std::vector<Entity> mCameras;
 		std::shared_ptr<Coordinator> mCoordinator;
 
-		void MoveEntity(Entity entity) const;
+		void MoveEntity(Entity entity, float deltaTime) const;
 		void MoveCamera() const;
 	};
 }

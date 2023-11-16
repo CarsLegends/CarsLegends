@@ -27,7 +27,7 @@ namespace Systems
 		for (const auto& iEntity : this->mEntities)
 		{
 			MoveCamera();
-			MoveEntity(iEntity);
+			MoveEntity(iEntity, deltaTime);
 
 			auto& renderable = this->mCoordinator->GetComponent<Renderable>(iEntity);
 			if (!renderable.mLoaded)
@@ -65,16 +65,17 @@ namespace Systems
 		}
 	}
 
-	void RenderSystem::MoveEntity(Entity entity) const
+	void RenderSystem::MoveEntity(Entity entity, float deltaTime) const
 	{
-		const auto& transform = this->mCoordinator->GetComponent<Transform>(entity);
+		auto& transform = this->mCoordinator->GetComponent<Transform>(entity);
 
-		auto objectModel = mat4(1.0f);
-		objectModel = translate(objectModel, transform.mPosition);
-		objectModel = scale(objectModel, transform.mScale);
-		objectModel = rotate(objectModel, radians(transform.mRotationAngle), transform.mRotationAxis);
+		mat4 matrix = mat4(1.0f);
+		matrix = translate(matrix, transform.mPosition);
+		matrix = scale(matrix, transform.mScale);
+		transform.mCurrentTransformation = rotate(transform.mCurrentTransformation, radians(transform.mRotationAngle * deltaTime), transform.mRotationAxis);
+		matrix *= transform.mCurrentTransformation;
 
-		this->mShader->SendUniformMatrix4f("model", objectModel);
+		this->mShader->SendUniformMatrix4f("model", matrix);
 	}
 
 	void RenderSystem::MoveCamera() const

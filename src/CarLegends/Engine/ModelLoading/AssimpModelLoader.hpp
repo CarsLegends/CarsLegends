@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iostream>
+#include <unordered_map>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -28,6 +29,7 @@ namespace ModelLoaders
 		string mDirectory;
 		vector<ModelData> mMeshes;
 		vector<Texture> mTexturesLoaded;
+		unordered_map<string, vector<ModelData>> mModelsLoaded;
 
 		ModelData ProcessMesh(aiMesh* mesh, const aiScene* scene);
 		void ProcessNode(aiNode* node, const aiScene* scene);

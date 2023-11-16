@@ -1,5 +1,7 @@
 #include "Game.hpp"
 
+#include <random>
+
 #include "Components/Transform.hpp"
 #include "Systems/CameraSystem.hpp"
 #include "Systems/ModelLoadingSystem.hpp"
@@ -61,9 +63,30 @@ namespace Game
 
 	void Game::RegisterEntities() const
 	{
-		const auto entity = this->mCoordinator->CreateEntity();
-		this->mCoordinator->AddComponent<Renderable>(entity, { "./Resources/Models/cat/scene.gltf" });
-		this->mCoordinator->AddComponent<Transform>(entity, {});
+		std::default_random_engine generator;
+		std::uniform_real_distribution randPosition(-5.0f, 5.0f);
+		std::uniform_int_distribution randRotation(0, 1);
+		std::uniform_real_distribution randScale(0.0f, 0.5f);
+		std::uniform_real_distribution randAngle(0.0f, 360.0f);
+
+		int counter = 0;
+		while (counter < MAX_ENTITIES - 1)
+		{
+			const Entity entity = this->mCoordinator->CreateEntity();
+
+			this->mCoordinator->AddComponent<Renderable>(entity, { 
+				"./Resources/Models/cat/scene.gltf"
+			});
+
+			auto scale = randScale(generator);
+			this->mCoordinator->AddComponent<Transform>(entity, {
+				vec3(randPosition(generator), randPosition(generator), randPosition(generator)),
+				vec3(randRotation(generator), randRotation(generator), randRotation(generator)),
+				vec3(scale, scale, scale),
+				randAngle(generator)
+			});
+			counter++;
+		}
 	}
 
 	void Game::RegisterSystems()

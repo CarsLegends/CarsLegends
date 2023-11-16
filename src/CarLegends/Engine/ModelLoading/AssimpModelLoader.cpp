@@ -7,6 +7,12 @@ namespace ModelLoaders
 
 	vector<ModelData> AssimpModelLoader::LoadModel(string path)
 	{
+		this->mMeshes = vector<ModelData>();
+		if(this->mModelsLoaded.find(path) != this->mModelsLoaded.end())
+		{
+			return this->mModelsLoaded[path];
+		}
+
 		Importer import;
 		const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
@@ -19,6 +25,7 @@ namespace ModelLoaders
 
 		ProcessNode(scene->mRootNode, scene);
 
+		this->mModelsLoaded[path] = this->mMeshes;
 		return this->mMeshes;
 	}
 
