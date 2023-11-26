@@ -10,9 +10,9 @@ namespace Buffers
 	void VertexArray::LinkAttributes(VertexBuffer vertexBuffer)
 	{
 		LinkAttribute(vertexBuffer, 0, 3, GL_FLOAT, sizeof(Vertex), nullptr);
-		LinkAttribute(vertexBuffer, 1, 3, GL_FLOAT, sizeof(Vertex), reinterpret_cast<GLvoid*>(offsetof(Vertex, normal)));
-		LinkAttribute(vertexBuffer, 2, 3, GL_FLOAT, sizeof(Vertex), reinterpret_cast<GLvoid*>(offsetof(Vertex, color)));
-		LinkAttribute(vertexBuffer, 3, 2, GL_FLOAT, sizeof(Vertex), reinterpret_cast<GLvoid*>(offsetof(Vertex, texUv)));
+		LinkAttribute(vertexBuffer, 1, 3, GL_FLOAT, sizeof(Vertex), reinterpret_cast<GLvoid*>(offsetof(Vertex, mNormal)));
+		LinkAttribute(vertexBuffer, 2, 3, GL_FLOAT, sizeof(Vertex), reinterpret_cast<GLvoid*>(offsetof(Vertex, mColor)));
+		LinkAttribute(vertexBuffer, 3, 2, GL_FLOAT, sizeof(Vertex), reinterpret_cast<GLvoid*>(offsetof(Vertex, mTextureUv)));
 	}
 
 	void VertexArray::DrawElements(std::vector<uint32_t> indices)

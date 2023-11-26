@@ -8,7 +8,7 @@
 #include "../Engine/Buffers/ElementBuffer.hpp"
 #include "../Engine/ModelLoading/AssimpModelLoader.hpp"
 #include "../Coordinators/Coordinator.hpp"
-#include "../Components/Rendable.hpp"
+#include "../Components/Renderable.hpp"
 
 namespace Systems
 {
@@ -18,7 +18,7 @@ namespace Systems
 	using namespace Components;
 	using namespace Buffers;
 
-	class ModelLoadingSystem : public ISystem
+	class ModelLoadingSystem final : public ISystem
 	{
 	public:
 		ModelLoadingSystem();

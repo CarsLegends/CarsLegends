@@ -50,20 +50,20 @@ namespace ModelLoaders
 		for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 		{
 			Vertex vertex;
-			vertex.position = vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
+			vertex.mPosition = vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
 
 			if (mesh->HasNormals())
 			{
-				vertex.normal = vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+				vertex.mNormal = vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
 			}
 
 			if (mesh->mTextureCoords[0])
 			{
-				vertex.texUv = vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+				vertex.mTextureUv = vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
 			}
 			else
 			{
-				vertex.texUv = vec2(0.0f, 0.0f);
+				vertex.mTextureUv = vec2(0.0f, 0.0f);
 			}
 
 			modelData.mVertices.push_back(vertex);

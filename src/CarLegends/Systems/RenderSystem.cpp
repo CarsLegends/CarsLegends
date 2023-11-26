@@ -1,8 +1,10 @@
 #include "RenderSystem.hpp"
 
 #include <utility>
+#include <glm/glm.hpp>
 
 #include "../Components/Camera.hpp"
+#include "../Components/CollisionModel.hpp"
 #include "../Components/Transform.hpp"
 
 namespace Systems
@@ -18,7 +20,7 @@ namespace Systems
 		// TODO: Add logic to create another camera in case of an event
 		const Entity mainCamera = this->mCoordinator->CreateEntity();
 		this->mCameras.push_back(mainCamera);
-		this->mCoordinator->AddComponent<Camera>(mainCamera, { vec3(0.0f, 0.0f, 4.0f) });
+		this->mCoordinator->AddComponent<Camera>(mainCamera, { vec3(0.0f, 10.0f, 50.0f) });
 	}
 
 	void RenderSystem::Update(float deltaTime)
@@ -68,14 +70,22 @@ namespace Systems
 	void RenderSystem::MoveEntity(Entity entity, float deltaTime) const
 	{
 		auto& transform = this->mCoordinator->GetComponent<Transform>(entity);
+		auto& collisionModel = this->mCoordinator->GetComponent<CollisionModel>(entity);
 
-		mat4 matrix = mat4(1.0f);
-		matrix = translate(matrix, transform.mPosition);
-		matrix = scale(matrix, transform.mScale);
+		transform.mCurrentTransformation = mat4(1.0f);
+		transform.mCurrentTransformation = translate(transform.mCurrentTransformation, transform.mPosition);
+		transform.mCurrentTransformation = scale(transform.mCurrentTransformation, transform.mScale);
 		transform.mCurrentTransformation = rotate(transform.mCurrentTransformation, radians(transform.mRotationAngle * deltaTime), transform.mRotationAxis);
-		matrix *= transform.mCurrentTransformation;
 
-		this->mShader->SendUniformMatrix4f("model", matrix);
+		for (auto& collisionMesh : collisionModel.mCollider)
+		{
+			for (auto& vertex : collisionMesh)
+			{
+				vertex = vec3(transform.mCurrentTransformation * vec4(vertex, 1));
+			}
+		}
+
+		this->mShader->SendUniformMatrix4f("model", transform.mCurrentTransformation);
 	}
 
 	void RenderSystem::MoveCamera() const

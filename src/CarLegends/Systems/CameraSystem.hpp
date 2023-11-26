@@ -21,7 +21,7 @@ namespace Systems
 	using namespace Windows;
 	using namespace glm;
 
-	class CameraSystem : public ISystem
+	class CameraSystem final : public ISystem
 	{
 	public:
 		CameraSystem();

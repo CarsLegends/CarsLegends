@@ -10,10 +10,10 @@ namespace Buffers
 
 	struct Vertex
 	{
-		vec3 position;
-		vec3 normal;
-		vec3 color;
-		vec2 texUv;
+		vec3 mPosition;
+		vec3 mNormal;
+		vec3 mColor;
+		vec2 mTextureUv;
 	};
 }
 #endif

@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "ISystem.hpp"
-#include "../Components/Rendable.hpp"
+#include "../Components/Renderable.hpp"
 #include "../Coordinators/Coordinator.hpp"
 #include "../Engine/Shaders/ShaderProgram.hpp"
 #include "../Engine/Buffers/ElementBuffer.hpp"
@@ -15,7 +15,7 @@ namespace Systems
 	using namespace Coordinators;
 	using namespace Components;
 
-	class RenderSystem : public ISystem
+	class RenderSystem final : public ISystem
 	{
 	public:
 		RenderSystem();

@@ -16,8 +16,31 @@ namespace Configuration
 
 	constexpr uint32_t WINDOW_HEIGHT = 1080;
 	constexpr uint32_t WINDOW_WIDTH = 1920;
-	constexpr uint32_t WINDOW_BUTTONS_COUNT = 6;
+	
 	const std::string WINDOW_TITLE = "CarLegends";
+
+	// Temporal, this should be moved to its own config
+	enum class ControllerButtons : int
+	{
+		A,
+		B,
+		X,
+		Y,
+		LB,
+		RB,
+		Back,
+		Start,
+		L3,
+		R3,
+		Up,
+		Right,
+		Down,
+		Left
+	};
+
+	constexpr uint32_t WINDOW_BUTTONS_COUNT = 6;
+	constexpr uint32_t WINDOW_CONTROLLER_BUTTONS_COUNT = 14;
+	constexpr uint32_t WINDOW_PLAYER_COUNT = 2;
 }
 
 #endif

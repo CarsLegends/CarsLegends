@@ -15,7 +15,7 @@ namespace Systems
 	{
 		this->mCoordinator = std::move(coordinator);
 
-		this->mCoordinator->AddEventListener(WINDOW_INPUT_BUTTON, [this](auto&& PH1)
+		this->mCoordinator->AddEventListener(WINDOW_KEYBOARD_INPUT_BUTTON, [this](auto&& PH1)
 		{
 			CameraSystem::ButtonInputListener(std::forward<decltype(PH1)>(PH1));
 		});
@@ -122,7 +122,7 @@ namespace Systems
 
 	void CameraSystem::ButtonInputListener(Event& event)
 	{
-		this->mButtons = event.GetParam<std::bitset<WINDOW_BUTTONS_COUNT>>(WINDOW_INPUT_BUTTON_PARAMETER);
+		this->mButtons = event.GetParam<std::bitset<WINDOW_BUTTONS_COUNT>>(WINDOW_KEYBOARD_INPUT_BUTTON_PARAMETER);
 	}
 
 	void CameraSystem::MouseInputListener(Event& event)

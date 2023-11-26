@@ -21,6 +21,7 @@ namespace Shaders
 
 		ShaderProgram(const char* vertexFileName, const char* fragmentFileName);
 		void SendUniformMatrix4f(const char* uniformName, mat4& matrix) const;
+		void SendUniformVector4f(const char* uniformName, vec4& vector) const;
 		void Activate() const;
 		void Delete() const;
 

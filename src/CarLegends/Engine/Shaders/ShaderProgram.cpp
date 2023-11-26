@@ -54,6 +54,11 @@ namespace Shaders
 		glUniformMatrix4fv(glGetUniformLocation(this->mId, uniformName), 1, GL_FALSE, value_ptr(matrix));
 	}
 
+	void ShaderProgram::SendUniformVector4f(const char* uniformName, vec4& vector) const
+	{
+		glUniform4fv(glGetUniformLocation(this->mId, uniformName), 1, value_ptr(vector));
+	}
+
 	void ShaderProgram::Activate() const
 	{
 		glUseProgram(this->mId);

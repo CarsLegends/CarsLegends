@@ -18,25 +18,25 @@ int main()
 		game.RegisterEntities();
 	}
 
-	int counter = 0;
+	//int counter = 0;
 	float deltaTime = 0.0f;
-	auto previousTime = high_resolution_clock::now();
+	//auto previousTime = high_resolution_clock::now();
 	while (game.IsRunning())
 	{
 		auto startTimeFrame = high_resolution_clock::now();
-		const float timeDifference = std::chrono::duration<float>(startTimeFrame - previousTime).count();
-		counter++;
+		//const float timeDifference = std::chrono::duration<float>(startTimeFrame - previousTime).count();
+		//counter++;
 
-		if (timeDifference >= 1.0 / 30.0)
-		{
-			std::string fps = std::to_string(1.0 / timeDifference * counter);
-			std::string ms = std::to_string(timeDifference / counter * 1000);
+		//if (timeDifference >= 1.0 / 30.0)
+		//{
+		//	std::string fps = std::to_string(1.0 / timeDifference * counter);
+		//	std::string ms = std::to_string(timeDifference / counter * 1000);
 
-			std::cout << "FPS: " << fps << ", ms: " << ms << std::endl;
+		//	std::cout << "FPS: " << fps << ", ms: " << ms << std::endl;
 
-			previousTime = startTimeFrame;
-			counter = 0;
-		}
+		//	previousTime = startTimeFrame;
+		//	counter = 0;
+		//}
 
 		game.Update(deltaTime);
 
