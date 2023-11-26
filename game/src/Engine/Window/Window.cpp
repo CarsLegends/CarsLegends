@@ -1,5 +1,16 @@
 #include <iostream>
 
+#define NK_PRIVATE
+#define NK_INCLUDE_FIXED_TYPES
+#define NK_INCLUDE_STANDARD_IO
+#define NK_INCLUDE_DEFAULT_ALLOCATOR
+#define NK_INCLUDE_VERTEX_BUFFER_OUTPUT
+#define NK_INCLUDE_FONT_BAKING
+#define NK_INCLUDE_DEFAULT_FONT
+#define NK_IMPLEMENTATION
+#define NK_GLFW_GL3_IMPLEMENTATION
+#include "nuklear/nuklear.h"
+#include "nuklear/nuklear_glfw_gl3.h"
 #include "Window.hpp"
 #include "../../Events/EventTypes.hpp"
 #include "../../Events/EventParameters.hpp"
@@ -11,6 +22,7 @@ namespace Windows
 
 	Window::Window(std::string const& windowTitle, unsigned windowWidth, unsigned windowHeight)
 	{
+
 		glfwInit();
 
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -39,6 +51,22 @@ namespace Windows
 
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
+
+		struct nk_font_atlas atlas;
+		struct nk_font *font;
+		struct nk_context nkContext;
+		
+		nk_font_atlas_init_default(&atlas);
+		nk_font_atlas_begin(&atlas);
+		font = nk_font_atlas_add_default(&atlas, 13, 0);
+		nk_font_atlas_end(&atlas, nk_handle_id(0), nullptr);
+		if (atlas.default_font)
+		{
+			nk_style_set_font(&nkContext, &atlas.default_font->handle);
+		}
+		nk_init_default(&nkContext, &font->handle);
+		
+		this->mNkContext = &nkContext;
 	}
 
 	void Window::Update() const

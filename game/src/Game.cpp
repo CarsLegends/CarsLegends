@@ -3,9 +3,11 @@
 #include <random>
 
 #include "Components/Transform.hpp"
+#include "Components/Sprite.hpp"
 #include "Systems/CameraSystem.hpp"
 #include "Systems/ModelLoadingSystem.hpp"
 #include "Systems/RenderSystem.hpp"
+#include "Systems/MenuSystem.hpp"
 #include "Events/EventTypes.hpp"
 #include "Events/EventParameters.hpp"
 
@@ -59,6 +61,7 @@ namespace Game
 		this->mCoordinator->RegisterComponent<Camera>();
 		this->mCoordinator->RegisterComponent<Renderable>();
 		this->mCoordinator->RegisterComponent<Transform>();
+		this->mCoordinator->RegisterComponent<Sprite>();
 	}
 
 	void Game::RegisterEntities() const
@@ -118,6 +121,13 @@ namespace Game
 		}
 		renderSystem->Initialize(this->mCoordinator);
 		this->mSystems.push_back(renderSystem);
+
+		const auto menuSystem = this->mCoordinator->RegisterSystem<MenuSystem>();
+		{
+			Signature signature;
+			signature.set(this->mCoordinator->GetComponentType<Camera>());
+			this->mCoordinator->SetSystemSignature<MenuSystem>(signature);
+		}
 	}
 
 	void Game::Update(float deltaTime)

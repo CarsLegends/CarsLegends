@@ -6,9 +6,12 @@
 #include <bitset>
 #include <string>
 #include <glm/vec2.hpp>
+#include "nuklear/nuklear.h"
+#include "nuklear/nuklear_glfw_gl3.h"
 
 #include "../../Coordinators/Coordinator.hpp"
 #include "../../Configurations/WindowConfiguration.hpp"
+#include "../../Configurations/NuklearConfiguration.hpp"
 #include "Structs/MouseState.hpp"
 
 namespace Windows
@@ -30,8 +33,12 @@ namespace Windows
 		void ShowCursor() const;
 		void HideCursor() const;
 		void SetCursorPosition(vec2 position) const;
+
+		struct nk_context* getNkContext() const;
 	private:
 		GLFWwindow* mWindow;
+		struct nk_context* mNkContext;
+		
 		std::bitset<WINDOW_BUTTONS_COUNT> mButtons;
 		MouseState mMouseState;
 

@@ -1,2 +1,5 @@
 .vs/
-assimp-vc143-mtd.dll
+
+game/bin
+game/xcode
+game/build
