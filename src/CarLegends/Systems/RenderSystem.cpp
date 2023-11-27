@@ -70,20 +70,11 @@ namespace Systems
 	void RenderSystem::MoveEntity(Entity entity, float deltaTime) const
 	{
 		auto& transform = this->mCoordinator->GetComponent<Transform>(entity);
-		auto& collisionModel = this->mCoordinator->GetComponent<CollisionModel>(entity);
 
 		transform.mCurrentTransformation = mat4(1.0f);
 		transform.mCurrentTransformation = translate(transform.mCurrentTransformation, transform.mPosition);
 		transform.mCurrentTransformation = scale(transform.mCurrentTransformation, transform.mScale);
 		transform.mCurrentTransformation = rotate(transform.mCurrentTransformation, radians(transform.mRotationAngle * deltaTime), transform.mRotationAxis);
-
-		for (auto& collisionMesh : collisionModel.mCollider)
-		{
-			for (auto& vertex : collisionMesh)
-			{
-				vertex = vec3(transform.mCurrentTransformation * vec4(vertex, 1));
-			}
-		}
 
 		this->mShader->SendUniformMatrix4f("model", transform.mCurrentTransformation);
 	}

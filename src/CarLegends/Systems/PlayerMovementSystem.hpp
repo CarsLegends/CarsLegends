@@ -25,7 +25,7 @@ namespace Systems
 		void Update(float deltaTime) override;
 	private:
 		std::shared_ptr<Coordinator> mCoordinator;
-		ControllerState mControllerState;
+		std::array<ControllerState, WINDOW_PLAYER_COUNT> mPlayersControllerState;
 
 		void ControllerInputListener(Event& event);
 	};

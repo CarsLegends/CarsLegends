@@ -23,7 +23,7 @@ namespace Components
 
 	inline Playable::Playable(unsigned int playerNumber)
 	{
-		assert(playerNumber < WINDOW_PLAYER_COUNT && "Unsupported player number");
+		assert(playerNumber <= WINDOW_PLAYER_COUNT && "Unsupported player number");
 
 		this->mPlayerNumber = playerNumber;
 	}

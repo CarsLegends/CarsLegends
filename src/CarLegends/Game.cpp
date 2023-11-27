@@ -80,11 +80,11 @@ namespace Game
 		const Entity car = this->mCoordinator->CreateEntity();
 
 		this->mCoordinator->AddComponent<Renderable>(car, {
-				"./Resources/Models/car/scene.gltf"
+			"./Resources/Models/car/scene.gltf"
 		});
 
 		this->mCoordinator->AddComponent<Transform>(car, {
-			vec3(0.0f, 0.0f, 0.0f),
+			vec3(-1.0f, 0.0f, 0.0f),
 			vec3(1.0f, 0.0f, 0.0f),
 			vec3(0.02f, 0.02f, 0.02f),
 			0.0f
@@ -94,8 +94,6 @@ namespace Game
 		this->mCoordinator->AddComponent<Gravity>(car, {
 			vec3(0.0f, -9.81f, 0.0f)
 		});
-
-		this->mCoordinator->AddComponent<CollisionModel>(car, {});
 
 		this->mCoordinator->AddComponent<Playable>(car, {});
 		
@@ -107,8 +105,6 @@ namespace Game
 			"./Resources/Models/table/scene.gltf"
 		});
 
-		this->mCoordinator->AddComponent<CollisionModel>(table, {});
-
 		this->mCoordinator->AddComponent<Transform>(table, {
 			vec3(0.0f, -30.0f, -50.0f),
 			vec3(1.0f, 0.0f, 0.0f),
@@ -117,6 +113,28 @@ namespace Game
 		});
 
 		this->mCoordinator->AddComponent<RigidBody>(table, {});
+
+		const Entity cat = this->mCoordinator->CreateEntity();
+
+		this->mCoordinator->AddComponent<Renderable>(cat, {
+				"./Resources/Models/cat/scene.gltf"
+		});
+
+		this->mCoordinator->AddComponent<Transform>(cat, {
+			vec3(1.0f, 0.0f, 0.0f),
+			vec3(1.0f, 0.0f, 0.0f),
+			vec3(1.0f, 1.0f, 1.0f),
+			0.0f
+			});
+
+		//Add config for constant forces
+		this->mCoordinator->AddComponent<Gravity>(cat, {
+			vec3(0.0f, -9.81f, 0.0f)
+		});
+
+		this->mCoordinator->AddComponent<Playable>(cat, { 1 });
+
+		this->mCoordinator->AddComponent<RigidBody>(cat, {});
 
 		//const Entity car = this->mCoordinator->CreateEntity();
 
@@ -245,7 +263,6 @@ namespace Game
 			Signature signature;
 			signature.set(this->mCoordinator->GetComponentType<Renderable>());
 			signature.set(this->mCoordinator->GetComponentType<Transform>());
-			signature.set(this->mCoordinator->GetComponentType<CollisionModel>());
 			this->mCoordinator->SetSystemSignature<RenderSystem>(signature);
 		}
 		renderSystem->Initialize(this->mCoordinator);

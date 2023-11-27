@@ -27,37 +27,34 @@ namespace Systems
 			auto& transform = this->mCoordinator->GetComponent<Transform>(iEntity);
 			auto& rigidBody = this->mCoordinator->GetComponent<RigidBody>(iEntity);
 
-			if (playable.mPlayerNumber != this->mControllerState.mPlayerNumber)
+			auto controllerState = this->mPlayersControllerState[playable.mPlayerNumber];
+
+			if(std::abs(controllerState.mLeftJoystickY) > 0.09f)
 			{
-				continue;
+				transform.mPosition.z += controllerState.mLeftJoystickY / 100.0f;
 			}
 
-			if(std::abs(this->mControllerState.mLeftJoystickY) > 0.09f)
+			if (std::abs(controllerState.mLeftJoystickX) > 0.09f)
 			{
-				transform.mPosition.z += this->mControllerState.mLeftJoystickY / 100.0f;
+				transform.mPosition.x += controllerState.mLeftJoystickX / 100.0f;
 			}
 
-			if (std::abs(this->mControllerState.mLeftJoystickX) > 0.09f)
+			if (std::abs(controllerState.mRightTrigger) > 0.09f)
 			{
-				transform.mPosition.x += this->mControllerState.mLeftJoystickX / 100.0f;
+				rigidBody.mAcceleration.z += controllerState.mRightTrigger * 0.002f;
 			}
 
-			if (std::abs(this->mControllerState.mRightTrigger) > 0.09f)
+			if (std::abs(controllerState.mLeftTrigger) > 0.09f)
 			{
-				rigidBody.mAcceleration.z += this->mControllerState.mRightTrigger * 0.002f;
+				rigidBody.mAcceleration.z -= controllerState.mLeftTrigger * 0.002f;
 			}
 
-			if (std::abs(this->mControllerState.mLeftTrigger) > 0.09f)
-			{
-				rigidBody.mAcceleration.z -= this->mControllerState.mLeftTrigger * 0.002f;
-			}
-
-			if (this->mControllerState.mRightTrigger == -1.0f && this->mControllerState.mLeftTrigger == -1.0f)
+			if (controllerState.mRightTrigger == -1.0f && controllerState.mLeftTrigger == -1.0f)
 			{
 				rigidBody.mAcceleration.z = 0.0f;
 			}
 
-			if(this->mControllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButtons::A)))
+			if(controllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButtons::A)))
 			{
 				rigidBody.mVelocity.y += 60.0f * deltaTime;
 			}
@@ -66,7 +63,7 @@ namespace Systems
 
 	void PlayerMovementSystem::ControllerInputListener(Event& event)
 	{
-		const auto controllerState = event.GetParam<ControllerState>(WINDOW_CONTROLLER_INPUT_PARAMETER);
-		this->mControllerState = controllerState;
+		const auto [controllerState, playerNumber] = event.GetParam<std::pair<ControllerState, int>>(WINDOW_CONTROLLER_INPUT_PARAMETER);
+		this->mPlayersControllerState[playerNumber] = controllerState;
 	}
 }

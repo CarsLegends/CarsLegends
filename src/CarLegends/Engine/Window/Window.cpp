@@ -126,16 +126,16 @@ namespace Windows
 
 	void Window::ReadControllerInput(const std::shared_ptr<Coordinator>& coordinator)
 	{
-		for (int iPlayer = 1; iPlayer <= WINDOW_PLAYER_COUNT; ++iPlayer)
+		for (int iPlayer = 0; iPlayer < WINDOW_PLAYER_COUNT; ++iPlayer)
 		{
 			int joystickNumber;
 
 			switch (iPlayer)
 			{
-			case 1:
+			case 0:
 				joystickNumber = GLFW_JOYSTICK_1;
 				break;
-			case 2:
+			case 1:
 				joystickNumber = GLFW_JOYSTICK_2;
 				break;
 			default:
@@ -247,7 +247,7 @@ namespace Windows
 			}
 
 			Event event(WINDOW_CONTROLLER_INPUT);
-			event.SetParam(WINDOW_CONTROLLER_INPUT_PARAMETER, this->mControllerState);
+			event.SetParam(WINDOW_CONTROLLER_INPUT_PARAMETER, std::pair(this->mControllerState, iPlayer));
 			coordinator->SendEvent(event);
 
 			this->mControllerState.mControllerButtons.reset();

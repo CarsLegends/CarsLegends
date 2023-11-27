@@ -25,7 +25,6 @@ namespace Windows
 		float mRightJoystickY;
 		float mLeftTrigger;
 		float mRightTrigger;
-		int mPlayerNumber;
 		std::bitset<WINDOW_CONTROLLER_BUTTONS_COUNT> mControllerButtons;
 
 		ControllerState();
@@ -39,7 +38,6 @@ namespace Windows
 		this->mRightJoystickY = 0;
 		this->mLeftTrigger = 0;
 		this->mRightTrigger = 0;
-		this->mPlayerNumber = 0;
 		mControllerButtons = {};
 	}
 }

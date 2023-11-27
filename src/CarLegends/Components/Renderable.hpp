@@ -24,6 +24,7 @@ namespace Components
 
 		std::vector<Mesh> mMeshes{};
 		std::string mDirectory;
+		bool mShowHitBox;
 		bool mLoaded;
 
 		Renderable();
@@ -32,12 +33,14 @@ namespace Components
 
 	inline Renderable::Renderable()
 	{
+		this->mShowHitBox = false;
 		this->mLoaded = false;
 	}
 
 	inline Renderable::Renderable(std::string directory)
 	{
 		this->mDirectory = directory;
+		this->mShowHitBox = false;
 		this->mLoaded = false;
 	}
 }

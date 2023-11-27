@@ -5,7 +5,7 @@
 #include <vector>
 #include <glm/vec3.hpp>
 
-#include "../Engine/Buffers/VertexBuffer.hpp"
+#include "../Engine/Buffers/VertexArray.hpp"
 
 namespace Components
 {
@@ -16,6 +16,7 @@ namespace Components
 	struct CollisionModel
 	{
 		Collider mCollider;
+		VertexArray mVertexArray{};
 
 		CollisionModel();
 		explicit CollisionModel(const Collider& vertices);
