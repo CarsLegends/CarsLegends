@@ -9,15 +9,22 @@ namespace Systems
 	using namespace glm;
 	struct Simplex
 	{
-	public:
 		Simplex();
 
 		Simplex& operator=(std::initializer_list<vec3> list);
 		void push_front(vec3 point);
 		vec3& operator[](int i);
 		size_t size() const;
-		auto begin() const;
-		auto end() const;
+
+		auto begin() const
+		{
+			return m_points.begin();
+		}
+
+		auto end() const
+		{
+			return m_points.end() - (4 - m_size);
+		}
 
 	private:
 		std::array<vec3, 4> m_points;

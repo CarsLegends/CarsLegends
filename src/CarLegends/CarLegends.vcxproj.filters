@@ -221,7 +221,7 @@
     <ClInclude Include="Systems\Structs\Simplex.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\Structs\Manifold.hpp">
+    <ClInclude Include="Systems\Structs\CollisionData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

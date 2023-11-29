@@ -232,7 +232,7 @@
     <ClInclude Include="Systems\ModelLoadingSystem.hpp" />
     <ClInclude Include="Systems\PlayerMovementSystem.hpp" />
     <ClInclude Include="Systems\RenderSystem.hpp" />
-    <ClInclude Include="Systems\Structs\Manifold.hpp" />
+    <ClInclude Include="Systems\Structs\CollisionData.hpp" />
     <ClInclude Include="Systems\Structs\Simplex.hpp" />
     <ClInclude Include="Textures\Texture.hpp" />
   </ItemGroup>

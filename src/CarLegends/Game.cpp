@@ -106,20 +106,22 @@ namespace Game
 
 		this->mCoordinator->AddComponent<HitBox>(car, {});
 
-		//const Entity table = this->mCoordinator->CreateEntity();
+		const Entity table = this->mCoordinator->CreateEntity();
 
-		//this->mCoordinator->AddComponent<Renderable>(table, {
-		//	"./Resources/Models/table/scene.gltf"
-		//});
+		this->mCoordinator->AddComponent<Renderable>(table, {
+			"./Resources/Models/table/scene.gltf"
+		});
 
-		//this->mCoordinator->AddComponent<Transform>(table, {
-		//	vec3(0.0f, -30.0f, -50.0f),
-		//	vec3(1.0f, 0.0f, 0.0f),
-		//	vec3(100.0f, 100.0f, 100.0f),
-		//	0.0f
-		//});
+		this->mCoordinator->AddComponent<Transform>(table, {
+			vec3(0.0f, -30.0f, -50.0f),
+			vec3(1.0f, 0.0f, 0.0f),
+			vec3(100.0f, 100.0f, 100.0f),
+			0.0f
+		});
 
-		//this->mCoordinator->AddComponent<RigidBody>(table, {});
+		this->mCoordinator->AddComponent<RigidBody>(table, {});
+
+		this->mCoordinator->AddComponent<HitBox>(table, {});
 
 		const Entity cat = this->mCoordinator->CreateEntity();
 
@@ -143,7 +145,7 @@ namespace Game
 
 		this->mCoordinator->AddComponent<RigidBody>(cat, {});
 
-		this->mCoordinator->AddComponent<HitBox>(cat, {});
+		this->mCoordinator->AddComponent<HitBox>(cat, { true });
 
 		//const Entity car = this->mCoordinator->CreateEntity();
 

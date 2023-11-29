@@ -9,6 +9,7 @@
 #include "../Coordinators/Coordinator.hpp"
 #include "../Engine/Buffers/Structs/Vertex.hpp"
 #include "../Components/HitBox.hpp"
+#include "Structs/CollisionData.hpp"
 
 namespace Systems
 {
@@ -28,7 +29,7 @@ namespace Systems
 	private:
 		std::shared_ptr<Coordinator> mCoordinator;
 
-		Collider UpdateVerticesPosition(Entity entity) const;
+		static Collider UpdateVerticesPosition(const HitBox& hitBox);
 		static std::vector<std::pair<Entity, Entity>> GetUniquePairsOfEntities(const std::set<Entity>& entities);
 
 		// GJK
@@ -44,7 +45,9 @@ namespace Systems
 		static bool Tetrahedron(Simplex& points, vec3& direction);
 
 		//EPA
-		//CollisionPoints EPA(const Simplex& simplex, const Collider& colliderA, const Collider& colliderB);
+		static CollisionData EPA(const Simplex& simplex, const Collider& colliderA, const Collider& colliderB);
+		static std::pair<std::vector<vec4>, size_t> GetFaceNormals(const std::vector<vec3>& polytope, const std::vector<size_t>& faces);
+		static void AddIfUniqueEdge(std::vector<std::pair<size_t, size_t>>& edges, const std::vector<size_t>& faces, size_t a, size_t b);
 
 
 		// Basic 1x1x1 box

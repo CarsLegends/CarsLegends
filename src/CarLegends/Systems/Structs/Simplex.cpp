@@ -31,14 +31,4 @@ namespace Systems
 	{
 		return m_size;
 	}
-
-	auto Simplex::begin() const
-	{
-		return m_points.begin();
-	}
-
-	auto Simplex::end() const
-	{
-		return m_points.end() - (4 - m_size);
-	}
 }

@@ -2,6 +2,9 @@
 
 #include <iostream>
 
+#include "../Components/RigidBody.hpp"
+#include "../Components/Transform.hpp"
+
 namespace Systems
 {
 	CollisionSystem::CollisionSystem() = default;
@@ -17,24 +20,39 @@ namespace Systems
 
 		for (const auto& iPair : pairs)
 		{
-			Collider colliderA = UpdateVerticesPosition(iPair.first);
-			Collider colliderB = UpdateVerticesPosition(iPair.second);
+			const auto& hitBoxA = this->mCoordinator->GetComponent<HitBox>(iPair.first);
+			Collider colliderA = UpdateVerticesPosition(hitBoxA);
 
-			if(auto [collision, simplex] = CheckForCollision(colliderA, colliderB); collision)
+			const auto& hitBoxB = this->mCoordinator->GetComponent<HitBox>(iPair.second);
+			Collider colliderB = UpdateVerticesPosition(hitBoxB);
+
+			auto [collision, simplex] = CheckForCollision(colliderA, colliderB);
+
+			if(!collision)
 			{
-				std::cout << "COLLISION" << std::endl;
+				continue;
 			}
-			else
+
+			const CollisionData collisionData = EPA(simplex, colliderA, colliderB);
+			const vec3 reactionForce = collisionData.mNormal * collisionData.mDepth * 100.0f;
+
+			auto& transformA = this->mCoordinator->GetComponent<Transform>(iPair.first);
+			auto& transformB = this->mCoordinator->GetComponent<Transform>(iPair.second);
+
+			if (!hitBoxA.mStatic)
 			{
-				std::cout << "NO COLLISION" << std::endl;
+				transformA.mPosition -= reactionForce * deltaTime;
+			}
+
+			if (!hitBoxB.mStatic)
+			{
+				transformB.mPosition += reactionForce * deltaTime;
 			}
 		}
 	}
 
-	Collider CollisionSystem::UpdateVerticesPosition(Entity entity) const
+	Collider CollisionSystem::UpdateVerticesPosition(const HitBox& hitBox)
 	{
-		const auto& hitBox = this->mCoordinator->GetComponent<HitBox>(entity);
-
 		Collider collider;
 
 		for (vec3 vertex : mSimplestBoxVertices)
@@ -248,5 +266,136 @@ namespace Systems
 		}
 
 		return true;
+	}
+
+	CollisionData CollisionSystem::EPA(const Simplex& simplex, const Collider& colliderA, const Collider& colliderB)
+	{
+		std::vector polytope(simplex.begin(), simplex.end());
+		std::vector<size_t> faces = {
+			0, 1, 2,
+			0, 3, 1,
+			0, 2, 3,
+			1, 3, 2
+		};
+
+		auto [normals, minFace] = GetFaceNormals(polytope, faces);
+		vec3  minNormal;
+		float minDistance = std::numeric_limits<float>::infinity();
+
+		while (minDistance == std::numeric_limits<float>::infinity())
+		{
+			minNormal.x = normals[minFace].x;
+			minNormal.y = normals[minFace].y;
+			minNormal.z = normals[minFace].z;
+
+			minDistance = normals[minFace].w;
+
+			vec3 support = Support(colliderA, colliderB, minNormal);
+			const float sDistance = dot(minNormal, support);
+
+			if (abs(sDistance - minDistance) > 0.001f) 
+			{
+				minDistance = std::numeric_limits<float>::infinity();
+				std::vector<std::pair<size_t, size_t>> uniqueEdges;
+
+				for (size_t i = 0; i < normals.size(); i++) 
+				{
+					if (SameDirection(normals[i], support)) 
+					{
+						const size_t iFace = i * 3;
+
+						AddIfUniqueEdge(uniqueEdges, faces, iFace, iFace + 1);
+						AddIfUniqueEdge(uniqueEdges, faces, iFace + 1, iFace + 2);
+						AddIfUniqueEdge(uniqueEdges, faces, iFace + 2, iFace);
+
+						faces[iFace + 2] = faces.back(); faces.pop_back();
+						faces[iFace + 1] = faces.back(); faces.pop_back();
+						faces[iFace] = faces.back(); faces.pop_back();
+
+						normals[i] = normals.back(); // pop-erase
+						normals.pop_back();
+
+						i--;
+					}
+				}
+				std::vector<size_t> newFaces;
+				for (auto [edgeIndex1, edgeIndex2] : uniqueEdges) 
+				{
+					newFaces.push_back(edgeIndex1);
+					newFaces.push_back(edgeIndex2);
+					newFaces.push_back(polytope.size());
+				}
+
+				polytope.push_back(support);
+
+				auto [newNormals, newMinFace] = GetFaceNormals(polytope, newFaces);
+				float oldMinDistance = FLT_MAX;
+				for (size_t i = 0; i < normals.size(); i++) 
+				{
+					if (normals[i].w < oldMinDistance) 
+					{
+						oldMinDistance = normals[i].w;
+						minFace = i;
+					}
+				}
+
+				if (newNormals[newMinFace].w < oldMinDistance) 
+				{
+					minFace = newMinFace + normals.size();
+				}
+
+				faces.insert(faces.end(), newFaces.begin(), newFaces.end());
+				normals.insert(normals.end(), newNormals.begin(), newNormals.end());
+			}
+		}
+
+		return { minNormal,  minDistance };
+	}
+
+	std::pair<std::vector<vec4>, size_t> CollisionSystem::GetFaceNormals(const std::vector<vec3>& polytope, const std::vector<size_t>& faces)
+	{
+		std::vector<vec4> normals;
+		size_t minTriangle = 0;
+		float  minDistance = std::numeric_limits<float>::infinity();
+
+		for (size_t iFace = 0; iFace < faces.size(); iFace += 3) 
+		{
+			vec3 faceA = polytope[faces[iFace]];
+			vec3 faceB = polytope[faces[iFace + 1]];
+			vec3 faceC = polytope[faces[iFace + 2]];
+
+			vec3 normal = normalize(cross(faceB - faceA, faceC - faceA));
+			float distance = dot(normal, faceA);
+
+			if (distance < 0) 
+			{
+				normal *= -1;
+				distance *= -1;
+			}
+
+			normals.emplace_back(normal, distance);
+
+			if (distance < minDistance) 
+			{
+				minTriangle = iFace / 3;
+				minDistance = distance;
+			}
+		}
+
+		return { normals, minTriangle };
+	}
+
+	void CollisionSystem::AddIfUniqueEdge(std::vector<std::pair<size_t, size_t>>& edges, const std::vector<size_t>& faces, size_t a, size_t b)
+	{
+		const auto reverse = std::find(edges.begin(), edges.end(), std::make_pair(faces[b], faces[a]));
+
+		if (reverse != edges.end()) 
+		{
+			edges.erase(reverse);
+		}
+		else 
+		{
+			edges.emplace_back(faces[a], faces[b]);
+		}
 	}
 }
