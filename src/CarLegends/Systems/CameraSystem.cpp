@@ -28,7 +28,6 @@ namespace Systems
 
 	void CameraSystem::Update(float deltaTime)
 	{
-
 		for (const auto& iEntity : this->mEntities)
 		{
 			auto& camera = this->mCoordinator->GetComponent<Camera>(iEntity);

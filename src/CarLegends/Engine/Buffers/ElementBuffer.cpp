@@ -2,6 +2,8 @@
 
 namespace Buffers
 {
+	ElementBuffer::ElementBuffer() = default;
+
 	ElementBuffer::ElementBuffer(std::vector<uint32_t>& indices)
 	{
 		glGenBuffers(1, &this->mId);

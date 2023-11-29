@@ -14,7 +14,7 @@ namespace Components
 		vec3 mPosition;
 		vec3 mRotationAxis;
 		float mRotationAngle;
-		mat4 mCurrentTransformation;
+		mat4 mTransformations;
 
 		Transform();
 		Transform(vec3 position, vec3 rotationAxis, vec3 scale, float rotationAngle);
@@ -26,7 +26,7 @@ namespace Components
 		this->mPosition = vec3(0.0f, 0.0f, 0.0f);
 		this->mRotationAxis = vec3(1.0f, 0.0f, 0.0f);
 		this->mRotationAngle = 0.0f;
-		this->mCurrentTransformation = mat4(1.0f);
+		this->mTransformations = mat4(1.0f);
 	}
 
 	inline Transform::Transform(vec3 position, vec3 rotationAxis, vec3 scale, float rotationAngle)
@@ -35,7 +35,7 @@ namespace Components
 		this->mPosition = position;
 		this->mRotationAxis = rotationAxis;
 		this->mRotationAngle = rotationAngle;
-		this->mCurrentTransformation = mat4(1.0f);
+		this->mTransformations = mat4(1.0f);
 	}
 }
 #endif

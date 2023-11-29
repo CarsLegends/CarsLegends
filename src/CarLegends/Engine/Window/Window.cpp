@@ -38,8 +38,15 @@ namespace Windows
 		gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
 		glViewport(0, 0, windowWidth, windowHeight);
 
+		glfwSetFramebufferSizeCallback(this->mWindow, FrameBufferSizeCallback);
+
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
+	}
+
+	void Window::FrameBufferSizeCallback(GLFWwindow* window, int width, int height)
+	{
+		glViewport(0, 0, width, height);
 	}
 
 	void Window::Update() const
@@ -122,6 +129,17 @@ namespace Windows
 			coordinator->SendEvent(event);
 		}
 		this->mButtons.reset();
+
+		if (glfwGetKey(this->mWindow, GLFW_KEY_H) == GLFW_PRESS)
+		{
+			coordinator->SendEvent(WINDOW_SHOW_HITBOXES);
+		}
+
+		if (glfwGetKey(this->mWindow, GLFW_KEY_G) == GLFW_PRESS)
+		{
+			coordinator->SendEvent(WINDOW_DONT_SHOW_HITBOXES);
+		}
+
 	}
 
 	void Window::ReadControllerInput(const std::shared_ptr<Coordinator>& coordinator)

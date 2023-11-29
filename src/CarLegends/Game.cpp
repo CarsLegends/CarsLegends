@@ -14,8 +14,9 @@
 #include "Systems/GravitySystem.hpp"
 #include "Events/EventTypes.hpp"
 #include "Events/EventParameters.hpp"
-#include "Systems/CollisionModelSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Systems/HitBoxCompositionSystem.hpp"
+#include "Systems/HitBoxRenderSystem.hpp"
 #include "Systems/PlayerMovementSystem.hpp"
 
 
@@ -28,6 +29,7 @@ namespace Game
 	{
 		this->mWindow = Window(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT);
 		this->mCoordinator = make_shared<Coordinator>();
+		this->mShader = std::make_unique<ShaderProgram>("Resources/Shaders/test.vert", "Resources/Shaders/test.frag");
 		this->mRunning = true;
 	}
 
@@ -71,12 +73,15 @@ namespace Game
 		this->mCoordinator->RegisterComponent<Transform>();
 		this->mCoordinator->RegisterComponent<RigidBody>();
 		this->mCoordinator->RegisterComponent<Gravity>();
-		this->mCoordinator->RegisterComponent<CollisionModel>();
 		this->mCoordinator->RegisterComponent<Playable>();
+		this->mCoordinator->RegisterComponent<HitBox>();
 	}
 
-	void Game::RegisterEntities() const
+	void Game::RegisterEntities()
 	{
+		this->mCamera = this->mCoordinator->CreateEntity();
+		this->mCoordinator->AddComponent<Camera>(this->mCamera, { vec3(0.0f, 10.0f, 50.0f) });
+
 		const Entity car = this->mCoordinator->CreateEntity();
 
 		this->mCoordinator->AddComponent<Renderable>(car, {
@@ -99,20 +104,22 @@ namespace Game
 		
 		this->mCoordinator->AddComponent<RigidBody>(car, {});
 
-		const Entity table = this->mCoordinator->CreateEntity();
+		this->mCoordinator->AddComponent<HitBox>(car, {});
 
-		this->mCoordinator->AddComponent<Renderable>(table, {
-			"./Resources/Models/table/scene.gltf"
-		});
+		//const Entity table = this->mCoordinator->CreateEntity();
 
-		this->mCoordinator->AddComponent<Transform>(table, {
-			vec3(0.0f, -30.0f, -50.0f),
-			vec3(1.0f, 0.0f, 0.0f),
-			vec3(100.0f, 100.0f, 100.0f),
-			0.0f
-		});
+		//this->mCoordinator->AddComponent<Renderable>(table, {
+		//	"./Resources/Models/table/scene.gltf"
+		//});
 
-		this->mCoordinator->AddComponent<RigidBody>(table, {});
+		//this->mCoordinator->AddComponent<Transform>(table, {
+		//	vec3(0.0f, -30.0f, -50.0f),
+		//	vec3(1.0f, 0.0f, 0.0f),
+		//	vec3(100.0f, 100.0f, 100.0f),
+		//	0.0f
+		//});
+
+		//this->mCoordinator->AddComponent<RigidBody>(table, {});
 
 		const Entity cat = this->mCoordinator->CreateEntity();
 
@@ -135,6 +142,8 @@ namespace Game
 		this->mCoordinator->AddComponent<Playable>(cat, { 1 });
 
 		this->mCoordinator->AddComponent<RigidBody>(cat, {});
+
+		this->mCoordinator->AddComponent<HitBox>(cat, {});
 
 		//const Entity car = this->mCoordinator->CreateEntity();
 
@@ -217,28 +226,6 @@ namespace Game
 		gravitySystem->Initialize(this->mCoordinator);
 		this->mSystems.push_back(gravitySystem);
 
-		//const auto collisionModelSystem = this->mCoordinator->RegisterSystem<CollisionModelSystem>();
-		//{
-		//	Signature signature;
-		//	signature.set(this->mCoordinator->GetComponentType<Renderable>());
-		//	signature.set(this->mCoordinator->GetComponentType<CollisionModel>());
-		//	signature.set(this->mCoordinator->GetComponentType<Transform>());
-		//	this->mCoordinator->SetSystemSignature<CollisionModelSystem>(signature);
-		//}
-		//collisionModelSystem->Initialize(this->mCoordinator);
-		//this->mSystems.push_back(collisionModelSystem);
-
-		//const auto collisionSystem = this->mCoordinator->RegisterSystem<CollisionSystem>();
-		//{
-		//	Signature signature;
-		//	signature.set(this->mCoordinator->GetComponentType<RigidBody>());
-		//	signature.set(this->mCoordinator->GetComponentType<CollisionModel>());
-		//	signature.set(this->mCoordinator->GetComponentType<Transform>());
-		//	this->mCoordinator->SetSystemSignature<CollisionSystem>(signature);
-		//}
-		//collisionSystem->Initialize(this->mCoordinator);
-		//this->mSystems.push_back(collisionSystem);
-
 		const auto playerMovementSystem = this->mCoordinator->RegisterSystem<PlayerMovementSystem>();
 		{
 			Signature signature;
@@ -258,6 +245,35 @@ namespace Game
 		cameraSystem->Initialize(this->mCoordinator);
 		this->mSystems.push_back(cameraSystem);
 
+		const auto hitBoxCompositionSystem = this->mCoordinator->RegisterSystem<HitBoxCompositionSystem>();
+		{
+			Signature signature;
+			signature.set(this->mCoordinator->GetComponentType<HitBox>());
+			signature.set(this->mCoordinator->GetComponentType<Renderable>());
+			signature.set(this->mCoordinator->GetComponentType<Transform>());
+			this->mCoordinator->SetSystemSignature<HitBoxCompositionSystem>(signature);
+		}
+		hitBoxCompositionSystem->Initialize(this->mCoordinator);
+		this->mSystems.push_back(hitBoxCompositionSystem);
+
+		const auto collisionSystem = this->mCoordinator->RegisterSystem<CollisionSystem>();
+		{
+			Signature signature;
+			signature.set(this->mCoordinator->GetComponentType<HitBox>());
+			this->mCoordinator->SetSystemSignature<CollisionSystem>(signature);
+		}
+		collisionSystem->Initialize(this->mCoordinator);
+		this->mSystems.push_back(collisionSystem);
+
+		const auto hitBoxRenderSystem = this->mCoordinator->RegisterSystem<HitBoxRenderSystem>();
+		{
+			Signature signature;
+			signature.set(this->mCoordinator->GetComponentType<HitBox>());
+			this->mCoordinator->SetSystemSignature<HitBoxRenderSystem>(signature);
+		}
+		hitBoxRenderSystem->Initialize(this->mCoordinator, this->mShader);
+		this->mSystems.push_back(hitBoxRenderSystem);
+
 		const auto renderSystem = this->mCoordinator->RegisterSystem<RenderSystem>();
 		{
 			Signature signature;
@@ -265,7 +281,7 @@ namespace Game
 			signature.set(this->mCoordinator->GetComponentType<Transform>());
 			this->mCoordinator->SetSystemSignature<RenderSystem>(signature);
 		}
-		renderSystem->Initialize(this->mCoordinator);
+		renderSystem->Initialize(this->mCoordinator, this->mShader, this->mCamera);
 		this->mSystems.push_back(renderSystem);
 	}
 

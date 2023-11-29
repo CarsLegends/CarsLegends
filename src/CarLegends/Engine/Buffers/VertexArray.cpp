@@ -20,6 +20,14 @@ namespace Buffers
 		glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, nullptr);
 	}
 
+	void VertexArray::DrawHitBoxesOutline()
+	{
+		glLineWidth(4);
+		glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, reinterpret_cast<GLvoid*>(4 * sizeof(GLuint)));
+		glDrawElements(GL_LINES, 8, GL_UNSIGNED_INT, reinterpret_cast<GLvoid*>(8 * sizeof(GLuint)));
+	}
+
 	void VertexArray::Bind() const
 	{
 		glBindVertexArray(this->mId);

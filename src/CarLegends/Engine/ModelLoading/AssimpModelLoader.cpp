@@ -66,6 +66,8 @@ namespace ModelLoaders
 				vertex.mTextureUv = vec2(0.0f, 0.0f);
 			}
 
+			vertex.mColor = vec3(1.0f);
+
 			modelData.mVertices.push_back(vertex);
 		}
 

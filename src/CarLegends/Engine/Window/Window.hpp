@@ -23,6 +23,7 @@ namespace Windows
 	public:
 		Window();
 		Window(std::string const& windowTitle, unsigned int windowWidth, unsigned int windowHeight);
+		static void FrameBufferSizeCallback(GLFWwindow* window, int width, int height);
 
 		void Update() const;
 		void ProcessEvents(const std::shared_ptr<Coordinator>& coordinator);

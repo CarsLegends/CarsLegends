@@ -63,8 +63,8 @@ namespace Systems
 		const ElementBuffer elementBuffer(mesh.mIndices);
 
 		mesh.mVertexArray.LinkAttributes(vertexBuffer);
-		mesh.mVertexArray.Unbind();
 
+		mesh.mVertexArray.Unbind();
 		vertexBuffer.Unbind();
 		elementBuffer.Unbind();
 	}

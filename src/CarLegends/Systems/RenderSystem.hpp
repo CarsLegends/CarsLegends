@@ -19,15 +19,15 @@ namespace Systems
 	{
 	public:
 		RenderSystem();
-		void Initialize(std::shared_ptr<Coordinator> coordinator);
+		void Initialize(std::shared_ptr<Coordinator> coordinator, std::shared_ptr<ShaderProgram> Shader, const Entity camera);
 		void Update(float deltaTime) override;
 
 	private:
 		std::shared_ptr<ShaderProgram> mShader;
-		std::vector<Entity> mCameras;
 		std::shared_ptr<Coordinator> mCoordinator;
+		Entity mCamera;
 
-		void MoveEntity(Entity entity, float deltaTime) const;
+		void MoveEntity(Entity entity) const;
 		void MoveCamera() const;
 	};
 }

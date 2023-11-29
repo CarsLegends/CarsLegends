@@ -1,48 +1,4 @@
-﻿  Transform.hpp
-  ComponentArray.cpp
-  ElementBuffer.cpp
-  VertexArray.cpp
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegends\Engine\Buffers\VertexArray.cpp(47,64): warning C4244: 'argument': conversion from 'GLsizeiptr' to 'GLsizei', possible loss of data
-  VertexBuffer.cpp
-  AssimpModelLoader.cpp
-  ShaderProgram.cpp
-  Texture.cpp
-  Types.hpp
-  Window.cpp
-  EventParameters.hpp
-  Game.cpp
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegends\Systems\Structs\Simplex.hpp(43,20): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  Application.cpp
-  Hash.hpp
-  EntityManager.cpp
-  EventManager.cpp
-  stb.cpp
-  CameraSystem.cpp
-  CollisionModelSystem.cpp
+﻿  Game.cpp
   CollisionSystem.cpp
-C:\Users\carlo\source\repos\CarsLegends\src\CarLegends\Systems\Structs\Simplex.hpp(43,20): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   Generating Code...
-  Compiling...
-  GravitySystem.cpp
-  ISystem.hpp
-  ModelLoadingSystem.cpp
-  PlayerMovementSystem.cpp
-  RenderSystem.cpp
-  Generating Code...
-  glad.c
-glfw3.lib(init.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(init.obj)' or at ''; linking object as if no debug info
-glfw3.lib(window.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(window.obj)' or at ''; linking object as if no debug info
-glfw3.lib(input.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(input.obj)' or at ''; linking object as if no debug info
-glfw3.lib(context.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(context.obj)' or at ''; linking object as if no debug info
-glfw3.lib(win32_init.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(win32_init.obj)' or at ''; linking object as if no debug info
-glfw3.lib(win32_monitor.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(win32_monitor.obj)' or at ''; linking object as if no debug info
-glfw3.lib(win32_time.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(win32_time.obj)' or at ''; linking object as if no debug info
-glfw3.lib(win32_thread.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(win32_thread.obj)' or at ''; linking object as if no debug info
-glfw3.lib(monitor.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(monitor.obj)' or at ''; linking object as if no debug info
-glfw3.lib(vulkan.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(vulkan.obj)' or at ''; linking object as if no debug info
-glfw3.lib(win32_window.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(win32_window.obj)' or at ''; linking object as if no debug info
-glfw3.lib(win32_joystick.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(win32_joystick.obj)' or at ''; linking object as if no debug info
-glfw3.lib(wgl_context.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(wgl_context.obj)' or at ''; linking object as if no debug info
-glfw3.lib(egl_context.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(egl_context.obj)' or at ''; linking object as if no debug info
-glfw3.lib(osmesa_context.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(osmesa_context.obj)' or at ''; linking object as if no debug info
   CarLegends.vcxproj -> C:\Users\carlo\source\repos\CarsLegends\src\x64\Debug\CarLegends.exe

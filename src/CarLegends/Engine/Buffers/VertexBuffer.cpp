@@ -2,6 +2,8 @@
 
 namespace Buffers
 {
+	VertexBuffer::VertexBuffer() = default;
+
 	VertexBuffer::VertexBuffer(std::vector<Vertex>& vertices)
 	{
 		glGenBuffers(1, &this->mId);

@@ -14,13 +14,14 @@ namespace Buffers
 
 		void LinkAttributes(VertexBuffer vertexBuffer);
 		void DrawElements(std::vector<uint32_t> indices);
+		void DrawHitBoxesOutline();
 
 		void Bind() const;
 		void Unbind() const;
 		void Delete() const;
 
 	private:
-		void LinkAttribute(
+		static void LinkAttribute(
 			VertexBuffer vertexBuffer,
 			GLuint layout,
 			GLuint numComponents,

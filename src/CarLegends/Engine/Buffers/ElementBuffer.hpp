@@ -11,6 +11,7 @@ namespace Buffers
 	public:
 		GLuint mId;
 
+		ElementBuffer();
 		ElementBuffer(std::vector<uint32_t>& indices);
 
 		void Bind() const;

@@ -3,12 +3,14 @@
 #include <memory>
 
 #include "Coordinators/Coordinator.hpp"
+#include "Engine/Shaders/ShaderProgram.hpp"
 #include "Engine/Window/Window.hpp"
 
 namespace Game
 {
 	using namespace Coordinators;
 	using namespace Windows;
+	using namespace Shaders;
 
 	class Game
 	{
@@ -20,7 +22,7 @@ namespace Game
 		bool IsRunning() const;
 
 		void RegisterListeners();
-		void RegisterEntities() const;
+		void RegisterEntities();
 		void RegisterComponents() const;
 		void RegisterSystems();
 
@@ -29,8 +31,10 @@ namespace Game
 	private:
 		bool mRunning;
 		Window mWindow;
+		Entity mCamera;
 		std::shared_ptr<Coordinator> mCoordinator;
 		std::list<std::shared_ptr<ISystem>> mSystems{};
+		std::shared_ptr<ShaderProgram> mShader;
 
 		void QuitHandler(Event& event);
 		void ShowCursorHandler(Event& event) const;

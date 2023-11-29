@@ -13,6 +13,7 @@ namespace Buffers
 	public:
 		GLuint mId;
 
+		VertexBuffer();
 		VertexBuffer(std::vector<Vertex>& vertices);
 
 		void Bind() const;
