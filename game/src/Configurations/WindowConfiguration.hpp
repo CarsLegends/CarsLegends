@@ -4,7 +4,7 @@
 
 namespace Configuration
 {
-	const enum class Buttons
+	enum class Buttons
 	{
 		W,
 		A,

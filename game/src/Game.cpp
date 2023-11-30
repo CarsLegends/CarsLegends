@@ -125,9 +125,10 @@ namespace Game
 		const auto menuSystem = this->mCoordinator->RegisterSystem<MenuSystem>();
 		{
 			Signature signature;
-			signature.set(this->mCoordinator->GetComponentType<Camera>());
 			this->mCoordinator->SetSystemSignature<MenuSystem>(signature);
 		}
+		menuSystem->Initialize(this->mCoordinator, this->mWindow);
+		this->mSystems.push_back(menuSystem);
 	}
 
 	void Game::Update(float deltaTime)

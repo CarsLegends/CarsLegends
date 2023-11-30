@@ -6,8 +6,8 @@
 #include <bitset>
 #include <string>
 #include <glm/vec2.hpp>
-#include "nuklear/nuklear.h"
-#include "nuklear/nuklear_glfw_gl3.h"
+
+#include "../Nuklear/Nuklear.hpp"
 
 #include "../../Coordinators/Coordinator.hpp"
 #include "../../Configurations/WindowConfiguration.hpp"

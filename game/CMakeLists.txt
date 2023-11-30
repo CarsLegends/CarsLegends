@@ -133,6 +133,7 @@ function(create_project_from_sources)
              "src/*.txt"
              "src/*.bin"
              "src/*.gltf"
+             "src/*.ttf"
              "src/**/*.vs"
              "src/**/*.frag"
              "src/**/*.fs"
@@ -147,7 +148,7 @@ function(create_project_from_sources)
              "src/**/*.mtl"
              "src/**/*.txt"
              "src/**/*.bin"
-             "src/**/*.gltf"
+             "src/**/*.ttf"
     )
 	# copy dlls
 	file(GLOB DLLS "dlls/*.dll")

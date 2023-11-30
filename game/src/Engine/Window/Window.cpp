@@ -1,16 +1,5 @@
 #include <iostream>
 
-#define NK_PRIVATE
-#define NK_INCLUDE_FIXED_TYPES
-#define NK_INCLUDE_STANDARD_IO
-#define NK_INCLUDE_DEFAULT_ALLOCATOR
-#define NK_INCLUDE_VERTEX_BUFFER_OUTPUT
-#define NK_INCLUDE_FONT_BAKING
-#define NK_INCLUDE_DEFAULT_FONT
-#define NK_IMPLEMENTATION
-#define NK_GLFW_GL3_IMPLEMENTATION
-#include "nuklear/nuklear.h"
-#include "nuklear/nuklear_glfw_gl3.h"
 #include "Window.hpp"
 #include "../../Events/EventTypes.hpp"
 #include "../../Events/EventParameters.hpp"
@@ -18,6 +7,25 @@
 
 namespace Windows
 {
+
+	float calcTextWidth(nk_handle handle, float height, const char *text, int len) {
+    stbtt_bakedchar *cdata = (stbtt_bakedchar *)handle.ptr;
+    float text_width = 0;
+    int i;
+
+    // Iterar sobre cada carácter en el texto
+    for (i = 0; i < len; ++i) {
+        if (text[i] < 32 || text[i] >= 128) continue; // Caracteres fuera de este rango no fueron rasterizados
+
+        stbtt_bakedchar *b = cdata + text[i] - 32;
+        int char_width = b->xadvance; // Ancho del carácter actual
+
+        text_width += char_width;
+    }
+
+    return text_width;
+	}
+
 	Window::Window() = default;
 
 	Window::Window(std::string const& windowTitle, unsigned windowWidth, unsigned windowHeight)
@@ -52,21 +60,33 @@ namespace Windows
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
 
-		struct nk_font_atlas atlas;
-		struct nk_font *font;
-		struct nk_context nkContext;
-		
-		nk_font_atlas_init_default(&atlas);
-		nk_font_atlas_begin(&atlas);
-		font = nk_font_atlas_add_default(&atlas, 13, 0);
-		nk_font_atlas_end(&atlas, nk_handle_id(0), nullptr);
-		if (atlas.default_font)
-		{
-			nk_style_set_font(&nkContext, &atlas.default_font->handle);
-		}
-		nk_init_default(&nkContext, &font->handle);
-		
-		this->mNkContext = &nkContext;
+		const char *fontPath = "./Resources/Fonts/Kanit/Kanit-SemiBold.ttf";
+		FILE *fontFile = fopen(fontPath, "rb");
+		assert(fontFile && "The font file could not be opened");
+		fseek(fontFile, 0, SEEK_END);
+		long size = ftell(fontFile);
+		fseek(fontFile, 0, SEEK_SET);
+		unsigned char *ttf = (unsigned char *)malloc(size);
+		size_t read = fread(ttf, 1, size, fontFile);
+		assert(read == size && "The font file could not be read");
+		fclose(fontFile);
+
+		const int BITMAP_W = 512;
+		const int BITMAP_H = 512;
+		unsigned char *temp_bitmap = (unsigned char *)malloc(BITMAP_W * BITMAP_H);
+		stbtt_bakedchar cdata[96];
+		stbtt_BakeFontBitmap(ttf, 0, 32.0, temp_bitmap, BITMAP_W, BITMAP_H, 32, 96, cdata);
+		free(ttf);
+
+		struct nk_user_font font;
+		font.userdata.ptr = cdata;
+		font.height = 32.0f;
+		font.width = calcTextWidth;
+
+		struct nk_context ctx;
+		nk_init_fixed(&ctx, calloc(1, NK_MAX_MEMORY), NK_MAX_MEMORY, &font);
+		this->mNkContext = &ctx;
+
 	}
 
 	void Window::Update() const
@@ -177,5 +197,10 @@ namespace Windows
 			event.SetParam(WINDOW_INPUT_CURSOR_PARAMETER, this->mMouseState);
 			coordinator->SendEvent(event);
 		}
+	}
+
+	nk_context* Window::getNkContext() const
+	{
+		return this->mNkContext;
 	}
 }
