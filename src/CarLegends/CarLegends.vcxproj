@@ -188,6 +188,7 @@
     <ClCompile Include="Systems\HitBoxCompositionSystem.cpp" />
     <ClCompile Include="Systems\HitBoxRenderSystem.cpp" />
     <ClCompile Include="Systems\ISystem.hpp" />
+    <ClCompile Include="Systems\LightSystem.cpp" />
     <ClCompile Include="Systems\ModelLoadingSystem.cpp" />
     <ClCompile Include="Systems\PlayerMovementSystem.cpp" />
     <ClCompile Include="Systems\RenderSystem.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Components\CollisionModel.hpp" />
     <ClInclude Include="Components\Gravity.hpp" />
     <ClInclude Include="Components\HitBox.hpp" />
+    <ClInclude Include="Components\LightSource.h" />
     <ClInclude Include="Components\Playable.hpp" />
     <ClInclude Include="Components\Renderable.hpp" />
     <ClInclude Include="Components\RigidBody.hpp" />
@@ -229,6 +231,7 @@
     <ClInclude Include="Systems\GravitySystem.hpp" />
     <ClInclude Include="Systems\HitBoxCompositionSystem.hpp" />
     <ClInclude Include="Systems\HitBoxRenderSystem.hpp" />
+    <ClInclude Include="Systems\LightSystem.hpp" />
     <ClInclude Include="Systems\ModelLoadingSystem.hpp" />
     <ClInclude Include="Systems\PlayerMovementSystem.hpp" />
     <ClInclude Include="Systems\RenderSystem.hpp" />

@@ -56,7 +56,7 @@ namespace Systems
 
 			if(controllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButtons::A)))
 			{
-				rigidBody.mVelocity.y += 60.0f * deltaTime;
+				rigidBody.mVelocity.y += 10.0f * deltaTime;
 			}
 		}
 	}

@@ -2,6 +2,7 @@
 
 #include <utility>
 #include <glm/glm.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 #include "../Components/Camera.hpp"
 #include "../Components/CollisionModel.hpp"
@@ -72,8 +73,8 @@ namespace Systems
 
 		transform.mTransformations = mat4(1.0f);
 		transform.mTransformations = translate(transform.mTransformations, transform.mPosition);
+		transform.mTransformations *= toMat4(quat(transform.mEulerAngles));
 		transform.mTransformations = scale(transform.mTransformations, transform.mScale);
-		transform.mTransformations = rotate(transform.mTransformations, radians(transform.mRotationAngle), transform.mRotationAxis);
 
 		this->mShader->SendUniformMatrix4f("model", transform.mTransformations);
 	}
@@ -82,5 +83,6 @@ namespace Systems
 	{
 		auto& camera = this->mCoordinator->GetComponent<Camera>(this->mCamera);
 		this->mShader->SendUniformMatrix4f("cameraMatrix", camera.mMatrix);
+		this->mShader->SendUniformVector3f("cameraPosition", camera.mPosition);
 	}
 }

@@ -6,6 +6,8 @@ namespace Configuration
 {
 	constexpr uint32_t MAX_ENTITIES = 1000;
 	constexpr uint8_t MAX_COMPONENTS = 32;
+	// SHOULD BE IN ITS OWN CONFIGURATIOn
+	constexpr uint8_t MAX_LIGHT_SOURCE = 5;
 }
 
 #endif

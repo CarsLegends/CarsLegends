@@ -7,7 +7,9 @@
 #include "Components/RigidBody.hpp"
 #include "Components/Camera.hpp"
 #include "Components/Gravity.hpp"
+#include "Components/LightSource.h"
 #include "Components/Playable.hpp"
+#include "Components/HitBox.hpp"
 #include "Systems/CameraSystem.hpp"
 #include "Systems/ModelLoadingSystem.hpp"
 #include "Systems/RenderSystem.hpp"
@@ -17,6 +19,7 @@
 #include "Systems/CollisionSystem.hpp"
 #include "Systems/HitBoxCompositionSystem.hpp"
 #include "Systems/HitBoxRenderSystem.hpp"
+#include "Systems/LightSystem.hpp"
 #include "Systems/PlayerMovementSystem.hpp"
 
 
@@ -46,24 +49,24 @@ namespace Game
 	void Game::RegisterListeners()
 	{
 		this->mCoordinator->AddEventListener(WINDOW_QUIT, [this](auto&& PH1)
-		{
-			Game::QuitHandler(std::forward<decltype(PH1)>(PH1));
-		});
+			{
+				Game::QuitHandler(std::forward<decltype(PH1)>(PH1));
+			});
 
 		this->mCoordinator->AddEventListener(WINDOW_HIDE_CURSOR, [this](auto&& PH1)
-		{
-			Game::HideCursorHandler(std::forward<decltype(PH1)>(PH1));
-		});
+			{
+				Game::HideCursorHandler(std::forward<decltype(PH1)>(PH1));
+			});
 
 		this->mCoordinator->AddEventListener(WINDOW_SHOW_CURSOR, [this](auto&& PH1)
-		{
-			Game::ShowCursorHandler(std::forward<decltype(PH1)>(PH1));
-		});
+			{
+				Game::ShowCursorHandler(std::forward<decltype(PH1)>(PH1));
+			});
 
 		this->mCoordinator->AddEventListener(WINDOW_SET_CURSOR_POSITION, [this](auto&& PH1)
-		{
-			Game::SetCursorPositionHandler(std::forward<decltype(PH1)>(PH1));
-		});
+			{
+				Game::SetCursorPositionHandler(std::forward<decltype(PH1)>(PH1));
+			});
 	}
 
 	void Game::RegisterComponents() const
@@ -75,6 +78,7 @@ namespace Game
 		this->mCoordinator->RegisterComponent<Gravity>();
 		this->mCoordinator->RegisterComponent<Playable>();
 		this->mCoordinator->RegisterComponent<HitBox>();
+		this->mCoordinator->RegisterComponent<LightSource>();
 	}
 
 	void Game::RegisterEntities()
@@ -82,128 +86,75 @@ namespace Game
 		this->mCamera = this->mCoordinator->CreateEntity();
 		this->mCoordinator->AddComponent<Camera>(this->mCamera, { vec3(0.0f, 10.0f, 50.0f) });
 
-		const Entity car = this->mCoordinator->CreateEntity();
+		const Entity player1 = this->mCoordinator->CreateEntity();
 
-		this->mCoordinator->AddComponent<Renderable>(car, {
+		this->mCoordinator->AddComponent<Renderable>(player1, {
 			"./Resources/Models/car/scene.gltf"
-		});
+			});
 
-		this->mCoordinator->AddComponent<Transform>(car, {
-			vec3(-1.0f, 0.0f, 0.0f),
-			vec3(1.0f, 0.0f, 0.0f),
+		this->mCoordinator->AddComponent<Transform>(player1, {
+			vec3(-2.0f, 0.0f, 0.0f),
+			vec3(0, 0, 0),
 			vec3(0.02f, 0.02f, 0.02f),
-			0.0f
 		});
 
 		//Add config for constant forces
-		this->mCoordinator->AddComponent<Gravity>(car, {
+		this->mCoordinator->AddComponent<Gravity>(player1, {
 			vec3(0.0f, -9.81f, 0.0f)
 		});
 
-		this->mCoordinator->AddComponent<Playable>(car, {});
-		
-		this->mCoordinator->AddComponent<RigidBody>(car, {});
+		this->mCoordinator->AddComponent<Playable>(player1, {});
 
-		this->mCoordinator->AddComponent<HitBox>(car, {});
+		this->mCoordinator->AddComponent<RigidBody>(player1, {});
+
+		this->mCoordinator->AddComponent<HitBox>(player1, {});
+
+		const Entity player2 = this->mCoordinator->CreateEntity();
+
+		this->mCoordinator->AddComponent<Renderable>(player2, {
+			"./Resources/Models/car/scene.gltf"
+		});
+
+		this->mCoordinator->AddComponent<Transform>(player2, {
+			vec3(2.0f, 0.0f, 0.0f),
+			vec3(0, 0, 0),
+			vec3(0.02f, 0.02f, 0.02f),
+		});
+
+		//Add config for constant forces
+		this->mCoordinator->AddComponent<Gravity>(player2, {
+			vec3(0.0f, -9.81f, 0.0f)
+			});
+
+		this->mCoordinator->AddComponent<Playable>(player2, { 1 });
+
+		this->mCoordinator->AddComponent<RigidBody>(player2, {});
+
+		this->mCoordinator->AddComponent<HitBox>(player2, { });
 
 		const Entity table = this->mCoordinator->CreateEntity();
 
 		this->mCoordinator->AddComponent<Renderable>(table, {
 			"./Resources/Models/table/scene.gltf"
-		});
+			});
 
 		this->mCoordinator->AddComponent<Transform>(table, {
-			vec3(0.0f, -30.0f, -50.0f),
-			vec3(1.0f, 0.0f, 0.0f),
+			vec3(0.0f, -30.0f, -20.0f),
+			vec3(0.0f, 90.0f, 0.0f),
 			vec3(100.0f, 100.0f, 100.0f),
-			0.0f
 		});
 
 		this->mCoordinator->AddComponent<RigidBody>(table, {});
 
-		this->mCoordinator->AddComponent<HitBox>(table, {});
+		this->mCoordinator->AddComponent<HitBox>(table, { true });
 
-		const Entity cat = this->mCoordinator->CreateEntity();
+		const Entity lightSource0 = this->mCoordinator->CreateEntity();
 
-		this->mCoordinator->AddComponent<Renderable>(cat, {
-				"./Resources/Models/cat/scene.gltf"
-		});
+		this->mCoordinator->AddComponent<LightSource>(lightSource0, { vec4(3.0f, 3.0f, 3.0f, 1.0f) , vec3(0.0f, 5.0f, 10.0f) });
 
-		this->mCoordinator->AddComponent<Transform>(cat, {
-			vec3(1.0f, 0.0f, 0.0f),
-			vec3(1.0f, 0.0f, 0.0f),
-			vec3(1.0f, 1.0f, 1.0f),
-			0.0f
-			});
+		const Entity lightSource1 = this->mCoordinator->CreateEntity();
 
-		//Add config for constant forces
-		this->mCoordinator->AddComponent<Gravity>(cat, {
-			vec3(0.0f, -9.81f, 0.0f)
-		});
-
-		this->mCoordinator->AddComponent<Playable>(cat, { 1 });
-
-		this->mCoordinator->AddComponent<RigidBody>(cat, {});
-
-		this->mCoordinator->AddComponent<HitBox>(cat, { true });
-
-		//const Entity car = this->mCoordinator->CreateEntity();
-
-		//this->mCoordinator->AddComponent<Renderable>(car, {
-		//		"./Resources/Models/car/scene.gltf"
-		//});
-
-		//this->mCoordinator->AddComponent<Transform>(car, {
-		//	vec3(1.0f, 0.5f, 0.5f),
-		//	vec3(1.0f, 0.0f, 0.0f),
-		//	vec3(0.02f, 0.02f, 0.02f),
-		//	0.0f
-		//});
-
-		//const Entity cardBox = this->mCoordinator->CreateEntity();
-
-		//this->mCoordinator->AddComponent<Renderable>(cardBox, {
-		//		"./Resources/Models/cardbox/scene.gltf"
-		//});
-
-		//this->mCoordinator->AddComponent<Transform>(cardBox, {
-		//	vec3(1.0f, 1.0f, 0.0f),
-		//	vec3(0.0f, 1.0f, 0.0f),
-		//	vec3(5.0f, 5.0f, 5.0f),
-		//	0.0f
-		//});
-
-		/*std::default_random_engine generator;
-		std::uniform_real_distribution randPosition(-20.0f, 20.0f);
-		std::uniform_int_distribution randRotation(0, 1);
-		std::uniform_real_distribution randScale(0.0f, 0.5f);
-		std::uniform_real_distribution randAngle(0.0f, 360.0f);
-
-		int counter = 0;
-		while (counter < MAX_ENTITIES - 1)
-		{
-			const Entity cat = this->mCoordinator->CreateEntity();
-
-			this->mCoordinator->AddComponent<Renderable>(cat, {
-				"./Resources/Models/cat/scene.gltf"
-			});
-
-			const auto scale = randScale(generator);
-			this->mCoordinator->AddComponent<Transform>(cat, {
-				vec3(randPosition(generator), randPosition(generator), randPosition(generator)),
-				vec3(randRotation(generator), randRotation(generator), randRotation(generator)),
-				vec3(scale, scale, scale),
-				randAngle(generator)
-			});
-
-			this->mCoordinator->AddComponent<Gravity>(cat, {
-				vec3(0.0f, -0.98f, 0.0f)
-			});
-
-			this->mCoordinator->AddComponent<RigidBody>(cat, {});
-
-			counter++;
-		}*/
+		this->mCoordinator->AddComponent<LightSource>(lightSource1, { vec4(1.0f, 1.0f, 1.0f, 1.0f) , vec3(5.0f, 5.0f, -60.0f) });
 	}
 
 	void Game::RegisterSystems()
@@ -246,6 +197,15 @@ namespace Game
 		}
 		cameraSystem->Initialize(this->mCoordinator);
 		this->mSystems.push_back(cameraSystem);
+
+		const auto lightSystem = this->mCoordinator->RegisterSystem<LightSystem>();
+		{
+			Signature signature;
+			signature.set(this->mCoordinator->GetComponentType<LightSource>());
+			this->mCoordinator->SetSystemSignature<LightSystem>(signature);
+		}
+		lightSystem->Initialize(this->mCoordinator, this->mShader);
+		this->mSystems.push_back(lightSystem);
 
 		const auto hitBoxCompositionSystem = this->mCoordinator->RegisterSystem<HitBoxCompositionSystem>();
 		{
@@ -290,7 +250,7 @@ namespace Game
 	void Game::Update(float deltaTime)
 	{
 		this->mWindow.ProcessEvents(this->mCoordinator);
-		for(const auto& system : this->mSystems)
+		for (const auto& system : this->mSystems)
 		{
 			system->Update(deltaTime);
 		}

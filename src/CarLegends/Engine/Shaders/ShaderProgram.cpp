@@ -59,6 +59,16 @@ namespace Shaders
 		glUniform4fv(glGetUniformLocation(this->mId, uniformName), 1, value_ptr(vector));
 	}
 
+	void ShaderProgram::SendUniformInt(const char* uniformName, const int& value) const
+	{
+		glUniform1i(glGetUniformLocation(this->mId, uniformName), value);
+	}
+
+	void ShaderProgram::SendUniformVector3f(const char* uniformName, vec3& vector) const
+	{
+		glUniform3fv(glGetUniformLocation(this->mId, uniformName), 1, value_ptr(vector));
+	}
+
 	void ShaderProgram::Activate() const
 	{
 		glUseProgram(this->mId);

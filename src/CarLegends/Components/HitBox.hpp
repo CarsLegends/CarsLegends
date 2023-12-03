@@ -1,5 +1,5 @@
-﻿#ifndef COMPONENTS_COLLISION_MESH_HPP
-#define COMPONENTS_COLLISION_MESH_HPP
+﻿#ifndef COMPONENTS_HIT_BOX_HPP
+#define COMPONENTS_HIT_BOX_HPP
 
 #include <glm/glm.hpp>
 
