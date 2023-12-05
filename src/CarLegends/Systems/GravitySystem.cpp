@@ -27,14 +27,22 @@ namespace Systems
 				rigidBody.mAcceleration.y += gravity.mForce.y;
 			}
 
-			if (rigidBody.mVelocity.x > 5.0f)
+			if (rigidBody.mVelocity.x >= 0)
 			{
-				rigidBody.mVelocity.x -= 5.0f;
+				rigidBody.mVelocity.x -= rigidBody.mVelocity.x / 500.0f;
+			}
+			else
+			{
+				rigidBody.mVelocity.x += -rigidBody.mVelocity.x / 500.0f;
 			}
 
-			if (rigidBody.mVelocity.z > 5.0f)
+			if (rigidBody.mVelocity.z > 0)
 			{
-				rigidBody.mVelocity.z -= 5.0f;
+				rigidBody.mVelocity.z -= rigidBody.mVelocity.z / 500.0f;
+			}
+			else
+			{
+				rigidBody.mVelocity.z += -rigidBody.mVelocity.z / 500.0f;
 			}
 
 			rigidBody.mVelocity += rigidBody.mAcceleration * deltaTime;

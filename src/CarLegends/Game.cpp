@@ -139,7 +139,7 @@ namespace Game
 		});
 
 		this->mCoordinator->AddComponent<Transform>(table, {
-			vec3(0.0f, -35.0f, -20.0f),
+			vec3(0.0f, -40.0f, -20.0f),
 			vec3(0.0f, 0.0f, 0.0f),
 			vec3(150.0f, 150.0f, 150.0f),
 		});

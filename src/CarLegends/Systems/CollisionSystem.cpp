@@ -43,24 +43,27 @@ namespace Systems
 
 			if (!hitBoxA.mStatic)
 			{
-				rigidA.mAcceleration += -rigidA.mAcceleration / 2.0f + -rigidB.mAcceleration / 2.0f;
+				rigidA.mVelocity -= rigidB.mVelocity / 100.0f;
 				transformA.mPosition -= collisionDistance;
 			}
 
 			if (!hitBoxB.mStatic)
 			{
-				rigidB.mAcceleration += -rigidB.mAcceleration / 2.0f + -rigidA.mAcceleration / 2.0f;
+				rigidB.mVelocity += rigidA.mVelocity / 100.0f;
 				transformB.mPosition += collisionDistance;
 			}
 
-			if (collisionData.mNormal.y == -1.0f && rigidA.mVelocity.y < 0)
+			if (collisionData.mNormal.y == -1.0f)
 			{
-				rigidA.mVelocity.y = 0;
-			}
+				if (rigidA.mVelocity.y < 0)
+				{
+					rigidA.mVelocity.y = 0;
+				}
 
-			if (collisionData.mNormal.y == -1.0f && rigidB.mVelocity.y < 0)
-			{
-				rigidB.mVelocity.y = 0;
+				if (rigidB.mVelocity.y < 0)
+				{
+					rigidB.mVelocity.y = 0;
+				}
 			}
 		}
 	}
