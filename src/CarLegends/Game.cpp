@@ -90,14 +90,14 @@ namespace Game
 
 		this->mCoordinator->AddComponent<Renderable>(player1, {
 			"./Resources/Models/car/scene.gltf"
-			});
-
-		this->mCoordinator->AddComponent<Transform>(player1, {
-			vec3(-2.0f, 0.0f, 0.0f),
-			vec3(0, 0, 0),
-			vec3(0.02f, 0.02f, 0.02f),
 		});
 
+		this->mCoordinator->AddComponent<Transform>(player1, {
+			vec3(-10.0f, 10.0f, 0.0f),
+			vec3(0, radians(90.0f), 0),
+			vec3(0.02f, 0.02f, 0.02f),
+		});
+		//football
 		//Add config for constant forces
 		this->mCoordinator->AddComponent<Gravity>(player1, {
 			vec3(0.0f, -9.81f, 0.0f)
@@ -116,15 +116,15 @@ namespace Game
 		});
 
 		this->mCoordinator->AddComponent<Transform>(player2, {
-			vec3(2.0f, 0.0f, 0.0f),
-			vec3(0, 0, 0),
+			vec3(10.0f, 10.0f, 0.0f),
+			vec3(0, radians(-90.0f), 0),
 			vec3(0.02f, 0.02f, 0.02f),
 		});
 
 		//Add config for constant forces
 		this->mCoordinator->AddComponent<Gravity>(player2, {
 			vec3(0.0f, -9.81f, 0.0f)
-			});
+		});
 
 		this->mCoordinator->AddComponent<Playable>(player2, { 1 });
 
@@ -136,12 +136,12 @@ namespace Game
 
 		this->mCoordinator->AddComponent<Renderable>(table, {
 			"./Resources/Models/table/scene.gltf"
-			});
+		});
 
 		this->mCoordinator->AddComponent<Transform>(table, {
-			vec3(0.0f, -30.0f, -20.0f),
-			vec3(0.0f, 90.0f, 0.0f),
-			vec3(100.0f, 100.0f, 100.0f),
+			vec3(0.0f, -35.0f, -20.0f),
+			vec3(0.0f, 0.0f, 0.0f),
+			vec3(150.0f, 150.0f, 150.0f),
 		});
 
 		this->mCoordinator->AddComponent<RigidBody>(table, {});
@@ -150,11 +150,11 @@ namespace Game
 
 		const Entity lightSource0 = this->mCoordinator->CreateEntity();
 
-		this->mCoordinator->AddComponent<LightSource>(lightSource0, { vec4(3.0f, 3.0f, 3.0f, 1.0f) , vec3(0.0f, 5.0f, 10.0f) });
+		this->mCoordinator->AddComponent<LightSource>(lightSource0, { vec4(3.0f, 3.0f, 3.0f, 1.0f) , vec3(0.0f, 10.0f, 10.0f) });
 
 		const Entity lightSource1 = this->mCoordinator->CreateEntity();
 
-		this->mCoordinator->AddComponent<LightSource>(lightSource1, { vec4(1.0f, 1.0f, 1.0f, 1.0f) , vec3(5.0f, 5.0f, -60.0f) });
+		this->mCoordinator->AddComponent<LightSource>(lightSource1, { vec4(1.0f, 1.0f, 1.0f, 1.0f) , vec3(5.0f, 10.0f, -60.0f) });
 	}
 
 	void Game::RegisterSystems()
@@ -167,17 +167,6 @@ namespace Game
 		}
 		modelLoadingSystem->Initialize(this->mCoordinator);
 		this->mSystems.push_back(modelLoadingSystem);
-
-		const auto gravitySystem = this->mCoordinator->RegisterSystem<GravitySystem>();
-		{
-			Signature signature;
-			signature.set(this->mCoordinator->GetComponentType<Gravity>());
-			signature.set(this->mCoordinator->GetComponentType<RigidBody>());
-			signature.set(this->mCoordinator->GetComponentType<Transform>());
-			this->mCoordinator->SetSystemSignature<GravitySystem>(signature);
-		}
-		gravitySystem->Initialize(this->mCoordinator);
-		this->mSystems.push_back(gravitySystem);
 
 		const auto playerMovementSystem = this->mCoordinator->RegisterSystem<PlayerMovementSystem>();
 		{
@@ -226,6 +215,17 @@ namespace Game
 		}
 		collisionSystem->Initialize(this->mCoordinator);
 		this->mSystems.push_back(collisionSystem);
+
+		const auto gravitySystem = this->mCoordinator->RegisterSystem<GravitySystem>();
+		{
+			Signature signature;
+			signature.set(this->mCoordinator->GetComponentType<Gravity>());
+			signature.set(this->mCoordinator->GetComponentType<RigidBody>());
+			signature.set(this->mCoordinator->GetComponentType<Transform>());
+			this->mCoordinator->SetSystemSignature<GravitySystem>(signature);
+		}
+		gravitySystem->Initialize(this->mCoordinator);
+		this->mSystems.push_back(gravitySystem);
 
 		const auto hitBoxRenderSystem = this->mCoordinator->RegisterSystem<HitBoxRenderSystem>();
 		{

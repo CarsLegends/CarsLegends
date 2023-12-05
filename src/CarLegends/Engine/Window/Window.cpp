@@ -19,6 +19,7 @@ namespace Windows
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 		glfwWindowHint(GLFW_FOCUSED, GLFW_TRUE);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_SAMPLES, WINDOW_SAMPLES_COUNT);
 
 #ifdef NDEBUG
 		const auto window = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), glfwGetPrimaryMonitor(), nullptr);
@@ -42,6 +43,7 @@ namespace Windows
 
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_MULTISAMPLE);
 	}
 
 	void Window::FrameBufferSizeCallback(GLFWwindow* window, int width, int height)

@@ -29,34 +29,49 @@ namespace Systems
 
 			auto controllerState = this->mPlayersControllerState[playable.mPlayerNumber];
 
-			if(std::abs(controllerState.mLeftJoystickY) > 0.09f)
+			if (std::abs(controllerState.mLeftJoystickY) > 0.09f && std::abs(controllerState.mLeftJoystickX) > 0.09f)
 			{
-				transform.mPosition.z += controllerState.mLeftJoystickY / 100.0f;
-			}
-
-			if (std::abs(controllerState.mLeftJoystickX) > 0.09f)
-			{
-				transform.mPosition.x += controllerState.mLeftJoystickX / 100.0f;
+				transform.mEulerAngles.y = atan(controllerState.mLeftJoystickX, controllerState.mLeftJoystickY);
 			}
 
 			if (std::abs(controllerState.mRightTrigger) > 0.09f)
 			{
-				rigidBody.mAcceleration.z += controllerState.mRightTrigger * 0.002f;
+				rigidBody.mVelocity.z += cos(transform.mEulerAngles.y) * controllerState.mRightTrigger * deltaTime;
+				rigidBody.mVelocity.x += sin(transform.mEulerAngles.y) * controllerState.mRightTrigger * deltaTime;
 			}
 
-			if (std::abs(controllerState.mLeftTrigger) > 0.09f)
+			if (std::abs(controllerState.mLeftTrigger) > -0.09f)
 			{
-				rigidBody.mAcceleration.z -= controllerState.mLeftTrigger * 0.002f;
-			}
-
-			if (controllerState.mRightTrigger == -1.0f && controllerState.mLeftTrigger == -1.0f)
-			{
-				rigidBody.mAcceleration.z = 0.0f;
+				rigidBody.mVelocity.z -= cos(transform.mEulerAngles.y) * controllerState.mLeftTrigger * deltaTime;
+				rigidBody.mVelocity.x -= sin(transform.mEulerAngles.y) * controllerState.mLeftTrigger * deltaTime;
 			}
 
 			if(controllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButtons::A)))
 			{
-				rigidBody.mVelocity.y += 10.0f * deltaTime;
+				rigidBody.mVelocity.y += 50.0f * deltaTime;
+			}
+
+			if (controllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButtons::B)))
+			{
+				if (rigidBody.mVelocity.z > 0)
+				{
+					rigidBody.mVelocity.z -= rigidBody.mVelocity.z / 100;
+				}
+
+				if (rigidBody.mVelocity.x > 0)
+				{
+					rigidBody.mVelocity.x -= rigidBody.mVelocity.x / 100;
+				}
+
+				if (rigidBody.mVelocity.z < 0)
+				{
+					rigidBody.mVelocity.z += -rigidBody.mVelocity.z / 100;
+				}
+
+				if (rigidBody.mVelocity.x < 0)
+				{
+					rigidBody.mVelocity.x += -rigidBody.mVelocity.x / 100;
+				}
 			}
 		}
 	}

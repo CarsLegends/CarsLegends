@@ -41,6 +41,7 @@ namespace Configuration
 	constexpr uint32_t WINDOW_BUTTONS_COUNT = 6;
 	constexpr uint32_t WINDOW_CONTROLLER_BUTTONS_COUNT = 14;
 	constexpr uint32_t WINDOW_PLAYER_COUNT = 2;
+	constexpr uint32_t WINDOW_SAMPLES_COUNT = 8;
 }
 
 #endif

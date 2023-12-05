@@ -80,7 +80,7 @@ void main()
     vec4 lightColors[5] = vec4[](lightColor0, lightColor1, lightColor2, lightColor3, lightColor4);
     vec3 lightPositions[5] = vec3[](lightPosition0, lightPosition1, lightPosition2, lightPosition3, lightPosition4);
 
-    float ambient = 0.20f;
+    float ambient = 0.40f;
     float specularLight = 0.50f;
 
     vec3 normal = normalize(Normal);

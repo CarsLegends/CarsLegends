@@ -34,19 +34,33 @@ namespace Systems
 			}
 
 			const CollisionData collisionData = EPA(simplex, colliderA, colliderB);
-			const vec3 reactionForce = collisionData.mNormal * collisionData.mDepth * 100.0f;
+			const vec3 collisionDistance = collisionData.mNormal * collisionData.mDepth;
 
 			auto& transformA = this->mCoordinator->GetComponent<Transform>(iPair.first);
 			auto& transformB = this->mCoordinator->GetComponent<Transform>(iPair.second);
+			auto& rigidA = this->mCoordinator->GetComponent<RigidBody>(iPair.first);
+			auto& rigidB = this->mCoordinator->GetComponent<RigidBody>(iPair.second);
 
 			if (!hitBoxA.mStatic)
 			{
-				transformA.mPosition -= reactionForce * deltaTime;
+				rigidA.mAcceleration += -rigidA.mAcceleration / 2.0f + -rigidB.mAcceleration / 2.0f;
+				transformA.mPosition -= collisionDistance;
 			}
 
 			if (!hitBoxB.mStatic)
 			{
-				transformB.mPosition += reactionForce * deltaTime;
+				rigidB.mAcceleration += -rigidB.mAcceleration / 2.0f + -rigidA.mAcceleration / 2.0f;
+				transformB.mPosition += collisionDistance;
+			}
+
+			if (collisionData.mNormal.y == -1.0f && rigidA.mVelocity.y < 0)
+			{
+				rigidA.mVelocity.y = 0;
+			}
+
+			if (collisionData.mNormal.y == -1.0f && rigidB.mVelocity.y < 0)
+			{
+				rigidB.mVelocity.y = 0;
 			}
 		}
 	}

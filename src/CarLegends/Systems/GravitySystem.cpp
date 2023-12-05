@@ -2,6 +2,8 @@
 
 #include <glm/ext/quaternion_exponential.hpp>
 
+#include "../Components/Renderable.hpp"
+
 namespace Systems
 {
 	GravitySystem::GravitySystem() = default;
@@ -19,16 +21,31 @@ namespace Systems
 			auto& transform = this->mCoordinator->GetComponent<Transform>(entity);
 			auto const& gravity = this->mCoordinator->GetComponent<Gravity>(entity);
 
-			transform.mPosition += rigidBody.mVelocity * deltaTime + vec3(0.5f, 0.5f, 0.5f) * rigidBody.mAcceleration * vec3(pow(2, deltaTime), pow(2, deltaTime), pow(2, deltaTime));
-
-			if (transform.mPosition.y < 0.0f)
+			if (rigidBody.mAcceleration.y > gravity.mForce.y)
 			{
-				transform.mPosition.y = 0.0f;
-				rigidBody.mVelocity.y = 0.0f;
-				continue;
+				// Should be name gravity acceleration
+				rigidBody.mAcceleration.y += gravity.mForce.y;
 			}
 
-			rigidBody.mVelocity += gravity.mForce * deltaTime;
+			if (rigidBody.mVelocity.x > 5.0f)
+			{
+				rigidBody.mVelocity.x -= 5.0f;
+			}
+
+			if (rigidBody.mVelocity.z > 5.0f)
+			{
+				rigidBody.mVelocity.z -= 5.0f;
+			}
+
+			rigidBody.mVelocity += rigidBody.mAcceleration * deltaTime;
+
+			if (rigidBody.mVelocity.y < -10.0f)
+			{
+				rigidBody.mVelocity.y = -10.0f;
+			}
+
+			transform.mPosition += rigidBody.mVelocity * deltaTime;
+			continue;
 		}
 	}
 }
