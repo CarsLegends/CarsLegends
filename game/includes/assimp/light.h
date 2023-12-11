@@ -3,7 +3,7 @@
 Open Asset Import Library (assimp)
 ---------------------------------------------------------------------------
 
-Copyright (c) 2006-2022, assimp team
+Copyright (c) 2006-2016, assimp team
 
 All rights reserved.
 
@@ -43,15 +43,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *  @brief Defines the aiLight data structure
  */
 
-#pragma once
-#ifndef AI_LIGHT_H_INC
-#define AI_LIGHT_H_INC
+#ifndef __AI_LIGHT_H_INC__
+#define __AI_LIGHT_H_INC__
 
-#ifdef __GNUC__
-#   pragma GCC system_header
-#endif
-
-#include <assimp/types.h>
+#include "types.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -60,7 +55,8 @@ extern "C" {
 // ---------------------------------------------------------------------------
 /** Enumerates all supported types of light sources.
  */
-enum aiLightSourceType {
+enum aiLightSourceType
+{
     aiLightSource_UNDEFINED     = 0x0,
 
     //! A directional light source has a well-defined direction
@@ -107,15 +103,16 @@ enum aiLightSourceType {
  *  a single structure and distinguished by their parameters.
  *  Note - some file formats (such as 3DS, ASE) export a "target point" -
  *  the point a spot light is looking at (it can even be animated). Assimp
- *  writes the target point as a sub-node of a spot-lights's main node,
+ *  writes the target point as a subnode of a spotlights's main node,
  *  called "<spotName>.Target". However, this is just additional information
  *  then, the transformation tracks of the main node make the
  *  spot light already point in the right direction.
 */
-struct aiLight {
+struct aiLight
+{
     /** The name of the light source.
      *
-     *  There must be a node in the scene-graph with the same name.
+     *  There must be a node in the scenegraph with the same name.
      *  This node specifies the position of the light in the scene
      *  hierarchy and can be animated.
      */
@@ -237,7 +234,7 @@ struct aiLight {
 
 #ifdef __cplusplus
 
-    aiLight() AI_NO_EXCEPT
+    aiLight()
         :   mType                 (aiLightSource_UNDEFINED)
         ,   mAttenuationConstant  (0.f)
         ,   mAttenuationLinear    (1.f)
@@ -255,4 +252,5 @@ struct aiLight {
 }
 #endif
 
-#endif // !! AI_LIGHT_H_INC
+
+#endif // !! __AI_LIGHT_H_INC__
