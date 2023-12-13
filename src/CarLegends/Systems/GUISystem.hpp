@@ -36,14 +36,15 @@ namespace Systems
 		std::shared_ptr<ShaderProgram> mShader;
 		std::map<int, Font> mLoadedFonts;
 		VertexArray mVertexArray{};
-		MouseState mMouseState;
+		ControllerState mControllerState;
 
 		inline static const std::vector<uint32_t> mIndices = { 0, 1, 2, 0, 2, 3 };
 		inline static mat4 mProjection = ortho(0.0f, static_cast<float>(WINDOW_WIDTH), 0.0f, static_cast<float>(WINDOW_HEIGHT));
 
 		static vec2 GetStringProportions(const std::string& text, Font& font);
 		void CreateFont(int fontSize);
-		void MouseInputListener(Event& event);
+		void UpdateButtonList(Buttons& buttons);
+		void ControllerInputListener(Event& event);
 		void InitializeGPUData(std::vector<Vertex> vertices, std::vector<uint32_t> indices);
 		void RenderButtonBox(Button button);
 		void RenderButtonLabel(const Button& button, Font& font);

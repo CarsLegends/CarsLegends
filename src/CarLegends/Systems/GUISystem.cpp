@@ -9,9 +9,9 @@ namespace Systems
 		this->mCoordinator = coordinator;
 		this->mShader = shader;
 
-		this->mCoordinator->AddEventListener(WINDOW_INPUT_CURSOR_LEFT, [this](auto&& PH1)
+		this->mCoordinator->AddEventListener(WINDOW_CONTROLLER_INPUT, [this](auto&& PH1)
 		{
-			GUISystem::MouseInputListener(std::forward<decltype(PH1)>(PH1));
+			GUISystem::ControllerInputListener(std::forward<decltype(PH1)>(PH1));
 		});
 	}
 
@@ -21,9 +21,13 @@ namespace Systems
 		this->mShader->SendUniformInt("useColor", true);
 		this->mShader->SendUniformInt("useProjection", true);
 		this->mShader->SendUniformMatrix4f("projection", mProjection);
+
+
 		for (const Entity iEntity : this->mEntities)
 		{
-			const auto& buttonsContainer = this->mCoordinator->GetComponent<Buttons>(iEntity);
+			auto& buttonsContainer = this->mCoordinator->GetComponent<Buttons>(iEntity);
+			UpdateButtonList(buttonsContainer);
+
 			for(unsigned int i = 0; i < buttonsContainer.mRegisteredButtonsCount; i++)
 			{
 				const auto iButton = buttonsContainer.mButtons[i];
@@ -72,11 +76,19 @@ namespace Systems
 		const float xOffset = button.mWidth / 2.0f;
 		const float yOffset = button.mHeight / 2.0f;
 
-		const std::vector<Vertex> vertices = {
-			{ { button.mPosition.x - xOffset, button.mPosition.y + yOffset, 0.0f }, button.mColor },
-			{ { button.mPosition.x + xOffset, button.mPosition.y + yOffset, 0.0f }, button.mColor },
-			{ { button.mPosition.x + xOffset, button.mPosition.y - yOffset, 0.0f }, button.mColor },
-			{ { button.mPosition.x - xOffset, button.mPosition.y - yOffset, 0.0f }, button.mColor },
+		vec3 color = button.mColor;
+
+		if (button.mHovered)
+		{
+			color = { 0.91f, 0.88f, 0.83f };
+		}
+
+		const std::vector<Vertex> vertices = 
+		{
+			{ { button.mPosition.x - xOffset, button.mPosition.y + yOffset, 0.0f }, color },
+			{ { button.mPosition.x + xOffset, button.mPosition.y + yOffset, 0.0f }, color },
+			{ { button.mPosition.x + xOffset, button.mPosition.y - yOffset, 0.0f }, color },
+			{ { button.mPosition.x - xOffset, button.mPosition.y - yOffset, 0.0f }, color },
 		};
 
 		InitializeGPUData(vertices, mIndices);
@@ -174,8 +186,72 @@ namespace Systems
 		}
 	}
 
-	void GUISystem::MouseInputListener(Event& event)
+	void GUISystem::UpdateButtonList(Buttons& buttons)
 	{
-		this->mMouseState = event.GetParam<MouseState>(WINDOW_INPUT_CURSOR_PARAMETER);
+		std::pair hoveredButton = std::make_pair(0, buttons.mButtons.begin());
+
+		int counter = 0;
+		for(auto itButton = buttons.mButtons.begin(); itButton != buttons.mButtons.end(); ++itButton)
+		{
+			if (counter >= buttons.mRegisteredButtonsCount)
+			{
+				break;
+			}
+
+			const auto button = *itButton;
+			if(button.mHovered)
+			{
+				hoveredButton = std::make_pair(counter, itButton);
+			}
+			counter++;
+		}
+
+		if (this->mControllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButton::A)))
+		{
+			// Publish event
+		}
+
+		if (this->mControllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButton::Up)))
+		{
+			hoveredButton.second->mHovered = false;
+
+			if (hoveredButton.first == 0)
+			{
+				buttons.mButtons[buttons.mRegisteredButtonsCount - 1].mHovered = true;
+			}
+			else
+			{
+				buttons.mButtons[hoveredButton.first - 1].mHovered = true;
+			}
+
+			this->mControllerState.mControllerButtons.reset();
+			return;
+		}
+
+		if (this->mControllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButton::Down)))
+		{
+			hoveredButton.second->mHovered = false;
+
+			if (hoveredButton.first == buttons.mRegisteredButtonsCount - 1)
+			{
+				buttons.mButtons[0].mHovered = true;
+			}
+			else
+			{
+				buttons.mButtons[hoveredButton.first + 1].mHovered = true;
+			}
+		}
+
+		this->mControllerState.mControllerButtons.reset();
+	}
+
+	void GUISystem::ControllerInputListener(Event& event)
+	{
+		const auto [controllerState, playerNumber] = event.GetParam<std::pair<ControllerState, int>>(WINDOW_CONTROLLER_INPUT_PARAMETER);
+
+		if(playerNumber == 0)
+		{
+			this->mControllerState = controllerState;
+		}
 	}
 }

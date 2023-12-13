@@ -1,6 +1,9 @@
 #include <random>
 
 #include "Game.hpp"
+
+#include <chrono>
+
 #include "Components/Buttons.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Renderable.hpp"
@@ -94,7 +97,7 @@ namespace Game
 
 		const vector buttons = {
 			Button({}, { 0.8f, 0.34f, 0.0f }, 400, 100, "Start", WINDOW_QUIT, true).CenterHorizontally().CenterVertically().SetFontSize(128),
-			Button({}, { 0.8f, 0.34f, 0.0f }, 400, 100, "Exit", WINDOW_QUIT, true).CenterHorizontally().CenterVertically().Move({ 0.0f, -150.0f }).SetFontSize(128)
+			Button({}, { 0.8f, 0.34f, 0.0f }, 400, 100, "Exit", WINDOW_QUIT, false).CenterHorizontally().CenterVertically().Move({ 0.0f, -150.0f }).SetFontSize(128)
 		};
 
 		const vector labels = {
@@ -332,11 +335,20 @@ namespace Game
 
 	void Game::Update(float deltaTime)
 	{
-		this->mWindow.ProcessEvents(this->mCoordinator);
+		const auto startTimeFrame = chrono::high_resolution_clock::now();
+		const float timeDifference = chrono::duration<float>(startTimeFrame - this->previousTime).count();
+
+		if (timeDifference >= 1.0 / 3600.0)
+		{
+			this->mWindow.ProcessEvents(this->mCoordinator);
+			this->previousTime = startTimeFrame;
+		}
+
 		for (const auto& system : this->mSystems)
 		{
 			system->Update(deltaTime);
 		}
+
 		this->mWindow.Update();
 	}
 

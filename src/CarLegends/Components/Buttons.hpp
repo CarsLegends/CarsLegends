@@ -29,7 +29,7 @@ namespace Components
 		bool mHovered;
 
 		Button();
-		Button(vec2 position, vec3 color, float width, float height, const std::string& label, EventId eventId, bool hovered);
+		Button(vec2 position, vec3 color, float width, float height, const std::string& label, EventId eventId, bool hovered = false);
 
 		Button& CenterHorizontally();
 		Button& CenterVertically();
