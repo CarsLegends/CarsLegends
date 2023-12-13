@@ -15,14 +15,27 @@ namespace Buffers
 		vec3 mColor;
 		vec2 mTextureUv;
 
-		Vertex() = default;
-		Vertex(vec3 position, vec3 color)
-		{
-			this->mPosition = position;
-			this->mNormal = {};
-			this->mColor = color;
-			this->mTextureUv = {};
-		}
+		Vertex();
+		Vertex(vec3 position, vec3 color);
+		Vertex(vec3 position, vec3 color, vec2 textureUv);
 	};
+
+	inline Vertex::Vertex() = default;
+
+	inline Vertex::Vertex(vec3 position, vec3 color)
+	{
+		this->mPosition = position;
+		this->mNormal = {};
+		this->mColor = color;
+		this->mTextureUv = {};
+	}
+
+	inline Vertex::Vertex(vec3 position, vec3 color, vec2 textureUv)
+	{
+		this->mPosition = position;
+		this->mNormal = {};
+		this->mColor = color;
+		this->mTextureUv = textureUv;
+	}
 }
 #endif

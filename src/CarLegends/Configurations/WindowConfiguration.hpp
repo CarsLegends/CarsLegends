@@ -4,7 +4,7 @@
 
 namespace Configuration
 {
-	const enum class Buttons
+	enum class KeyBoardButton
 	{
 		W,
 		A,
@@ -14,13 +14,13 @@ namespace Configuration
 		LeftShift
 	};
 
-	constexpr uint32_t WINDOW_HEIGHT = 1080;
-	constexpr uint32_t WINDOW_WIDTH = 1920;
+	constexpr uint32_t WINDOW_HEIGHT = 720;
+	constexpr uint32_t WINDOW_WIDTH = 1280;
 	
 	const std::string WINDOW_TITLE = "CarLegends";
 
 	// Temporal, this should be moved to its own config
-	enum class ControllerButtons : int
+	enum class ControllerButton : int
 	{
 		A,
 		B,
@@ -42,6 +42,8 @@ namespace Configuration
 	constexpr uint32_t WINDOW_CONTROLLER_BUTTONS_COUNT = 14;
 	constexpr uint32_t WINDOW_PLAYER_COUNT = 2;
 	constexpr uint32_t WINDOW_SAMPLES_COUNT = 8;
+
+	constexpr int WINDOW_FONT_WIDTH = 0;
 }
 
 #endif

@@ -1,6 +1,9 @@
 #ifndef TEXTURES_TEXTURE_HPP
 #define TEXTURES_TEXTURE_HPP
 
+#include <ft2build.h>
+#include FT_FREETYPE_H  
+
 #include <string>
 #include <glad/glad.h>
 
@@ -18,7 +21,9 @@ namespace Textures
 		std::string mPath;
 		std::string mDirectory;
 		GLuint mUnit;
+		Texture();
 		Texture(const char* path, const std::string& directory, const char* textureType, GLuint slot);
+		Texture(FT_Face face);
 
 		void TextureUnit(ShaderProgram& shader, const char* uniform, GLuint unit);
 		void Bind();

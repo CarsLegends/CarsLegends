@@ -20,7 +20,7 @@ namespace Systems
 			CameraSystem::ButtonInputListener(std::forward<decltype(PH1)>(PH1));
 		});
 
-		this->mCoordinator->AddEventListener(WINDOW_INPUT_CURSOR, [this](auto&& PH1)
+		this->mCoordinator->AddEventListener(WINDOW_INPUT_CURSOR_RIGHT, [this](auto&& PH1)
 		{
 			CameraSystem::MouseInputListener(std::forward<decltype(PH1)>(PH1));
 		});
@@ -56,32 +56,32 @@ namespace Systems
 	{
 		const auto speed = (deltaTime * CAMERA_SPEED);
 
-		if (mButtons.test(static_cast<std::size_t>(Buttons::A)))
+		if (mButtons.test(static_cast<std::size_t>(KeyBoardButton::A)))
 		{
 			camera.mPosition += speed * -normalize(cross(camera.mOrientation, camera.mUp));
 		}
 
-		if (mButtons.test(static_cast<std::size_t>(Buttons::D)))
+		if (mButtons.test(static_cast<std::size_t>(KeyBoardButton::D)))
 		{
 			camera.mPosition += speed * normalize(cross(camera.mOrientation, camera.mUp));
 		}
 
-		if (mButtons.test(static_cast<std::size_t>(Buttons::S)))
+		if (mButtons.test(static_cast<std::size_t>(KeyBoardButton::S)))
 		{
 			camera.mPosition += speed * -camera.mOrientation;
 		}
 
-		if (mButtons.test(static_cast<std::size_t>(Buttons::W)))
+		if (mButtons.test(static_cast<std::size_t>(KeyBoardButton::W)))
 		{
 			camera.mPosition += speed * camera.mOrientation;
 		}
 
-		if (mButtons.test(static_cast<std::size_t>(Buttons::Space)))
+		if (mButtons.test(static_cast<std::size_t>(KeyBoardButton::Space)))
 		{
 			camera.mPosition += speed * camera.mUp;
 		}
 
-		if (mButtons.test(static_cast<std::size_t>(Buttons::LeftShift)))
+		if (mButtons.test(static_cast<std::size_t>(KeyBoardButton::LeftShift)))
 		{
 			camera.mPosition += speed * -camera.mUp;
 		}

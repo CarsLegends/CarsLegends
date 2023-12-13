@@ -23,6 +23,8 @@ namespace Windows
 	public:
 		Window();
 		Window(std::string const& windowTitle, unsigned int windowWidth, unsigned int windowHeight);
+		static void EnableBlending();
+		static void DisableBlending();
 		static void FrameBufferSizeCallback(GLFWwindow* window, int width, int height);
 
 		void Update() const;

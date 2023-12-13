@@ -21,7 +21,7 @@ namespace Windows
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_SAMPLES, WINDOW_SAMPLES_COUNT);
 
-#ifdef NDEBUG
+#ifndef _DEBUG
 		const auto window = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), glfwGetPrimaryMonitor(), nullptr);
 #else
 		const auto window = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), nullptr, nullptr);
@@ -41,9 +41,21 @@ namespace Windows
 
 		glfwSetFramebufferSizeCallback(this->mWindow, FrameBufferSizeCallback);
 
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		//glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		glClearColor(0.4f, 0.6f, 0.8f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_MULTISAMPLE);
+	}
+
+	void Window::EnableBlending()
+	{
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+
+	void Window::DisableBlending()
+	{
+		glDisable(GL_BLEND);
 	}
 
 	void Window::FrameBufferSizeCallback(GLFWwindow* window, int width, int height)
@@ -96,32 +108,32 @@ namespace Windows
 
 		if (glfwGetKey(this->mWindow, GLFW_KEY_W) == GLFW_PRESS)
 		{
-			this->mButtons.set(static_cast<std::size_t>(Buttons::W));
+			this->mButtons.set(static_cast<std::size_t>(KeyBoardButton::W));
 		}
 
 		if (glfwGetKey(this->mWindow, GLFW_KEY_A) == GLFW_PRESS)
 		{
-			this->mButtons.set(static_cast<std::size_t>(Buttons::A));
+			this->mButtons.set(static_cast<std::size_t>(KeyBoardButton::A));
 		}
 
 		if (glfwGetKey(this->mWindow, GLFW_KEY_S) == GLFW_PRESS)
 		{
-			this->mButtons.set(static_cast<std::size_t>(Buttons::S));
+			this->mButtons.set(static_cast<std::size_t>(KeyBoardButton::S));
 		}
 
 		if (glfwGetKey(this->mWindow, GLFW_KEY_D) == GLFW_PRESS)
 		{
-			this->mButtons.set(static_cast<std::size_t>(Buttons::D));
+			this->mButtons.set(static_cast<std::size_t>(KeyBoardButton::D));
 		}
 
 		if (glfwGetKey(this->mWindow, GLFW_KEY_SPACE) == GLFW_PRESS)
 		{
-			this->mButtons.set(static_cast<std::size_t>(Buttons::Space));
+			this->mButtons.set(static_cast<std::size_t>(KeyBoardButton::Space));
 		}
 
 		if (glfwGetKey(this->mWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		{
-			this->mButtons.set(static_cast<std::size_t>(Buttons::LeftShift));
+			this->mButtons.set(static_cast<std::size_t>(KeyBoardButton::LeftShift));
 		}
 
 		if (this->mButtons.any())
@@ -182,85 +194,85 @@ namespace Windows
 			int controllerButtonsCount;
 			const unsigned char* buttons = glfwGetJoystickButtons(joystickNumber, &controllerButtonsCount);
 
-			constexpr auto buttonA = static_cast<size_t>(ControllerButtons::A);
+			constexpr auto buttonA = static_cast<size_t>(ControllerButton::A);
 			if (buttons[buttonA] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonA);
 			}
 
-			constexpr auto buttonB = static_cast<size_t>(ControllerButtons::B);
+			constexpr auto buttonB = static_cast<size_t>(ControllerButton::B);
 			if (buttons[buttonB] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonB);
 			}
 
-			constexpr auto buttonY = static_cast<size_t>(ControllerButtons::Y);
+			constexpr auto buttonY = static_cast<size_t>(ControllerButton::Y);
 			if (buttons[buttonY] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonY);
 			}
 
-			constexpr auto buttonX = static_cast<size_t>(ControllerButtons::X);
+			constexpr auto buttonX = static_cast<size_t>(ControllerButton::X);
 			if (buttons[buttonX] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonX);
 			}
 
-			constexpr auto buttonRB = static_cast<size_t>(ControllerButtons::RB);
+			constexpr auto buttonRB = static_cast<size_t>(ControllerButton::RB);
 			if (buttons[buttonRB] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonRB);
 			}
 
-			constexpr auto buttonLB = static_cast<size_t>(ControllerButtons::LB);
+			constexpr auto buttonLB = static_cast<size_t>(ControllerButton::LB);
 			if (buttons[buttonLB] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonLB);
 			}
 
-			constexpr auto buttonBack = static_cast<size_t>(ControllerButtons::Back);
+			constexpr auto buttonBack = static_cast<size_t>(ControllerButton::Back);
 			if (buttons[buttonBack] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonBack);
 			}
 
-			constexpr auto buttonRestart = static_cast<size_t>(ControllerButtons::Start);
+			constexpr auto buttonRestart = static_cast<size_t>(ControllerButton::Start);
 			if (buttons[buttonRestart] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonRestart);
 			}
 
-			constexpr auto buttonL3 = static_cast<size_t>(ControllerButtons::L3);
+			constexpr auto buttonL3 = static_cast<size_t>(ControllerButton::L3);
 			if (buttons[buttonL3] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonL3);
 			}
 
-			constexpr auto buttonR3 = static_cast<size_t>(ControllerButtons::R3);
+			constexpr auto buttonR3 = static_cast<size_t>(ControllerButton::R3);
 			if (buttons[buttonR3] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonR3);
 			}
 
-			constexpr auto buttonUp = static_cast<size_t>(ControllerButtons::Up);
+			constexpr auto buttonUp = static_cast<size_t>(ControllerButton::Up);
 			if (buttons[buttonUp] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonUp);
 			}
 
-			constexpr auto buttonRight = static_cast<size_t>(ControllerButtons::Right);
+			constexpr auto buttonRight = static_cast<size_t>(ControllerButton::Right);
 			if (buttons[buttonRight] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonRight);
 			}
 
-			constexpr auto buttonDown = static_cast<size_t>(ControllerButtons::Down);
+			constexpr auto buttonDown = static_cast<size_t>(ControllerButton::Down);
 			if (buttons[buttonDown] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonDown);
 			}
 
-			constexpr auto buttonLeft = static_cast<size_t>(ControllerButtons::Left);
+			constexpr auto buttonLeft = static_cast<size_t>(ControllerButton::Left);
 			if (buttons[buttonLeft] == GLFW_PRESS)
 			{
 				this->mControllerState.mControllerButtons.set(buttonLeft);
@@ -276,6 +288,8 @@ namespace Windows
 
 	void Window::ReadMouseInput(const std::shared_ptr<Coordinator>& coordinator)
 	{
+#ifdef _DEBUG
+
 		if (glfwGetMouseButton(this->mWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 		{
 			double mouseX;
@@ -286,7 +300,7 @@ namespace Windows
 			this->mMouseState.mPosition.y = static_cast<float>(mouseY);
 			this->mMouseState.mRightClickReleased = false;
 
-			Event event(WINDOW_INPUT_CURSOR);
+			Event event(WINDOW_INPUT_CURSOR_RIGHT);
 			event.SetParam(WINDOW_INPUT_CURSOR_PARAMETER, this->mMouseState);
 			coordinator->SendEvent(event);
 		}
@@ -296,9 +310,25 @@ namespace Windows
 			this->mMouseState.mPosition.y = static_cast<float>(WINDOW_HEIGHT/2);
 			this->mMouseState.mRightClickReleased = true;
 
-			Event event(WINDOW_INPUT_CURSOR);
+			Event event(WINDOW_INPUT_CURSOR_RIGHT);
 			event.SetParam(WINDOW_INPUT_CURSOR_PARAMETER, this->mMouseState);
 			coordinator->SendEvent(event);
 		}
+#endif
+		if (glfwGetMouseButton(this->mWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			double mouseX;
+			double mouseY;
+			glfwGetCursorPos(this->mWindow, &mouseX, &mouseY);
+
+			this->mMouseState.mPosition.x = static_cast<float>(mouseX);
+			this->mMouseState.mPosition.y = static_cast<float>(mouseY);
+			this->mMouseState.mRightClickReleased = false;
+
+			Event event(WINDOW_INPUT_CURSOR_LEFT);
+			event.SetParam(WINDOW_INPUT_CURSOR_PARAMETER, this->mMouseState);
+			coordinator->SendEvent(event);
+		}
+
 	}
 }

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Low Poly Penguin
+* source:	https://sketchfab.com/3d-models/low-poly-penguin-2447f7535657403f8b99256638d011e5
+* author:	Noah Hahn (https://sketchfab.com/noahhahn)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Low Poly Penguin" (https://sketchfab.com/3d-models/low-poly-penguin-2447f7535657403f8b99256638d011e5) by Noah Hahn (https://sketchfab.com/noahhahn) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

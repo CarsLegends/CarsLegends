@@ -29,6 +29,7 @@ namespace Systems
 		vector<Texture> mTexturesLoaded;
 		AssimpModelLoader mModelLoader{};
 		std::shared_ptr<Coordinator> mCoordinator;
+		std::unordered_map<std::string, vector<Renderable::Mesh>> mModelsLoaded;
 
 		static void SendVertex(Renderable::Mesh& mesh);
 	};

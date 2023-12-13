@@ -1,4 +1,3 @@
-c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\gravitysystem.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\collisionsystem.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\camerasystem.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\stb.obj
@@ -13,6 +12,7 @@ c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\types.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\texture.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\shaderprogram.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\assimpmodelloader.obj
+c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\font.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\vertexbuffer.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\vertexarray.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\elementbuffer.obj
@@ -26,6 +26,8 @@ c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\lightsystem.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\isystem.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\hitboxrendersystem.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\hitboxcompositionsystem.obj
+c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\guisystem.obj
+c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\gravitysystem.obj
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\glad.obj
 c:\users\carlo\source\repos\carslegends\src\x64\debug\carlegends.exe
 c:\users\carlo\source\repos\carslegends\src\carlegends\x64\debug\carlegends.ilk

@@ -138,7 +138,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc143-mtd.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -160,7 +160,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;assimp-vc143-mtd.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -169,6 +169,7 @@
     <ClCompile Include="Engine\Buffers\ElementBuffer.cpp" />
     <ClCompile Include="Engine\Buffers\VertexArray.cpp" />
     <ClCompile Include="Engine\Buffers\VertexBuffer.cpp" />
+    <ClCompile Include="Engine\Fonts\Font.cpp" />
     <ClCompile Include="Engine\ModelLoading\AssimpModelLoader.cpp" />
     <ClCompile Include="Engine\Shaders\ShaderProgram.cpp" />
     <ClCompile Include="Engine\Textures\Texture.cpp" />
@@ -185,6 +186,7 @@
     <ClCompile Include="Systems\CameraSystem.cpp" />
     <ClCompile Include="Systems\CollisionSystem.cpp" />
     <ClCompile Include="Systems\GravitySystem.cpp" />
+    <ClCompile Include="Systems\GUISystem.cpp" />
     <ClCompile Include="Systems\HitBoxCompositionSystem.cpp" />
     <ClCompile Include="Systems\HitBoxRenderSystem.cpp" />
     <ClCompile Include="Systems\ISystem.hpp" />
@@ -195,15 +197,18 @@
     <ClCompile Include="Systems\Structs\Simplex.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Components\Buttons.hpp" />
     <ClInclude Include="Components\Camera.hpp" />
     <ClInclude Include="Components\CollisionModel.hpp" />
     <ClInclude Include="Components\Gravity.hpp" />
     <ClInclude Include="Components\HitBox.hpp" />
+    <ClInclude Include="Components\Labels.hpp" />
     <ClInclude Include="Components\LightSource.h" />
     <ClInclude Include="Components\Playable.hpp" />
     <ClInclude Include="Components\Renderable.hpp" />
     <ClInclude Include="Components\RigidBody.hpp" />
     <ClInclude Include="Configurations\CameraConfiguration.hpp" />
+    <ClInclude Include="Configurations\GUIConfiguration.hpp" />
     <ClInclude Include="Configurations\WindowConfiguration.hpp" />
     <ClInclude Include="Configurations\ManagersConfiguration.hpp" />
     <ClInclude Include="Coordinators\Coordinator.hpp" />
@@ -212,6 +217,8 @@
     <ClInclude Include="Engine\Buffers\Structs\Vertex.hpp" />
     <ClInclude Include="Engine\Buffers\VertexArray.hpp" />
     <ClInclude Include="Engine\Buffers\VertexBuffer.hpp" />
+    <ClInclude Include="Engine\Fonts\Font.h" />
+    <ClInclude Include="Engine\Fonts\Structs\Character.h" />
     <ClInclude Include="Engine\ModelLoading\AssimpModelLoader.hpp" />
     <ClInclude Include="Engine\ModelLoading\Structs\ModelData.hpp" />
     <ClInclude Include="Engine\Shaders\ShaderProgram.hpp" />
@@ -229,6 +236,7 @@
     <ClInclude Include="Systems\CameraSystem.hpp" />
     <ClInclude Include="Systems\CollisionSystem.hpp" />
     <ClInclude Include="Systems\GravitySystem.hpp" />
+    <ClInclude Include="Systems\GUISystem.hpp" />
     <ClInclude Include="Systems\HitBoxCompositionSystem.hpp" />
     <ClInclude Include="Systems\HitBoxRenderSystem.hpp" />
     <ClInclude Include="Systems\LightSystem.hpp" />
@@ -244,6 +252,11 @@
     <None Include="Resources\Models\cat\scene.gltf" />
     <None Include="Resources\Shaders\test.frag" />
     <None Include="Resources\Shaders\test.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Fonts\arial.ttf" />
+    <Font Include="Resources\Fonts\blowbrush.ttf" />
+    <Font Include="Resources\Fonts\game_over.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

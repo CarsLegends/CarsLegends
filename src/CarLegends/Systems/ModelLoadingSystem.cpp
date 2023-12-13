@@ -20,9 +20,16 @@ namespace Systems
 				continue;
 			}
 
+			if (this->mModelsLoaded.find(renderable.mDirectory) != this->mModelsLoaded.end())
+			{
+				renderable.mMeshes = this->mModelsLoaded[renderable.mDirectory];
+				renderable.mLoaded = true;
+				continue;
+			}
+
 			vector<ModelData> model = this->mModelLoader.LoadModel(renderable.mDirectory);
 
-			for (auto iMesh : model)
+			for (auto& iMesh : model)
 			{
 				Renderable::Mesh mesh;
 
@@ -36,14 +43,14 @@ namespace Systems
 					mesh.mIndices.push_back(iIndex);
 				}
 
-				for (auto iTexture : iMesh.mTextures)
+				for (auto& iTexture : iMesh.mTextures)
 				{
-					Texture texture(
-						iTexture.mPath.c_str(), 
-						iTexture.mDirectory, 
-						iTexture.mType.c_str(), 
+					Texture texture = {
+						iTexture.mPath.c_str(),
+						iTexture.mDirectory,
+						iTexture.mType.c_str(),
 						iTexture.mUnit
-					);
+					};
 
 					mesh.mTextures.push_back(texture);
 				}
@@ -52,6 +59,7 @@ namespace Systems
 				SendVertex(mesh);
 			}
 
+			this->mModelsLoaded[renderable.mDirectory] = renderable.mMeshes;
 			renderable.mLoaded = true;
 		}
 	}

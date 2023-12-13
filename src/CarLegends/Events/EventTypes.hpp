@@ -14,7 +14,8 @@ namespace Events
 	constexpr EventId WINDOW_RESIZED = "Events::Window::RESIZED"_hash;
 	constexpr EventId WINDOW_KEYBOARD_INPUT_BUTTON = "Events::Window::Keyboard::Input::BUTTON"_hash;
 	constexpr EventId WINDOW_CONTROLLER_INPUT = "Events::Window::Controller::INPUT"_hash;
-	constexpr EventId WINDOW_INPUT_CURSOR = "Events::Window::Input::CURSOR"_hash;
+	constexpr EventId WINDOW_INPUT_CURSOR_RIGHT = "Events::Window::Input::cursor::RIGHT"_hash;
+	constexpr EventId WINDOW_INPUT_CURSOR_LEFT = "Events::Window::Input::cursor::LEFT"_hash;
 	constexpr EventId WINDOW_HIDE_CURSOR = "Events::Window::Hide::CURSOR"_hash;
 	constexpr EventId WINDOW_SHOW_CURSOR = "Events::Window::Show::CURSOR"_hash;
 	constexpr EventId WINDOW_SET_CURSOR_POSITION = "Events::Window::Set::Cursor::POSITION"_hash;

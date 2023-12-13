@@ -37,6 +37,7 @@ namespace Systems
 		this->mShader->Activate();
 		InitializeDataInGPU();
 
+		this->mShader->SendUniformInt("useColor", true);
 		for (const Entity iEntity : this->mEntities)
 		{
 			MoveEntity(iEntity);
@@ -45,6 +46,7 @@ namespace Systems
 			this->mVertexArray.DrawHitBoxesOutline();
 			this->mVertexArray.Unbind();
 		}
+		this->mShader->SendUniformInt("useColor", false);
 	}
 
 	void HitBoxRenderSystem::MoveEntity(Entity entity) const
@@ -63,7 +65,7 @@ namespace Systems
 
 		this->mVertexArray.Unbind();
 		vertexBuffer.Unbind();
-		vertexBuffer.Unbind();
+		elementBuffer.Unbind();
 	}
 
 	void HitBoxRenderSystem::ShowHitBoxHandler(Event& event)

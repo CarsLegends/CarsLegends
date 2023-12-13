@@ -46,12 +46,12 @@ namespace Systems
 				rigidBody.mVelocity.x -= sin(transform.mEulerAngles.y) * controllerState.mLeftTrigger * deltaTime;
 			}
 
-			if(controllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButtons::A)) && transform.mPosition.y <= 0.0f)
+			if(controllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButton::A)) && transform.mPosition.y <= 0.0f)
 			{
 				rigidBody.mVelocity.y += 20.0f * deltaTime;
 			}
 
-			if (controllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButtons::B)) && transform.mPosition.y <= 0.0f)
+			if (controllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButton::B)) && transform.mPosition.y <= 0.0f)
 			{
 				if (rigidBody.mVelocity.z > 0)
 				{

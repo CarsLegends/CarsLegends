@@ -38,18 +38,17 @@ namespace Systems
 		void DontShowHitBoxHandler(Event& event);
 		void MoveEntity(Entity entity) const;
 		void InitializeDataInGPU();
-		void MoveCamera() const;
 
 		inline static std::vector<Vertex> mSimplestHitBoxVertices = 
 		{
-			Vertex(vec3{ -0.5, -0.5, -0.5}, { 46.0f, 139.0f, 87.0f }),
-			Vertex(vec3{  0.5, -0.5, -0.5}, { 46.0f, 139.0f, 87.0f }),
-			Vertex(vec3{  0.5,  0.5, -0.5}, { 46.0f, 139.0f, 87.0f }),
-			Vertex(vec3{ -0.5,  0.5, -0.5}, { 46.0f, 139.0f, 87.0f }),
-			Vertex(vec3{ -0.5, -0.5,  0.5}, { 46.0f, 139.0f, 87.0f }),
-			Vertex(vec3{  0.5, -0.5,  0.5}, { 46.0f, 139.0f, 87.0f }),
-			Vertex(vec3{  0.5,  0.5,  0.5}, { 46.0f, 139.0f, 87.0f }),
-			Vertex(vec3{ -0.5,  0.5,  0.5}, { 46.0f, 139.0f, 87.0f }),
+			Vertex(vec3{ -0.5, -0.5, -0.5}, { 0.0f, 0.86f, 0.3f }),
+			Vertex(vec3{  0.5, -0.5, -0.5}, { 0.0f, 0.86f, 0.3f }),
+			Vertex(vec3{  0.5,  0.5, -0.5}, { 0.0f, 0.86f, 0.3f }),
+			Vertex(vec3{ -0.5,  0.5, -0.5}, { 0.0f, 0.86f, 0.3f }),
+			Vertex(vec3{ -0.5, -0.5,  0.5}, { 0.0f, 0.86f, 0.3f }),
+			Vertex(vec3{  0.5, -0.5,  0.5}, { 0.0f, 0.86f, 0.3f }),
+			Vertex(vec3{  0.5,  0.5,  0.5}, { 0.0f, 0.86f, 0.3f }),
+			Vertex(vec3{ -0.5,  0.5,  0.5}, { 0.0f, 0.86f, 0.3f }),
 		};
 
 		inline static std::vector<uint32_t> mSimplestHitBoxElements = 
