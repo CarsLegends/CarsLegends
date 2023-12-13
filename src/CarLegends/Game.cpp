@@ -108,7 +108,7 @@ namespace Game
 		this->mCoordinator->AddComponent<LightSource>(firstLightSource, { vec4(1.0f, 1.0f, 1.0f, 1.0f) , vec3(0.0f, 10.0f, 10.0f) });
 
 		std::default_random_engine generator;
-		std::uniform_real_distribution randPosition(-15.0f, 15.0f);
+		std::uniform_real_distribution randPosition(-20.0f, 20.0f);
 		std::uniform_real_distribution randRotation(0.0f, 360.0f);
 		std::uniform_real_distribution randScale(0.0f, 0.1f);
 		std::uniform_int_distribution rand3DModel(1, 4);
