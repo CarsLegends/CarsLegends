@@ -1,6 +1,8 @@
 ﻿#ifndef SYSTEMS_GUI_HPP
 #define SYSTEMS_GUI_HPP
 
+#include <chrono>
+
 #include "ISystem.hpp"
 #include "../Coordinators/Coordinator.hpp"
 #include "../Components/Buttons.hpp"
@@ -38,12 +40,16 @@ namespace Systems
 		VertexArray mVertexArray{};
 		ControllerState mControllerState;
 
+		std::chrono::time_point<std::chrono::steady_clock> mPreviousTime = std::chrono::high_resolution_clock::now();
+		std::_Array_iterator<Button, MAX_BUTTONS> mHoveredButton;
+
 		inline static const std::vector<uint32_t> mIndices = { 0, 1, 2, 0, 2, 3 };
 		inline static mat4 mProjection = ortho(0.0f, static_cast<float>(WINDOW_WIDTH), 0.0f, static_cast<float>(WINDOW_HEIGHT));
 
 		static vec2 GetStringProportions(const std::string& text, Font& font);
 		void CreateFont(int fontSize);
 		void UpdateButtonList(Buttons& buttons);
+		void CheckHoveredButton();
 		void ControllerInputListener(Event& event);
 		void InitializeGPUData(std::vector<Vertex> vertices, std::vector<uint32_t> indices);
 		void RenderButtonBox(Button button);

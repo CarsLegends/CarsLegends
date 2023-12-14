@@ -27,7 +27,7 @@ int main()
 		const float timeDifference = std::chrono::duration<float>(startTimeFrame - previousTime).count();
 		counter++;
 
-		if (timeDifference >= 1.0 / 30.0)
+		if (timeDifference >= 1.0)
 		{
 			std::string fps = std::to_string(1.0 / timeDifference * counter);
 			std::string ms = std::to_string(timeDifference / counter * 1000);

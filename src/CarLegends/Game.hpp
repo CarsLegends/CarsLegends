@@ -1,6 +1,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
-#include <chrono>
+
 #include <memory>
 
 #include "Coordinators/Coordinator.hpp"
@@ -33,12 +33,17 @@ namespace Game
 		bool mRunning;
 		Window mWindow;
 		Entity mCamera;
+		Entity mUserInterface;
 		std::shared_ptr<Coordinator> mCoordinator;
 		std::list<std::shared_ptr<ISystem>> mSystems{};
 		std::shared_ptr<ShaderProgram> mShader;
-		std::chrono::time_point<std::chrono::steady_clock> previousTime = std::chrono::high_resolution_clock::now();
+
+		std::vector<Entity> mStartMenuEntities;
+		std::vector<Entity> mGameEntities;
+		bool mGameStarted;
 
 		void QuitHandler(Event& event);
+		void StartGameHandler(Event& event);
 		void ShowCursorHandler(Event& event) const;
 		void HideCursorHandler(Event& event) const;
 		void SetCursorPositionHandler(Event& event) const;

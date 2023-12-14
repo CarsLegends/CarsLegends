@@ -1,11 +1,11 @@
 Model Information:
-* title:	Football
-* source:	https://sketchfab.com/3d-models/football-89ce97755fe9499aa59cb0876c21ee86
-* author:	Safat_Rules (https://sketchfab.com/Safat_Rules)
+* title:	PEPSI BOTTLE CAP
+* source:	https://sketchfab.com/3d-models/pepsi-bottle-cap-7a01ea0223e54c2bb32de2245dffdae7
+* author:	AMBROSEDUDE (https://sketchfab.com/AMBROSEDUDE)
 
 Model License:
 * license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 * requirements:	Author must be credited. Commercial use is allowed.
 
 If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "Football" (https://sketchfab.com/3d-models/football-89ce97755fe9499aa59cb0876c21ee86) by Safat_Rules (https://sketchfab.com/Safat_Rules) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+This work is based on "PEPSI BOTTLE CAP" (https://sketchfab.com/3d-models/pepsi-bottle-cap-7a01ea0223e54c2bb32de2245dffdae7) by AMBROSEDUDE (https://sketchfab.com/AMBROSEDUDE) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

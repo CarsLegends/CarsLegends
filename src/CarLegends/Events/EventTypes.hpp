@@ -11,6 +11,7 @@ namespace Events
 
 	// The string as long as possible to reduce collisions
 	constexpr EventId WINDOW_QUIT = "Events::Window::QUIT"_hash;
+	constexpr EventId WINDOW_START_GAME = "Events::Window::start::GAME"_hash;
 	constexpr EventId WINDOW_RESIZED = "Events::Window::RESIZED"_hash;
 	constexpr EventId WINDOW_KEYBOARD_INPUT_BUTTON = "Events::Window::Keyboard::Input::BUTTON"_hash;
 	constexpr EventId WINDOW_CONTROLLER_INPUT = "Events::Window::Controller::INPUT"_hash;

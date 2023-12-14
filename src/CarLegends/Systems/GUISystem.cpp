@@ -22,7 +22,6 @@ namespace Systems
 		this->mShader->SendUniformInt("useProjection", true);
 		this->mShader->SendUniformMatrix4f("projection", mProjection);
 
-
 		for (const Entity iEntity : this->mEntities)
 		{
 			auto& buttonsContainer = this->mCoordinator->GetComponent<Buttons>(iEntity);
@@ -53,6 +52,8 @@ namespace Systems
 				RenderLabel(iLabel.mLabel, font, labelPosition);
 			}
 		}
+
+		CheckHoveredButton();
 
 		this->mShader->SendUniformInt("useColor", false);
 		this->mShader->SendUniformInt("useProjection", false);
@@ -188,6 +189,16 @@ namespace Systems
 
 	void GUISystem::UpdateButtonList(Buttons& buttons)
 	{
+		const auto startTimeFrame = std::chrono::high_resolution_clock::now();
+		const float timeDifference = std::chrono::duration<float>(startTimeFrame - this->mPreviousTime).count();
+
+		if(timeDifference < 0.07f)
+		{
+			return;
+		}
+
+		this->mPreviousTime = startTimeFrame;
+
 		std::pair hoveredButton = std::make_pair(0, buttons.mButtons.begin());
 
 		int counter = 0;
@@ -206,14 +217,11 @@ namespace Systems
 			counter++;
 		}
 
-		if (this->mControllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButton::A)))
-		{
-			// Publish event
-		}
+		this->mHoveredButton = hoveredButton.second;
 
 		if (this->mControllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButton::Up)))
 		{
-			hoveredButton.second->mHovered = false;
+			this->mHoveredButton->mHovered = false;
 
 			if (hoveredButton.first == 0)
 			{
@@ -230,7 +238,7 @@ namespace Systems
 
 		if (this->mControllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButton::Down)))
 		{
-			hoveredButton.second->mHovered = false;
+			this->mHoveredButton->mHovered = false;
 
 			if (hoveredButton.first == buttons.mRegisteredButtonsCount - 1)
 			{
@@ -243,6 +251,24 @@ namespace Systems
 		}
 
 		this->mControllerState.mControllerButtons.reset();
+	}
+
+	void GUISystem::CheckHoveredButton()
+	{
+		const auto startTimeFrame = std::chrono::high_resolution_clock::now();
+		const float timeDifference = std::chrono::duration<float>(startTimeFrame - this->mPreviousTime).count();
+
+		if (timeDifference < 0.07f)
+		{
+			return;
+		}
+
+		this->mPreviousTime = startTimeFrame;
+
+		if (this->mControllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButton::A)))
+		{
+			this->mCoordinator->SendEvent(this->mHoveredButton->mEvent);
+		}
 	}
 
 	void GUISystem::ControllerInputListener(Event& event)
