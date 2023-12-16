@@ -35,6 +35,10 @@ namespace Game
 		Window mWindow;
 		Entity mCamera;
 		Entity mUserInterface;
+		Entity mFootball;
+		Entity mP1Goal;
+		Entity mP2Goal;
+		std::vector<Entity> mPlayers{};
 		std::shared_ptr<Coordinator> mCoordinator;
 		std::list<std::shared_ptr<ISystem>> mSystems{};
 		std::shared_ptr<ShaderProgram> mShader;
@@ -45,6 +49,7 @@ namespace Game
 
 		void QuitHandler(Event& event);
 		void FPSHandler(Event& event) const;
+		void GoalHandler(Event& event) const;
 		void StartGameHandler(Event& event);
 		void ShowCursorHandler(Event& event) const;
 		void HideCursorHandler(Event& event) const;

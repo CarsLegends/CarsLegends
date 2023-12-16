@@ -4,6 +4,8 @@
 
 #include "../Components/RigidBody.hpp"
 #include "../Components/Transform.hpp"
+#include "../Events/EventTypes.hpp"
+#include "../Events/EventParameters.hpp"
 
 namespace Systems
 {
@@ -30,6 +32,24 @@ namespace Systems
 
 			if(!collision)
 			{
+				continue;
+			}
+
+			if (hitBoxA.mFootball && hitBoxB.mGoal)
+			{
+				Event event(WINDOW_GAME_GOAL);
+				event.SetParam(WINDOW_GAME_PLAYER_GOAL, iPair.second);
+				this->mCoordinator->SendEvent(event);
+
+				continue;
+			}
+
+			if (hitBoxB.mFootball && hitBoxA.mGoal)
+			{
+				Event event(WINDOW_GAME_GOAL);
+				event.SetParam(WINDOW_GAME_PLAYER_GOAL, iPair.first);
+				this->mCoordinator->SendEvent(event);
+
 				continue;
 			}
 

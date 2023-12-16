@@ -11,6 +11,7 @@ namespace Components
 	struct Playable
 	{
 		unsigned int mPlayerNumber;
+		unsigned int mGoals = 0;
 
 		Playable();
 		Playable(unsigned int playerNumber);

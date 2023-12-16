@@ -23,6 +23,7 @@ namespace Events
 	constexpr EventId WINDOW_SET_CURSOR_POSITION = "Events::Window::Set::Cursor::POSITION"_hash;
 	constexpr EventId WINDOW_SHOW_HITBOXES = "Events::Window::Show::HITBOXES"_hash;
 	constexpr EventId WINDOW_DONT_SHOW_HITBOXES = "Events::Window::Dont::Show::HITBOXES"_hash;
+	constexpr EventId WINDOW_GAME_GOAL = "Events::Window::Game::GOAL"_hash;
 }
 
 #endif

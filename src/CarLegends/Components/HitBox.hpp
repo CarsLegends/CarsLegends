@@ -14,9 +14,10 @@ namespace Components
 		mat4 mTransformations;
 		bool mStatic;
 		bool mFootball;
+		bool mGoal;
 
 		HitBox();
-		HitBox(bool isStatic, bool mFootball = false);
+		HitBox(bool isStatic, bool football = false, bool goal = false);
 	};
 
 	inline HitBox::HitBox()
@@ -26,15 +27,17 @@ namespace Components
 		this->mTransformations = mat4(1.0f);
 		this->mStatic = false;
 		this->mFootball = false;
+		this->mGoal = false;
 	}
 
-	inline HitBox::HitBox(bool isStatic, bool football)
+	inline HitBox::HitBox(bool isStatic, bool football, bool goal)
 	{
 		this->mScale = vec3(0.0f);
 		this->mCenter = vec3(0.0f);
 		this->mTransformations = mat4(1.0f);
 		this->mStatic = isStatic;
 		this->mFootball = football;
+		this->mGoal = goal;
 	}
 }
 
