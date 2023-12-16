@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "Game.hpp"
+#include "Resources/raudio/raudio.h"
 
 using namespace std::chrono;
 
@@ -22,6 +23,8 @@ int main()
 	float counter = 0;
 	float deltaTime = 0.0f;
 	auto previousTime = high_resolution_clock::now();
+	InitAudioDevice();
+	Sound fx = LoadSound("Resources/music/BeatOne.mp3");
 	while (game.IsRunning())
 	{
 		auto startTimeFrame = high_resolution_clock::now();
@@ -38,12 +41,13 @@ int main()
 			previousTime = startTimeFrame;
 			counter = 0;
 		}
-
+		PlaySound(fx);
 		game.Update(deltaTime);
 
 		auto stopTimeFrame = high_resolution_clock::now();
 		deltaTime = std::chrono::duration<float>(stopTimeFrame - startTimeFrame).count();
 	}
-
+	UnloadSound(fx); 
+	CloseAudioDevice(); 
 	return 0;
 }
