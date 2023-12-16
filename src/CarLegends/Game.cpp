@@ -434,7 +434,7 @@ namespace Game
 			vec3(5.0f, -5.0f, -30.0f),
 			vec3(0.0f, radians(-35.0f), 0.0f),
 			vec3(0.2f, 0.2f, 0.2f),
-			});
+		});
 
 		this->mCoordinator->AddComponent<RigidBody>(penguin, {});
 
@@ -448,7 +448,7 @@ namespace Game
 
 		this->mCoordinator->AddComponent<Transform>(cat, {
 			vec3(-5.0f, -5.0f, -30.0f),
-			vec3(0.0f, 0.0f, 0.0f),
+			vec3(0.0f, radians(25.0f), 0.0f),
 			vec3(1.3f, 1.3f, 1.3f),
 			});
 
@@ -456,21 +456,54 @@ namespace Game
 
 		this->mCoordinator->AddComponent<HitBox>(cat, {});
 
-		const Entity tabaco = this->mCoordinator->CreateEntity();
+		const Entity car3 = this->mCoordinator->CreateEntity();
 
-		this->mCoordinator->AddComponent<Renderable>(tabaco, {
-			"./Resources/Models/tabaco/scene.gltf"
+		this->mCoordinator->AddComponent<Renderable>(car3, {
+			"./Resources/Models/car3/scene.gltf"
 			});
 
-		this->mCoordinator->AddComponent<Transform>(tabaco, {
+		this->mCoordinator->AddComponent<Transform>(car3, {
 			vec3(-10.0f, -5.0f, -30.0f),
-			vec3(0.0f, 0.0f, radians(-270.0f)),
+			vec3(0.0f, radians(195.0f), 0.0f),
 			vec3(100.0f, 100.0f, 100.0f),
 		});
 
-		this->mCoordinator->AddComponent<RigidBody>(tabaco, {});
+		this->mCoordinator->AddComponent<RigidBody>(car3, {});
 
-		this->mCoordinator->AddComponent<HitBox>(tabaco, {});
+		this->mCoordinator->AddComponent<HitBox>(car3, {});
+
+		const Entity car4 = this->mCoordinator->CreateEntity();
+
+		this->mCoordinator->AddComponent<Renderable>(car4, {
+			"./Resources/Models/car4/scene.gltf"
+			});
+
+		this->mCoordinator->AddComponent<Transform>(car4, {
+			vec3(10.0f, -5.0f, -30.0f),
+			vec3(0.0f, radians(-25.0f), 0.0f),
+			vec3(1.0f, 1.0f, 1.0f),
+			});
+
+		this->mCoordinator->AddComponent<RigidBody>(car4, {});
+
+		this->mCoordinator->AddComponent<HitBox>(car4, {});
+
+		const Entity car5 = this->mCoordinator->CreateEntity();
+
+		this->mCoordinator->AddComponent<Renderable>(car5, {
+			"./Resources/Models/car5/scene.gltf"
+			});
+
+		this->mCoordinator->AddComponent<Transform>(car5, {
+			vec3(0, -5.0f, -30.0f),
+			vec3(radians(-90.0f), 0.0f, 0.0f),
+			vec3(1.0f, 1.0f, 1.0f),
+			});
+
+		this->mCoordinator->AddComponent<RigidBody>(car5, {});
+
+		this->mCoordinator->AddComponent<HitBox>(car5, {});
+
 
 		const Entity table = this->mCoordinator->CreateEntity();
 
