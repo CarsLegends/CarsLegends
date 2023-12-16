@@ -13,6 +13,17 @@ namespace Systems
 		{
 			GUISystem::ControllerInputListener(std::forward<decltype(PH1)>(PH1));
 		});
+
+		this->mVertexArray.Bind();
+		this->mVertexBuffer.CreateVertexBufferText();
+
+		const ElementBuffer elementBuffer(mIndices);
+
+		this->mVertexArray.LinkAttributes(this->mVertexBuffer);
+
+		this->mVertexArray.Unbind();
+		this->mVertexBuffer.Unbind();
+		elementBuffer.Unbind();
 	}
 
 	void GUISystem::Update(float deltaTime)
@@ -49,7 +60,7 @@ namespace Systems
 					labelPosition.x -= labelProportions.x / 2;
 				}
 
-				RenderLabel(iLabel.mLabel, font, labelPosition);
+				RenderLabel(iLabel.mLabel, font, labelPosition, iLabel.mColor);
 			}
 		}
 
@@ -59,20 +70,18 @@ namespace Systems
 		this->mShader->SendUniformInt("useProjection", false);
 	}
 
-	void GUISystem::InitializeGPUData(std::vector<Vertex> vertices, std::vector<uint32_t> indices)
+	void GUISystem::InitializeGPUData(const std::vector<Vertex>& vertices, std::vector<uint32_t> indices)
 	{
 		this->mVertexArray.Bind();
-		const VertexBuffer vertexBuffer(vertices);
-		const ElementBuffer elementBuffer(indices);
+		this->mVertexBuffer.UpdateVertexBuffer(vertices);
 
-		this->mVertexArray.LinkAttributes(vertexBuffer);
+		this->mVertexArray.LinkAttributes(this->mVertexBuffer);
 
 		this->mVertexArray.Unbind();
-		vertexBuffer.Unbind();
-		elementBuffer.Unbind();
+		this->mVertexBuffer.Unbind();
 	}
 
-	void GUISystem::RenderButtonBox(Button button)
+	void GUISystem::RenderButtonBox(const Button& button)
 	{
 		const float xOffset = button.mWidth / 2.0f;
 		const float yOffset = button.mHeight / 2.0f;
@@ -115,18 +124,18 @@ namespace Systems
 			button.mPosition.y - button.mHeight * 0.5f + gap.y
 		};
 
-		RenderLabel(button.mLabel, font, labelStartPosition);
+		RenderLabel(button.mLabel, font, labelStartPosition, { 0.0f, 0.0f, 0.0f });
 	}
 
-	void GUISystem::RenderLabel(const std::string& label, Font& font, vec2 stringPosition)
+	void GUISystem::RenderLabel(const std::string& label, Font& font, vec2 stringPosition, vec3 color)
 	{
 		Window::EnableBlending();
 		this->mShader->SendUniformInt("useText", true);
 
 		float offset = 0;
-		for (auto itCharacter = label.cbegin(); itCharacter != label.cend(); ++itCharacter)
+		for (char iCharacter : label)
 		{
-			Character character = font.mCharacters[*itCharacter];
+			Character character = font.mCharacters[iCharacter];
 
 			vec2 characterPosition = {
 				offset + stringPosition.x + character.mBearing.x * 0.9f,
@@ -140,10 +149,10 @@ namespace Systems
 			character.mTexture.Bind();
 
 			const std::vector<Vertex> vertices = {
-				{ { characterPosition.x        , characterPosition.y + height, 1.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f } },
-				{ { characterPosition.x        , characterPosition.y         , 1.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f } },
-				{ { characterPosition.x + width, characterPosition.y         , 1.0f }, { 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f } },
-				{ { characterPosition.x + width, characterPosition.y + height, 1.0f }, { 0.0f, 0.0f, 0.0f }, { 1.0f, 0.0f } },
+				{ { characterPosition.x        , characterPosition.y + height, 1.0f }, color, { 0.0f, 0.0f } },
+				{ { characterPosition.x        , characterPosition.y         , 1.0f }, color, { 0.0f, 1.0f } },
+				{ { characterPosition.x + width, characterPosition.y         , 1.0f }, color, { 1.0f, 1.0f } },
+				{ { characterPosition.x + width, characterPosition.y + height, 1.0f }, color, { 1.0f, 0.0f } },
 			};
 
 			InitializeGPUData(vertices, mIndices);
@@ -164,9 +173,9 @@ namespace Systems
 		int width = 0;
 		int height = 0;
 
-		for (auto itCharacter = text.begin(); itCharacter != text.end(); ++itCharacter)
+		for (char itCharacter : text)
 		{
-			const Character character = font.mCharacters[*itCharacter];
+			const Character character = font.mCharacters[itCharacter];
 
 			width += static_cast<int>(character.mSize.x * 0.9f) + character.mBearing.x;
 
@@ -192,7 +201,7 @@ namespace Systems
 		const auto startTimeFrame = std::chrono::high_resolution_clock::now();
 		const float timeDifference = std::chrono::duration<float>(startTimeFrame - this->mPreviousTime).count();
 
-		if(timeDifference < 0.07f)
+		if(timeDifference < 0.1f)
 		{
 			return;
 		}
@@ -253,18 +262,8 @@ namespace Systems
 		this->mControllerState.mControllerButtons.reset();
 	}
 
-	void GUISystem::CheckHoveredButton()
+	void GUISystem::CheckHoveredButton() const
 	{
-		const auto startTimeFrame = std::chrono::high_resolution_clock::now();
-		const float timeDifference = std::chrono::duration<float>(startTimeFrame - this->mPreviousTime).count();
-
-		if (timeDifference < 0.07f)
-		{
-			return;
-		}
-
-		this->mPreviousTime = startTimeFrame;
-
 		if (this->mControllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButton::A)))
 		{
 			this->mCoordinator->SendEvent(this->mHoveredButton->mEvent);

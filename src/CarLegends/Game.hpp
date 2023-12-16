@@ -28,6 +28,7 @@ namespace Game
 		void RegisterSystems();
 
 		void Update(float deltaTime);
+		void UpdateFPS(const std::string& fps) const;
 
 	private:
 		bool mRunning;
@@ -43,6 +44,7 @@ namespace Game
 		bool mGameStarted;
 
 		void QuitHandler(Event& event);
+		void FPSHandler(Event& event) const;
 		void StartGameHandler(Event& event);
 		void ShowCursorHandler(Event& event) const;
 		void HideCursorHandler(Event& event) const;

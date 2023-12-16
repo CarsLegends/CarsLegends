@@ -14,7 +14,9 @@ namespace Buffers
 		GLuint mId;
 
 		VertexBuffer();
-		VertexBuffer(std::vector<Vertex>& vertices);
+		VertexBuffer(const std::vector<Vertex>& vertices);
+		void UpdateVertexBuffer(const std::vector<Vertex>& vertices) const;
+		void CreateVertexBufferText();
 
 		void Bind() const;
 		void Unbind() const;

@@ -13,7 +13,7 @@ namespace Systems
 
 	void LightSystem::Update(float deltaTime)
 	{
-		assert(this->mEntities.size() != MAX_LIGHT_SOURCE && "Limit of amount of light sources passed");
+		assert(this->mEntities.size() <= MAX_LIGHT_SOURCE && "Limit of amount of light sources passed");
 
 		this->mShader->SendUniformInt("amountLights", this->mEntities.size());
 		uint32_t lightSourceIndex = 0;

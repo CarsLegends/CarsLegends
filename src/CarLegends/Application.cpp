@@ -1,5 +1,6 @@
 #include <cassert>
 #include <chrono>
+#include <iomanip>
 #include <iostream>
 
 #include "Game.hpp"
@@ -18,7 +19,7 @@ int main()
 		game.RegisterEntities();
 	}
 
-	int counter = 0;
+	float counter = 0;
 	float deltaTime = 0.0f;
 	auto previousTime = high_resolution_clock::now();
 	while (game.IsRunning())
@@ -29,10 +30,10 @@ int main()
 
 		if (timeDifference >= 1.0)
 		{
-			std::string fps = std::to_string(1.0 / timeDifference * counter);
-			std::string ms = std::to_string(timeDifference / counter * 1000);
+			std::string fps = std::to_string(static_cast<int>(1.0f / timeDifference * counter));
+			std::string ms = std::to_string(timeDifference / counter * 1000.0f).substr(0,5);
 
-			std::cout << "FPS: " << fps << ", ms: " << ms << std::endl;
+			game.UpdateFPS("FPS: " + fps + ", ms: " + ms);
 
 			previousTime = startTimeFrame;
 			counter = 0;

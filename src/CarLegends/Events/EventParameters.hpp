@@ -16,6 +16,7 @@ namespace Events
 	constexpr ParameterId WINDOW_CONTROLLER_INPUT_PARAMETER = "Events::Window::Controller::Input::PARAMETER"_hash;
 	constexpr ParameterId WINDOW_INPUT_CURSOR_PARAMETER = "Events::Window::Input::Cursor::PARAMETER"_hash;
 	constexpr ParameterId WINDOW_SET_CURSOR_PARAMETER = "Events::Window::Set::Cursor::PARAMETER"_hash;
+	constexpr ParameterId WINDOW_GAME_FPS_COUNT = "Events::Window::Game::FPS::COUNT"_hash;
 }
 
 #endif

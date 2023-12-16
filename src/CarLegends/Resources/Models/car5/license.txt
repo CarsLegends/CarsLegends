@@ -1,0 +1,11 @@
+Model Information:
+* title:	DumpTruck
+* source:	https://sketchfab.com/3d-models/dumptruck-qCWXrNLMlMOEtD5rcS0zOKbdkbB
+* author:	Jiovanie Velazquez (https://sketchfab.com/Jiovanie)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "DumpTruck" (https://sketchfab.com/3d-models/dumptruck-qCWXrNLMlMOEtD5rcS0zOKbdkbB) by Jiovanie Velazquez (https://sketchfab.com/Jiovanie) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

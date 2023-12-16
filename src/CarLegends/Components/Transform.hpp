@@ -2,7 +2,8 @@
 #define COMPONENTS_TRANSFORM_HPP
 
 #include <glm/glm.hpp>
-#include <glm/fwd.hpp>
+#include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/transform.hpp>
 
 namespace Components
 {
@@ -16,7 +17,7 @@ namespace Components
 		mat4 mTransformations;
 
 		Transform();
-		Transform(vec3 position, vec3 eulerAngles, vec3 scale);
+		Transform(vec3 position, vec3 eulerAngles, vec3 vectorScale);
 	};
 
 	inline Transform::Transform()
@@ -27,12 +28,16 @@ namespace Components
 		this->mTransformations = mat4(1.0f);
 	}
 
-	inline Transform::Transform(vec3 position, vec3 eulerAngles, vec3 scale)
+	inline Transform::Transform(vec3 position, vec3 eulerAngles, vec3 vectorScale)
 	{
-		this->mScale = scale;
+		this->mScale = vectorScale;
 		this->mPosition = position;
 		this->mEulerAngles = eulerAngles;
+
 		this->mTransformations = mat4(1.0f);
+		this->mTransformations = translate(this->mTransformations, this->mPosition);
+		this->mTransformations *= toMat4(quat(this->mEulerAngles));
+		this->mTransformations = scale(this->mTransformations, this->mScale);
 	}
 }
 #endif

@@ -78,6 +78,11 @@ namespace Game
 		{
 			Game::SetCursorPositionHandler(std::forward<decltype(PH1)>(PH1));
 		});
+
+		this->mCoordinator->AddEventListener(WINDOW_GAME_FPS, [this](auto&& PH1)
+		{
+			Game::FPSHandler(std::forward<decltype(PH1)>(PH1));
+		});
 	}
 
 	void Game::RegisterComponents() const
@@ -97,7 +102,7 @@ namespace Game
 	void Game::RegisterEntities()
 	{
 		this->mCamera = this->mCoordinator->CreateEntity();
-		this->mCoordinator->AddComponent<Camera>(this->mCamera, { vec3(0.0f, 5.0f, 40.0f) });
+		this->mCoordinator->AddComponent<Camera>(this->mCamera, { vec3(0.0f, 2.5f, 50.0f) });
 
 		this->mUserInterface = this->mCoordinator->CreateEntity();
 
@@ -107,21 +112,31 @@ namespace Game
 		};
 
 		const vector labels = {
-			Label{ "Car Legends", { 1.0f, 1.0f, 1.0f } , 384, true }.CenterHorizontally().CenterVertically().Move({ 0.0f, 175.0f })
+			Label{ "Fps: 0, ms: 0.0", { 0.91f, 0.88f, 0.83f } , 64 }.Move({ 25.0f, 25.0f }),
+			Label{ "Car Legends", { 0.91f, 0.88f, 0.83f } , 384, true }.CenterHorizontally().CenterVertically().Move({ 0.0f, 175.0f }),
 		};
 
 		this->mCoordinator->AddComponent<Buttons>(this->mUserInterface, Buttons(buttons));
 		this->mCoordinator->AddComponent<Labels>(this->mUserInterface, Labels(labels));
 
 		const Entity firstLightSource = this->mCoordinator->CreateEntity();
-		this->mCoordinator->AddComponent<LightSource>(firstLightSource, { vec4(1.0f, 1.0f, 1.0f, 1.0f) , vec3(0.0f, 10.0f, 10.0f) });
+		this->mCoordinator->AddComponent<LightSource>(firstLightSource, { vec4(1.2f, 1.2f, 1.2f, 1.0f) , vec3(5.0f, 5.0f, 10.0f) });
+
+		const Entity secondLightSource = this->mCoordinator->CreateEntity();
+		this->mCoordinator->AddComponent<LightSource>(secondLightSource, { vec4(1.2f, 1.2f, 1.2f, 1.0f) , vec3(-5.0f, 10.0f, 10.0f) });
+
+		const Entity thirdLightSource = this->mCoordinator->CreateEntity();
+		this->mCoordinator->AddComponent<LightSource>(thirdLightSource, { vec4(2.0f, 2.0f, 2.0f, 1.0f) , vec3(0.0f, 2.5f, 10.0f) });
+
 		this->mStartMenuEntities.push_back(firstLightSource);
+		this->mStartMenuEntities.push_back(secondLightSource);
+		this->mStartMenuEntities.push_back(thirdLightSource);
 
 		std::default_random_engine generator;
 		std::uniform_real_distribution randPosition(-20.0f, 20.0f);
 		std::uniform_real_distribution randRotation(0.0f, 360.0f);
 		std::uniform_real_distribution randScale(0.0f, 0.1f);
-		std::uniform_int_distribution rand3DModel(1, 3);
+		std::uniform_int_distribution rand3DModel(0, 4);
 
 		for(int i = 0; i < 16; ++i)
 		{
@@ -133,29 +148,35 @@ namespace Game
 
 			switch (modelId)
 			{
-			case 1:
-				scale += 0.9f;
+			case 0:
+				scale += 1.0f;
 				this->mCoordinator->AddComponent<Renderable>(iEntity, {
-					"./Resources/Models/cat/scene.gltf"
+					"./Resources/Models/car5/scene.gltf"
+				});
+				break;
+			case 1:
+				scale += 100.0f;
+				this->mCoordinator->AddComponent<Renderable>(iEntity, {
+					"./Resources/Models/car3/scene.gltf"
 				});
 				break;
 			case 2:
-				scale += 0.2f;
-				this->mCoordinator->AddComponent<Renderable>(iEntity, {
-					"./Resources/Models/penguin/scene.gltf"
-				});
-				break;
-			case 3:
 				this->mCoordinator->AddComponent<Renderable>(iEntity, {
 					"./Resources/Models/car/scene.gltf"
 				});
 				break;
-			//case 4:
-			//	scale += 0.9f;
-			//	this->mCoordinator->AddComponent<Renderable>(iEntity, {
-			//		"./Resources/Models/football/scene.gltf"
-			//	});
-			//	break;
+			case 3:
+				scale += 0.9f;
+				this->mCoordinator->AddComponent<Renderable>(iEntity, {
+					"./Resources/Models/car4/scene.gltf"
+				});
+				break;
+			case 4:
+				scale += 20.0f;
+				this->mCoordinator->AddComponent<Renderable>(iEntity, {
+					"./Resources/Models/car2/scene.gltf"
+				});
+				break;
 			default: 
 				abort();
 			}
@@ -283,9 +304,25 @@ namespace Game
 		this->mWindow.Update();
 	}
 
+	void Game::UpdateFPS(const string& fps) const
+	{
+		Event event(WINDOW_GAME_FPS);
+		event.SetParam(WINDOW_GAME_FPS_COUNT, fps);
+		this->mCoordinator->SendEvent(event);
+	}
+
 	void Game::QuitHandler(Event& event)
 	{
 		this->mRunning = false;
+	}
+
+	void Game::FPSHandler(Event& event) const
+	{
+		const auto fps = event.GetParam<std::string>(WINDOW_GAME_FPS_COUNT);
+
+		auto& labelsContainer = this->mCoordinator->GetComponent<Labels>(this->mUserInterface);
+
+		labelsContainer.mLabels[0].mLabel = fps;
 	}
 
 	void Game::StartGameHandler(Event& event)
@@ -303,7 +340,11 @@ namespace Game
 		}
 		this->mStartMenuEntities.clear();
 
-		this->mCoordinator->DestroyEntity(this->mUserInterface);
+		auto& labelsContainer = this->mCoordinator->GetComponent<Labels>(this->mUserInterface);
+		auto& ButtonsContainer = this->mCoordinator->GetComponent<Buttons>(this->mUserInterface);
+
+		labelsContainer.mLabels[1].mLabel = "";
+		ButtonsContainer = Buttons({});
 
 		const Entity player1 = this->mCoordinator->CreateEntity();
 
@@ -331,13 +372,13 @@ namespace Game
 		const Entity player2 = this->mCoordinator->CreateEntity();
 
 		this->mCoordinator->AddComponent<Renderable>(player2, {
-			"./Resources/Models/car/scene.gltf"
+			"./Resources/Models/car2/scene.gltf"
 		});
 
 		this->mCoordinator->AddComponent<Transform>(player2, {
 			vec3(10.0f, 10.0f, -10.0f),
-			vec3(0, radians(-90.0f), 0),
-			vec3(0.02f, 0.02f, 0.02f),
+			vec3(0, radians(90.0f), 0),
+			vec3(7.0f, 7.0f, 7.0f),
 		});
 
 		//Add config for constant forces
@@ -350,6 +391,86 @@ namespace Game
 		this->mCoordinator->AddComponent<RigidBody>(player2, {});
 
 		this->mCoordinator->AddComponent<HitBox>(player2, {});
+
+		const Entity goal = this->mCoordinator->CreateEntity();
+
+		this->mCoordinator->AddComponent<Renderable>(goal, {
+			"./Resources/Models/goal/scene.gltf"
+		});
+
+		this->mCoordinator->AddComponent<Transform>(goal, {
+			vec3(-20.0f, -5.0f, -10.0f),
+			vec3(0.0f, radians(90.0f), 0.0f),
+			vec3(0.04f, 0.04f, 0.04f),
+		});
+
+		this->mCoordinator->AddComponent<RigidBody>(goal, {});
+
+		this->mCoordinator->AddComponent<HitBox>(goal, { true });
+
+		const Entity goal2 = this->mCoordinator->CreateEntity();
+
+		this->mCoordinator->AddComponent<Renderable>(goal2, {
+			"./Resources/Models/goal/scene.gltf"
+			});
+
+		this->mCoordinator->AddComponent<Transform>(goal2, {
+			vec3(20.0f, -5.0f, -10.0f),
+			vec3(0.0f, radians(-90.0f), 0.0f),
+			vec3(0.04f, 0.04f, 0.04f),
+		});
+
+		this->mCoordinator->AddComponent<RigidBody>(goal2, {});
+
+		this->mCoordinator->AddComponent<HitBox>(goal2, { true });
+
+		const Entity penguin = this->mCoordinator->CreateEntity();
+
+		this->mCoordinator->AddComponent<Renderable>(penguin, {
+			"./Resources/Models/penguin/scene.gltf"
+		});
+
+		this->mCoordinator->AddComponent<Transform>(penguin, {
+			vec3(5.0f, -5.0f, -30.0f),
+			vec3(0.0f, radians(-35.0f), 0.0f),
+			vec3(0.2f, 0.2f, 0.2f),
+			});
+
+		this->mCoordinator->AddComponent<RigidBody>(penguin, {});
+
+		this->mCoordinator->AddComponent<HitBox>(penguin, {});
+
+		const Entity cat = this->mCoordinator->CreateEntity();
+
+		this->mCoordinator->AddComponent<Renderable>(cat, {
+			"./Resources/Models/cat/scene.gltf"
+			});
+
+		this->mCoordinator->AddComponent<Transform>(cat, {
+			vec3(-5.0f, -5.0f, -30.0f),
+			vec3(0.0f, 0.0f, 0.0f),
+			vec3(1.3f, 1.3f, 1.3f),
+			});
+
+		this->mCoordinator->AddComponent<RigidBody>(cat, {});
+
+		this->mCoordinator->AddComponent<HitBox>(cat, {});
+
+		const Entity tabaco = this->mCoordinator->CreateEntity();
+
+		this->mCoordinator->AddComponent<Renderable>(tabaco, {
+			"./Resources/Models/tabaco/scene.gltf"
+			});
+
+		this->mCoordinator->AddComponent<Transform>(tabaco, {
+			vec3(-10.0f, -5.0f, -30.0f),
+			vec3(0.0f, 0.0f, radians(-270.0f)),
+			vec3(100.0f, 100.0f, 100.0f),
+		});
+
+		this->mCoordinator->AddComponent<RigidBody>(tabaco, {});
+
+		this->mCoordinator->AddComponent<HitBox>(tabaco, {});
 
 		const Entity table = this->mCoordinator->CreateEntity();
 
@@ -375,8 +496,8 @@ namespace Game
 
 		this->mCoordinator->AddComponent<Transform>(football, {
 			vec3(0.0f, 10.0f, -10.0f),
-			vec3(radians(-90.0f), 0.0f, 0.0f),
-			vec3(0.5f, 0.5f, 0.5f),
+			vec3(0.0f, 0.0f, 0.0f),
+			vec3(0.03f, 0.03f, 0.03f),
 		});
 
 		//Add config for constant forces
@@ -387,27 +508,6 @@ namespace Game
 		this->mCoordinator->AddComponent<RigidBody>(football, {});
 
 		this->mCoordinator->AddComponent<HitBox>(football, {});
-
-		const Entity penguin = this->mCoordinator->CreateEntity();
-
-		this->mCoordinator->AddComponent<Renderable>(penguin, {
-			"./Resources/Models/football/scene.gltf"
-			});
-
-		this->mCoordinator->AddComponent<Transform>(penguin, {
-			vec3(0.0f, 10.0f, -30.0f),
-			vec3(0.0f, 0.0f, 0.0f),
-			vec3(0.02f, 0.02f, 0.02f),
-			});
-
-		//Add config for constant forces
-		this->mCoordinator->AddComponent<Gravity>(penguin, {
-			vec3(0.0f, -9.81f, 0.0f)
-			});
-
-		this->mCoordinator->AddComponent<RigidBody>(penguin, {});
-
-		this->mCoordinator->AddComponent<HitBox>(penguin, {});
 
 		const Entity lightSource0 = this->mCoordinator->CreateEntity();
 

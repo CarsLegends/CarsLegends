@@ -43,6 +43,7 @@ namespace Windows
 
 		//glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClearColor(0.4f, 0.6f, 0.8f, 1.0f);
+		//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_MULTISAMPLE);
 	}
