@@ -1,0 +1,5 @@
+C:/Users/gjbet/Desktop/5é/VGI/CarsLegends/game/CMakeFiles/STB_IMAGE.dir
+C:/Users/gjbet/Desktop/5é/VGI/CarsLegends/game/CMakeFiles/GLAD.dir
+C:/Users/gjbet/Desktop/5é/VGI/CarsLegends/game/CMakeFiles/Game.dir
+C:/Users/gjbet/Desktop/5é/VGI/CarsLegends/game/CMakeFiles/ALL_BUILD.dir
+C:/Users/gjbet/Desktop/5é/VGI/CarsLegends/game/CMakeFiles/ZERO_CHECK.dir
