@@ -17,6 +17,7 @@
 #include "../Engine/Window/Window.hpp"
 #include "../Engine/Buffers/ElementBuffer.hpp"
 #include "../Engine/Fonts/Font.h"
+#include "../Configurations/ControllerConfiguration.hpp"
 
 namespace Systems
 {

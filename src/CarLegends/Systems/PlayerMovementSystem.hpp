@@ -9,6 +9,7 @@
 #include "../Configurations/WindowConfiguration.hpp"
 #include "../Coordinators/Coordinator.hpp"
 #include "../Components/Playable.hpp"
+#include "../Configurations/ControllerConfiguration.hpp"
 
 namespace Systems
 {
