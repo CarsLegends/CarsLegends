@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 #include <chrono>
-
+#include "raylib.h"
 #include "Components/Buttons.hpp"
 #include "Components/Transform.hpp"
 #include "Components/Renderable.hpp"
@@ -334,6 +334,7 @@ namespace Game
 
 	void Game::GoalHandler(Event& event) const
 	{
+		Sound gol = LoadSound("Resources/sounds/golazo.wav");
 		auto& footballTransform = this->mCoordinator->GetComponent<Transform>(this->mFootball);
 		footballTransform.mPosition = { 0.0f, 10.0f, -10.0f };
 
@@ -355,10 +356,12 @@ namespace Game
 		if (goalEntity == this->mP1Goal)
 		{
 			player2Playable.mGoals++;
+			PlaySound(gol);
 		}
 		else
 		{
 			player1Playable.mGoals++;
+			PlaySound(gol);
 		}
 
 		auto& labelsContainer = this->mCoordinator->GetComponent<Labels>(this->mUserInterface);
