@@ -36,14 +36,14 @@ namespace Systems
 
 			if (std::abs(controllerState.mRightTrigger) > 0.09f)
 			{
-				rigidBody.mVelocity.z += cos(transform.mEulerAngles.y) * controllerState.mRightTrigger * deltaTime;
-				rigidBody.mVelocity.x += sin(transform.mEulerAngles.y) * controllerState.mRightTrigger * deltaTime;
+				rigidBody.mVelocity.z += cos(transform.mEulerAngles.y) * controllerState.mRightTrigger * deltaTime * 5;
+				rigidBody.mVelocity.x += sin(transform.mEulerAngles.y) * controllerState.mRightTrigger * deltaTime * 5;
 			}
 
 			if (std::abs(controllerState.mLeftTrigger) > -0.09f)
 			{
-				rigidBody.mVelocity.z -= cos(transform.mEulerAngles.y) * controllerState.mLeftTrigger * deltaTime;
-				rigidBody.mVelocity.x -= sin(transform.mEulerAngles.y) * controllerState.mLeftTrigger * deltaTime;
+				rigidBody.mVelocity.z -= cos(transform.mEulerAngles.y) * controllerState.mLeftTrigger * deltaTime * 5;
+				rigidBody.mVelocity.x -= sin(transform.mEulerAngles.y) * controllerState.mLeftTrigger * deltaTime * 5;
 			}
 
 			if(controllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButton::A)) && transform.mPosition.y <= 0.0f)

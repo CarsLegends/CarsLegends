@@ -21,7 +21,7 @@ namespace Windows
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_SAMPLES, WINDOW_SAMPLES_COUNT);
 
-#ifndef _DEBUG
+#ifdef _DEBUG
 		const auto window = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), glfwGetPrimaryMonitor(), nullptr);
 #else
 		const auto window = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), nullptr, nullptr);
