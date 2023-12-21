@@ -49,6 +49,7 @@ namespace Game
 
 		void QuitHandler(Event& event);
 		void FPSHandler(Event& event) const;
+		void ResetFootballHandler(Event& event) const;
 		void GoalHandler(Event& event) const;
 		void StartGameHandler(Event& event);
 		void ShowCursorHandler(Event& event) const;

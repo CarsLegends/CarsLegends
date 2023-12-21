@@ -88,6 +88,12 @@ namespace Game
 		{
 			Game::GoalHandler(std::forward<decltype(PH1)>(PH1));
 		});
+
+		this->mCoordinator->AddEventListener(WINDOW_RESET_GOAL, [this](auto&& PH1)
+		{
+			Game::ResetFootballHandler(std::forward<decltype(PH1)>(PH1));
+		});
+
 	}
 
 	void Game::RegisterComponents() const
@@ -332,6 +338,30 @@ namespace Game
 		labelsContainer.mLabels[0].mLabel = fps;
 	}
 
+	void Game::ResetFootballHandler(Event& event) const
+	{
+		auto& footballTransform = this->mCoordinator->GetComponent<Transform>(this->mFootball);
+		footballTransform.mPosition = { 0.0f, 10.0f, -10.0f };
+
+		auto& footballRigidBody = this->mCoordinator->GetComponent<RigidBody>(this->mFootball);
+		footballRigidBody.mVelocity = { 0.0f, 0.0f, 0.0f };
+		footballRigidBody.mAcceleration = { 0.0f, 0.0f, 0.0f };
+
+		auto& player1Transform = this->mCoordinator->GetComponent<Transform>(this->mPlayers.front());
+		player1Transform.mPosition = vec3(-10.0f, 10.0f, -10.0f);
+
+		auto& player1RigidBody = this->mCoordinator->GetComponent<RigidBody>(this->mPlayers.front());
+		player1RigidBody.mVelocity = { 0.0f, 0.0f, 0.0f };
+		player1RigidBody.mAcceleration = { 0.0f, 0.0f, 0.0f };
+
+		auto& player2Transform = this->mCoordinator->GetComponent<Transform>(this->mPlayers.back());
+		player2Transform.mPosition = vec3(10.0f, 10.0f, -10.0f);
+
+		auto& player2RigidBody = this->mCoordinator->GetComponent<RigidBody>(this->mPlayers.back());
+		player2RigidBody.mVelocity = { 0.0f, 0.0f, 0.0f };
+		player2RigidBody.mAcceleration = { 0.0f, 0.0f, 0.0f };
+	}
+
 	void Game::GoalHandler(Event& event) const
 	{
 		auto& footballTransform = this->mCoordinator->GetComponent<Transform>(this->mFootball);
@@ -344,8 +374,16 @@ namespace Game
 		auto& player1Transform = this->mCoordinator->GetComponent<Transform>(this->mPlayers.front());
 		player1Transform.mPosition = vec3(-10.0f, 10.0f, -10.0f);
 
+		auto& player1RigidBody = this->mCoordinator->GetComponent<RigidBody>(this->mPlayers.front());
+		player1RigidBody.mVelocity = { 0.0f, 0.0f, 0.0f };
+		player1RigidBody.mAcceleration = { 0.0f, 0.0f, 0.0f };
+
 		auto& player2Transform = this->mCoordinator->GetComponent<Transform>(this->mPlayers.back());
 		player2Transform.mPosition = vec3(10.0f, 10.0f, -10.0f);
+
+		auto& player2RigidBody = this->mCoordinator->GetComponent<RigidBody>(this->mPlayers.back());
+		player2RigidBody.mVelocity = { 0.0f, 0.0f, 0.0f };
+		player2RigidBody.mAcceleration = { 0.0f, 0.0f, 0.0f };
 
 		auto& player1Playable = this->mCoordinator->GetComponent<Playable>(this->mPlayers.front());
 		auto& player2Playable = this->mCoordinator->GetComponent<Playable>(this->mPlayers.back());

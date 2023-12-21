@@ -29,6 +29,11 @@ namespace Systems
 
 			auto controllerState = this->mPlayersControllerState[playable.mPlayerNumber];
 
+			if (playable.mPlayerNumber == 0 && controllerState.mControllerButtons.test(static_cast<std::size_t>(ControllerButton::Start)))
+			{
+				mCoordinator->SendEvent(WINDOW_RESET_GOAL);
+			}
+
 			if (std::abs(controllerState.mLeftJoystickY) > 0.09f && std::abs(controllerState.mLeftJoystickX) > 0.09f)
 			{
 				transform.mEulerAngles.y = atan(controllerState.mLeftJoystickX, controllerState.mLeftJoystickY);

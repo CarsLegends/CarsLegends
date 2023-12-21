@@ -24,7 +24,8 @@ int main()
 	float deltaTime = 0.0f;
 	auto previousTime = high_resolution_clock::now();
 	InitAudioDevice();
-	Sound fx = LoadSound("Resources/music/BeatOne.mp3");
+	Music music = LoadMusicStream("Resources/music/BeatOne.mp3");
+	PlayMusicStream(music);
 	while (game.IsRunning())
 	{
 		auto startTimeFrame = high_resolution_clock::now();
@@ -41,13 +42,13 @@ int main()
 			previousTime = startTimeFrame;
 			counter = 0;
 		}
-		PlaySound(fx);
+		UpdateMusicStream(music);
 		game.Update(deltaTime);
 
 		auto stopTimeFrame = high_resolution_clock::now();
 		deltaTime = std::chrono::duration<float>(stopTimeFrame - startTimeFrame).count();
 	}
-	UnloadSound(fx); 
+	UnloadMusicStream(music);
 	CloseAudioDevice(); 
 	return 0;
 }

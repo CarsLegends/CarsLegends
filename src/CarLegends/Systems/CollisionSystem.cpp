@@ -63,13 +63,15 @@ namespace Systems
 
 			if (!hitBoxA.mStatic)
 			{
-				rigidA.mVelocity -= rigidB.mVelocity / 100.0f;
+				rigidA.mVelocity.x -= rigidB.mVelocity.x / 100.0f;
+				rigidA.mVelocity.z -= rigidB.mVelocity.z / 100.0f;
 				transformA.mPosition -= collisionDistance;
 			}
 
 			if (!hitBoxB.mStatic)
 			{
-				rigidB.mVelocity += rigidA.mVelocity / 100.0f;
+				rigidB.mVelocity.x += rigidA.mVelocity.x / 100.0f;
+				rigidB.mVelocity.z += rigidA.mVelocity.z / 100.0f;
 				transformB.mPosition += collisionDistance;
 			}
 
