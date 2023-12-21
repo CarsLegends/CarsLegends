@@ -12,6 +12,7 @@
 #include "../Configurations/WindowConfiguration.hpp"
 #include "../Configurations/CameraConfiguration.hpp"
 #include "../Engine/Window/Structs/MouseState.hpp"
+#include "../Configurations/ControllerConfiguration.hpp"
 
 namespace Systems
 {

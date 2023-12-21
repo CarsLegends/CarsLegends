@@ -11,6 +11,7 @@
 #include "../../Configurations/WindowConfiguration.hpp"
 #include "Structs/ControllerState.hpp"
 #include "Structs/MouseState.hpp"
+#include "../../Configurations/ControllerConfiguration.hpp"
 
 namespace Windows
 {
